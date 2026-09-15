@@ -33,9 +33,15 @@ return (
             </div>
             <div className="footer-bottom">
                 <nav className="social-media">
-                    <img src="assets/images/facebook.png" alt="Facebook"/>
-                    <img src="assets/images/twitter.png" alt="Twitter" />
-                    <img src="assets/images/instagram.png" alt="Instagram" />
+                    <a href="https://www.facebook.com/share/14ozkZ2nGMW/" target="_blank" rel="noopener noreferrer">
+                        <img src="src/assets/images/facebook-icon.png" alt="Facebook" className="social-icon-img" />
+                    </a>
+                    <a href="https://www.instagram.com/emcaesp?stkn=MTlvdW9semp5bjZ5MQ==" target="_blank" rel="noopener noreferrer">
+                        <img src="src/assets/images/instagram-icon.png" alt="Instagram" className="social-icon-img" />
+                    </a>
+                    <a href="https://www.tiktok.com/@emca.esp?_r=1&_t=ZS-99lRI5zjk2P" target="_blank" rel="noopener noreferrer">
+                        <img src="src/assets/images/tiktok-icon.png" alt="TikTok" className="social-icon-img" />
+                    </a>
                 </nav>
                 <p>&copy; 2024 IntraNet. Todos los derechos reservados.</p>
             </div>
