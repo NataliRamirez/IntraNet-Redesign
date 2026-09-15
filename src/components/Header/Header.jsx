@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "../Login/Login";
+const navigate = useNavigate();
+const { user, logout } = useAuth();
 import { useAuth } from "../../Context/AuthContext";
 import logoColor from "../../assets/images/logo-color.png";
 import "./Header.css";
 
-const navigate = useNavigate();
-const { user, logout } = useAuth();
+
 
 return (
     <header className="header">
