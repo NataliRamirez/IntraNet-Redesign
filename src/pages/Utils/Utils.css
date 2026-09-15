@@ -1,0 +1,74 @@
+.utilidades-header {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.utilidades-header h1 {
+  font-size: 2rem;
+  color: #1d3557;
+  margin-bottom: 0.5rem;
+}
+
+.utilidades-header p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.utilidades-container {
+  padding: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.utilidad-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.utilidad-image {
+  width: 100px;
+  height: 70px;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+
+.utilidad-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.utilidad-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1d3557; 
+  margin-bottom: 0.5rem;
+}
+
+.utilidad-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.utilidad-btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background-color: #457b9d; 
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.utilidad-btn:hover {
+  background-color: #1d3557;
+}

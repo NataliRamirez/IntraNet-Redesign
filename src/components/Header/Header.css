@@ -6,6 +6,7 @@
 }
 
 /*Styles of header*/
+
 .header {
     width: 100%;
     height: 100vh;
@@ -19,6 +20,11 @@
 .header-top {
     display: flex;
     justify-content: space-evenly;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .nav-links {
@@ -33,6 +39,15 @@
     font-size: 1.2rem;
     justify-content: space-between;
     gap: 1rem;
+}
+
+.header-top button {
+    color: #ffffff;
+    background-color: none;
+    border: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
 /*linea separadora de header*/
@@ -64,11 +79,3 @@
     max-width: 60vw;
 }
 
-.header-bottom button {
-    color: #ffffff;
-    background-color: none;
-    border: 2px solid #fff;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    cursor: pointer;
-}

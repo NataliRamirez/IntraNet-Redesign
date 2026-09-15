@@ -1,0 +1,167 @@
+.nosotros {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e293b;
+}
+
+.nosotros-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  background: linear-gradient(135deg, #3b82f6, #0f172a);
+  text-align: center;
+  color: white;
+}
+
+.nosotros-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.nosotros-hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.nosotros-mv {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background: #f9fafb;
+}
+
+.card {
+  max-width: 350px;
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card h2 {
+  color: #2563eb;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.nosotros-valores {
+  text-align: center;
+  padding: 3rem 1rem 5rem;
+  background: #eef2ff;
+}
+
+.valores-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.valor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  cursor: default;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.valor-item span {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.nosotros-equipo {
+  text-align: center;
+  padding: 3rem 1rem 5rem;
+}
+
+.nosotros-equipo h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2563eb;
+}
+
+.equipo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.equipo-card {
+  max-width: 200px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.equipo-card img {
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.equipo-card h3 {
+  margin-top: 0.5rem;
+  color: #1e293b;
+}
+
+.equipo-card p {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.nosotros-organigrama {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f9f9f9; 
+}
+
+.organigrama-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.nosotros-organigrama h2 {
+  margin-top: 15px;
+  color: #1f2937; 
+  font-size: 2.2rem;
+}
+
+.nosotros-organigrama p {
+  margin-bottom: 30px;
+  color: #4b5563;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.organigrama-visual {
+  display: inline-block;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}

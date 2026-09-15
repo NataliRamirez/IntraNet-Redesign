@@ -1,0 +1,121 @@
+/*
+ * Archivo: BirthdayModal.css
+ * Versión limpia sin globos
+ */
+
+/* ==================================== */
+/* 1. CONTENEDOR PRINCIPAL */
+/* ==================================== */
+.birthday-fullscreen {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 110px);
+  background: radial-gradient(circle, #ffe0f1, #ffd1dc, #ffb6c1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ==================================== */
+/* 2. IMAGEN PRINCIPAL */
+/* ==================================== */
+.image-wrapper {
+  width: 95vw;              /* ancho máximo */
+  height: 78vh;             /* alto máximo */
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;      /* fondo blanco para fotos con bordes transparentes */
+}
+
+/* La imagen NUNCA se recorta ni se deforma */
+.image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain !important; 
+  animation: fadeIn 1.5s ease-out;
+  z-index: 2;
+} 
+
+/* ==================================== */
+/* 3. CONFETTI (CAPA DE EFECTO) */
+/* ==================================== */
+.confetti-layer {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 4 !important;
+}
+
+/* ==================================== */
+/* 4. MENSAJE SOBRE LA IMAGEN */
+/* ==================================== */
+.birthday-message {
+  font-family: "Lobster", sans-serif;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #8a003b;
+  padding: 20px 30px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 25px rgba(65, 56, 56, 0.15);
+  /* Nuevo: Glow sutil animado */
+  animation: fadeInBounce 0.9s ease-out forwards,
+             floatGlow 4s ease-in-out infinite,
+             fadeOutFinal 6s ease forwards;
+  z-index: 7;
+}
+
+/* Entrada suave + rebote */
+@keyframes fadeInBounce {
+  0%   { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
+  60%  { opacity: 1; transform: translate(-50%, 0px) scale(1.05); }
+  100% { transform: translate(-50%, 0px) scale(1); }
+}
+
+/* Pequeño “respirar” + brillo animado */
+@keyframes floatGlow {
+  0%, 100% {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15),
+                0 0 8px rgba(255, 0, 120, 0.35);
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.18),
+                0 0 16px rgba(255, 0, 120, 0.55);
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+
+/* Desvanecimiento final elegante */
+@keyframes fadeOutFinal {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ==================================== */
+/* 5. ANIMACIÓN GENERAL */
+/* ==================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(.95); }
+  to   { opacity: 1; transform: scale(1); }
+}

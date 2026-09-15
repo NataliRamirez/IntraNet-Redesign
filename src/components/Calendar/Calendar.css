@@ -1,0 +1,182 @@
+.calendar-container {
+  width: 80vw !important; 
+  max-width: 100vw !important;
+  margin-left: calc(-48vw + 48%);
+  border-radius: 0; 
+  padding: 2rem 4rem !important;
+}
+
+.calendar-card {
+  width: 100% !important;  
+  max-width: 100vw !important;
+  background-color: aliceblue;
+  border-radius: 12px;
+  margin: 10px auto;
+  padding: 0px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.calendar-main {
+  flex: 0 0 80%;
+}
+
+.title-month {
+  text-align: left;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.rbc-toolbar {
+  display: none !important;
+}
+
+.rbc-today {
+  background: #e0edff !important;
+  border-radius: 8px;
+}
+
+.rbc-header {
+  background: #f1f5f9;
+  color: #1e293b;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.cell-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.cell-day:hover {
+  background: #f1f5f9;
+}
+
+.number-day {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.marker-event {
+  font-size: 20px;
+  margin-top: 2px;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.with-event:hover .marker-event {
+  transform: scale(1.2);
+}
+
+.event-detail {
+  flex: 0 0 45%;
+  background: aliceblue;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease;
+  position: sticky;
+  top: -2rem;
+  min-height: 480px;
+}
+
+.event-detail h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  color: #0a0a0a;
+  margin-bottom: 1rem;
+}
+
+.event-card {
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+  margin: 20px 0;
+}
+
+.event-card:last-child {
+  border-bottom: none;
+}
+
+.event-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  
+}
+
+.event-detail p {
+  margin: 0.4rem 0;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.event-detail button {
+  margin-top: 1rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.event-detail button:hover {
+  background: #1e40af;
+}
+
+.without-events {
+  text-align: center;
+  color: #475569;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  margin: 20px;
+}
+
+.without-events h3 {
+  color: #1e293b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.without-events p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
+import logoColor from "../../assets/images/logo-color.png";
 import "./Header.css";
+
+const navigate = useNavigate();
+const { user, logout } = useAuth();
 
 return (
     <header className="header">
@@ -13,13 +19,13 @@ return (
                 <a href="#">Utilidades</a>
                 <a href="#">Nosotros</a>
             </nav>
+            <button onClick={() => navigate("/login")}>Iniciar Sesión</button>
         </section>
         <div className="inline">
         </div>
         <section className="header-Bottom">
             <h2 className="title-header-bottom">INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P</h2>
             <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
-            <button>Iniciar Sesión</button>
         </section>
     </header>
 )

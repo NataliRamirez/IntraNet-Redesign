@@ -1,0 +1,117 @@
+/* === CONTENEDOR PRINCIPAL === */
+.birthday-admin-container {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", system-ui, sans-serif;
+  color: #34495e;
+}
+
+/* === TÍTULO === */
+.birthday-admin-container h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  border-left: 6px solid #3498db;
+  padding-left: 0.7rem;
+}
+
+/* === TEXTO DESCRIPTIVO === */
+.birthday-admin-container p {
+  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
+  color: #555;
+}
+
+/* === IMAGEN ACTUAL === */
+.current-image,
+.preview {
+  margin-bottom: 2rem;
+}
+
+.current-image h3,
+.preview h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.6rem;
+}
+
+.current-image img,
+.preview img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+  padding: 6px;
+  transition: 0.3s;
+}
+
+.current-image img:hover,
+.preview img:hover {
+  transform: scale(1.03);
+}
+
+/* === INPUT DE ARCHIVO === */
+.birthday-admin-container input[type="file"] {
+  display: block;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 2px dashed #bfc9d4;
+  border-radius: 10px;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.birthday-admin-container input[type="file"]:hover {
+  border-color: #3498db;
+  background: #eef7ff;
+}
+
+/* === BOTÓN DE GUARDAR === */
+.save-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 14px rgba(52, 152, 219, 0.3);
+  display: inline-block;
+}
+
+.save-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(52, 152, 219, 0.38);
+}
+
+.save-btn:active {
+  transform: scale(0.96);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .birthday-admin-container {
+    padding: 1.5rem;
+  }
+
+  .birthday-admin-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .save-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
