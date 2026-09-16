@@ -1,4 +1,4 @@
-import "./Utilidades.css";
+import "./Utils.css";
 import pdfWord from "../../assets/images/PDF-WORD.jpg";
 import wordPdf from "../../assets/images/WORD-PDF.jpg";
 import pdfExcel from "../../assets/images/PDF-EXCEL.png";
@@ -8,7 +8,7 @@ import removeImg from "../../assets/images/REMOVE-IMG.png";
 import comprimirPdf from "../../assets/images/COMPRIMIR-PDF.png";
 import dividirPdf from "../../assets/images/DIVIDIR-PDF.png";
 
-export default function Utilidades() {
+export default function Us() {
   const tools = [
     {
       title: "PDF a Word",
@@ -62,7 +62,7 @@ export default function Utilidades() {
 
   return (
     <div>
-      <div className="utilidades-header">
+      <div className="utilis-header">
         <h1>Sección de Utilidades 📃</h1>
         <p>
           En esta sección encontrarás herramientas útiles para tu trabajo diario,
@@ -70,7 +70,7 @@ export default function Utilidades() {
         </p>
       </div>
 
-      <div className="utilidades-container">
+      <div className="utils-container">
         {tools.map((tool, index) => (
           <div className="utilidad-card" key={index}>
             <img

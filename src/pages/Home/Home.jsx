@@ -1,15 +1,15 @@
   import "./Home.css";
-  import CalendarioEventos from "../../components/Calendario/CalendarioEventos";
+  import CalendarEvents from "../../components/Calendar/Calendar";
   import { useState, useEffect } from "react";
   import Slider from "../../components/Slider/Slider";
-  import Noticias from "../Noticias/Noticias"
+  import Noticias from "../News/News";
 
   export default function Home() {
     const [eventos, setEventos] = useState([]);
 
     useEffect(() => {
       // ✅ Usamos la URL base desde el archivo .env
-      const API_URL = `${import.meta.env.VITE_API_URL}/eventos`;
+      const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
       fetch(API_URL)
         .then((res) => res.json())
@@ -24,14 +24,14 @@
           <div className="hero-content">
 
             <h2>Portal de Noticias</h2>
-            <Noticias />
+            <News />
 
             <div className="horizontal-line">
               <h2>Calendario EMCA</h2>
             </div>
 
             <div className="calendar-card">
-              <CalendarioEventos eventos={eventos} />
+              <CalendarEvents events={events} />
             </div>
           </div>
           <Slider />

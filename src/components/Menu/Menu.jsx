@@ -7,6 +7,7 @@ import {
   FaNewspaper,
   FaCalendarAlt,
 } from "react-icons/fa";
+
 import "./Menu.css";
 import logoColor from "../../assets/images/logo-color.png";
 
@@ -15,11 +16,15 @@ export default function Menu() {
 
   const links = [
     { name: "Inicio", path: "/", icon: <FaHome /> },
-    { name: "Utilidades", path: "/utilidades", icon: <FaTools /> },
-    { name: "Nosotros", path: "/nosotros", icon: <FaUsers /> },
-    { name: "Noticias", path: "/noticias", icon: <FaNewspaper /> },
-    { name: "Eventos", path: "/eventos", icon: <FaCalendarAlt /> },
-    { name: "Cumpleañeros del mes", path: "/birthdaymodal", icon: <FaCalendarAlt /> },
+    { name: "Utilidades", path: "/utils", icon: <FaTools /> },
+    { name: "Nosotros", path: "/us", icon: <FaUsers /> },
+    { name: "Noticias", path: "/news", icon: <FaNewspaper /> },
+    { name: "Eventos", path: "/events", icon: <FaCalendarAlt /> },
+    {
+      name: "Cumpleañeros del mes",
+      path: "/birthdaymodal",
+      icon: <FaCalendarAlt />,
+    },
   ];
 
   return (
@@ -34,7 +39,12 @@ export default function Menu() {
         <span></span>
       </button>
 
-      {open && <div className="overlay" onClick={() => setOpen(false)}></div>}
+      {open && (
+        <div
+          className="overlay"
+          onClick={() => setOpen(false)}
+        ></div>
+      )}
 
       <nav className={`menu-drawer ${open ? "active" : ""}`}>
         <div className="menu-header">
@@ -45,7 +55,10 @@ export default function Menu() {
         <ul>
           {links.map((link) => (
             <li key={link.name}>
-              <Link to={link.path} onClick={() => setOpen(false)}>
+              <Link
+                to={link.path}
+                onClick={() => setOpen(false)}
+              >
                 <span className="icon">{link.icon}</span>
                 {link.name}
               </Link>

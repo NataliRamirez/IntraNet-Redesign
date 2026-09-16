@@ -1,33 +1,101 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Login from "../Login/Login";
-const navigate = useNavigate();
-const { user, logout } = useAuth();
 import { useAuth } from "../../Context/AuthContext";
-import logoColor from "../../assets/images/logo-color.png";
+import Login from "../Login/Login";
+import NotificationBell from "../Notifications/NotificationBell";
+import logoBlanco from "../../assets/images/LogoEmcaBlanco.png";
+import userImg from "../../assets/images/user-img.png";
+import logoutImg from "../../assets/images/logout-img.jpg";
+
 import "./Header.css";
 
+export default function Header() {
+    const [showLogin, setShowLogin] = useState(false);
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    };
 
-return (
-    <header className="header">
-        <section className="header-Top">
-            <img src="../../assets/images/logo-blanco.png" alt="Logo Principal" />
-            <h1 className="title-header">INTRANET</h1>
-            <nav className="nav-links">
-                <a href="#">Inicio</a>
-                <a href="#">Noticias</a>
-                <a href="#">Eventos</a>
-                <a href="#">Utilidades</a>
-                <a href="#">Nosotros</a>
-            </nav>
-            <button onClick={() => navigate("/login")}>Iniciar Sesión</button>
-        </section>
-        <div className="inline">
-        </div>
-        <section className="header-Bottom">
-            <h2 className="title-header-bottom">INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P</h2>
-            <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
-        </section>
-    </header>
-)
+    const goToDashboard = () => {
+        if (!user) return;
+        if (user.role === "admin") navigate("/admin");
+        if (user.role === "comunicaciones") navigate("/comunicaciones");
+    };
+
+    return (
+        <header className="header">
+            <section className="header-top">
+                <img src={logoBlanco} alt="Logo Principal" />
+                <h1 className="title-header">INTRANET</h1>
+                <nav className="nav-links">
+                    <a href="">Inicio</a>
+                    <a href="#">Noticias</a>
+                    <a href="#">Eventos</a>
+                    <a href="#">Utilidades</a>
+                    <a href="#">Nosotros</a>
+                </nav>
+
+                <div className="header-right">
+                    <NotificationBell />
+
+                    {user ? (
+                        <div className="user-actions">
+                            <img
+                                src={userImg}
+                                alt="Usuario"
+                                className="user-img"
+                                onClick={goToDashboard}
+                            />
+
+                            <button
+                                className="logout-button"
+                                onClick={handleLogout}
+                            >
+                                <img
+                                    src={logoutImg}
+                                    alt="Cerrar sesión"
+                                    className="logout-img"
+                                />
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            className="login-button"
+                            onClick={() => setShowLogin(true)}
+                        >
+                            INGRESAR
+                        </button>
+                    )}
+                </div>
+            </section>
+            <div className="inline">
+            </div>
+            <section className="header-bottom">
+                <h2 className="title-header-bottom">INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P</h2>
+                <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
+            </section>
+            {showLogin && !user && (
+                <div className="login-modal">
+                    <div
+                        className="login-modal-overlay"
+                        onClick={() => setShowLogin(false)}
+                    ></div>
+
+                    <div className="login-modal-content">
+                        <button
+                            className="login-close"
+                            onClick={() => setShowLogin(false)}
+                        >
+                            ✕
+                        </button>
+
+                        <Login onClose={() => setShowLogin(false)} />
+                    </div>
+                </div>
+            )}
+        </header>
+    );
+}

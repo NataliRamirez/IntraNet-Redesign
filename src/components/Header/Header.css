@@ -1,81 +1,213 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*font-family:*/
+    /* font-family: sans-serif; */
 }
 
-/*Styles of header*/
+/* ===== HEADER ===== */
 
 .header {
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
     background-image: url("../../assets/images/emca-header.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(48, 128, 195, 0.25);
+    z-index: 1;
+}
+
+/* ===== CAPA DE CONTENIDO ===== */
+
+.header-top,
+.inline,
+.header-bottom {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== HEADER SUPERIOR ===== */
+
 .header-top {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: 90px;
+    padding: 0 3rem;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
     z-index: 1000;
 }
 
+.logo-header {
+    width: 90px;
+    height: auto;
+}
+
+.title-header {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* ===== MENÚ ===== */
+
 .nav-links {
     display: flex;
-    /*gap: 1rem;*/
+    align-items: center;
+    gap: 2rem;
 }
 
 .nav-links a {
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem;
-    justify-content: space-between;
-    gap: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
 }
 
-.header-top button {
-    color: #ffffff;
-    background-color: none;
-    border: 2px solid #fff;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    cursor: pointer;
+.nav-links a:hover {
+    opacity: 0.8;
 }
 
-/*linea separadora de header*/
+/* ===== ÁREA DERECHA ===== */
 
-.inline {
-    width: 80vw;
-    border: 0 0 0 1px;
-    border-color: #fff;
-}
-
-.header-bottom {
+.header-right {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     gap: 1rem;
 }
 
-.header-bottom h2 {
+/* ===== BOTÓN LOGIN ===== */
+
+.login-button {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== USUARIO ===== */
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.user-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    object-fit: cover;
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ===== LÍNEA DIVISORIA ===== */
+
+.inline {
+    width: 85%;
+    margin: 100px auto 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+
+.header-bottom {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.title-header-bottom {
     color: #fff;
     font-size: 3rem;
-    text-align: center;
+    font-weight: 700;
+    max-width: 1000px;
 }
 
 .header-bottom p {
     color: #fff;
     font-size: 1.2rem;
-    text-align: center;
-    max-width: 60vw;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* ===== MODAL LOGIN ===== */
+
+.login-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.login-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.login-modal-content {
+    position: relative;
+    z-index: 10000;
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    min-width: 380px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.login-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.3rem;
 }
 

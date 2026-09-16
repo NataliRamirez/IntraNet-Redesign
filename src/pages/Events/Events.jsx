@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Eventos.css";
+import "./Events.css";
 
 export default function Eventos() {
   const [eventos, setEventos] = useState([]);

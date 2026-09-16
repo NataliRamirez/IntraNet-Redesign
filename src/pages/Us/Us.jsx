@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Lightbulb, HeartHandshake, Users } from "lucide-react";
-import "./Nosotros.css";
+import "./Us.css";
 import OrganigramaImage from "../../assets/images/Organigrama - EMCA.png"; 
 
 export default function Nosotros() {

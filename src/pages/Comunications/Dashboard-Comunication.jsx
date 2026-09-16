@@ -1,4 +1,4 @@
-import "./ComDashboard.css";
+import "./Dashboard-Comunication.css";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 

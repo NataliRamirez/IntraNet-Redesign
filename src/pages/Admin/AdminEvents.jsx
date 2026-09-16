@@ -1,32 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "./AdminEventos.css";
+import "./AdminEvents.css";
 
 // ✅ URL base del backend desde .env
-const API_URL = `${import.meta.env.VITE_API_URL}/eventos`;
+const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
-export default function AdminEventos() {
-  const [eventos, setEventos] = useState([]);
+export default function AdminEvents() {
+  const [events, setEventos] = useState([]);
   const [form, setForm] = useState({
     id: null,
-    titulo: "",
-    descripcion: "",
-    fechaHora: "",
-    lugar: "",
+    title: "",
+    description: "",
+    dateTime: "",
+    place: "",
     link: "",
-    imagen: "",
+    image: "",
   });
-  const [imagenFile, setImagenFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
-    fetchEventos();
+    fetchEvents();
   }, []);
 
-  const fetchEventos = async () => {
+  const fetchEvents = async () => {
     try {
       const res = await axios.get(API_URL);
-      setEventos(res.data);
+      setEvents(res.data);
     } catch (err) {
       console.error("Error al obtener eventos:", err);
     }
@@ -35,7 +35,7 @@ export default function AdminEventos() {
   const handleImage = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setImagenFile(file);
+    setImageFile(file);
     const url = URL.createObjectURL(file);
     setForm((f) => ({ ...f, imagen: url }));
   };
@@ -43,7 +43,7 @@ export default function AdminEventos() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.titulo.trim() || !form.descripcion.trim() || !form.fechaHora) {
+    if (!form.title.trim() || !form.description.trim() || !form.dateTime) {
       Swal.fire({
         icon: "warning",
         title: "Campos Incompletos",
@@ -54,12 +54,12 @@ export default function AdminEventos() {
 
     try {
       const fd = new FormData();
-      fd.append("nombre", form.titulo);
-      fd.append("descripcion", form.descripcion);
-      fd.append("fechaHora", new Date(form.fechaHora).toISOString());
-      if (form.lugar) fd.append("lugar", form.lugar);
+      fd.append("nombre", form.title);
+      fd.append("descripcion", form.description);
+      fd.append("fechaHora", new Date(form.dateTime).toISOString());
+      if (form.place) fd.append("lugar", form.place);
       if (form.link) fd.append("link", form.link);
-      if (imagenFile) fd.append("imagen", imagenFile);
+      if (imageFile) fd.append("imagen", imageFile);
 
       let actionTitle = "";
 
@@ -98,26 +98,26 @@ export default function AdminEventos() {
   const resetForm = () => {
     setForm({
       id: null,
-      titulo: "",
-      descripcion: "",
-      fechaHora: "",
-      lugar: "",
+      title: "",
+      description: "",
+      dateTime: "",
+      place: "",
       link: "",
-      imagen: "",
+      image: "",
     });
-    setImagenFile(null);
+    setImageFile(null);
   };
 
   const handleEdit = (ev) => {
     setForm({
       id: ev.id,
-      titulo: ev.nombre,
-      descripcion: ev.descripcion,
-      fechaHora: new Date(ev.fechaHora).toISOString().slice(0, 16),
-      lugar: ev.lugar || "",
+      title: ev.nombre,
+      description: ev.descripcion,
+      dateTime: new Date(ev.fechaHora).toISOString().slice(0, 16),
+      place: ev.lugar || "",
       link: ev.link || "",
-      imagen: ev.imagen
-        ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.imagen}`
+      image: ev.imagen
+        ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`
         : "",
     });
   };
@@ -147,36 +147,36 @@ export default function AdminEventos() {
   };
 
   return (
-    <div className="admin-eventos">
+    <div className="admin-events">
       {/* === Formulario === */}
-      <div className="seccion-formulario">
+      <div className="section-form">
         <h2>Formulario para crear un nuevo evento:</h2>
 
-        <form onSubmit={handleSubmit} className="evento-form">
+        <form onSubmit={handleSubmit} className="event-form">
           <input
             type="text"
             placeholder="Título"
-            value={form.titulo}
-            onChange={(e) => setForm({ ...form, titulo: e.target.value })}
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
             required
           />
           <textarea
             placeholder="Descripción"
-            value={form.descripcion}
-            onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
             required
           />
           <input
             type="datetime-local"
-            value={form.fechaHora}
-            onChange={(e) => setForm({ ...form, fechaHora: e.target.value })}
+            value={form.dateTime}
+            onChange={(e) => setForm({ ...form, dateTime: e.target.value })}
             required
           />
           <input
             type="text"
             placeholder="Lugar"
-            value={form.lugar}
-            onChange={(e) => setForm({ ...form, lugar: e.target.value })}
+            value={form.place}
+            onChange={(e) => setForm({ ...form, place: e.target.value })}
           />
           <input
             type="url"
@@ -186,9 +186,9 @@ export default function AdminEventos() {
           />
           <input type="file" accept="image/*" onChange={handleImage} />
 
-          {form.imagen && (
+          {form.image && (
             <img
-              src={form.imagen}
+              src={form.image}
               alt="Previsualización"
               style={{ width: 150, borderRadius: 8, marginTop: 8 }}
             />
@@ -206,23 +206,23 @@ export default function AdminEventos() {
       </div>
 
       {/* === Lista de Eventos === */}
-      <div className="seccion-eventos">
+      <div className="section-events">
         <h2>Eventos registrados:</h2>
-        <div className="eventos-lista">
+        <div className="events-list">
           {eventos.length === 0 ? (
             <p>No hay eventos registrados aún.</p>
           ) : (
             eventos.map((ev) => (
-              <div key={ev.id} className="evento-card">
+              <div key={ev.id} className="event-card">
                 {ev.imagen && (
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.imagen}`}
                     alt={ev.nombre}
                   />
                 )}
-                <div className="evento-card-content">
+                <div className="event-card-content">
                   <h4>{ev.nombre}</h4>
-                  <div className="fecha">
+                  <div className="date">
                     {new Date(ev.fechaHora).toLocaleString("es-CO", {
                       dateStyle: "medium",
                       timeStyle: "short",
@@ -241,7 +241,7 @@ export default function AdminEventos() {
                       </a>
                     </p>
                   )}
-                  <div className="acciones">
+                  <div className="actions">
                     <button onClick={() => handleEdit(ev)}>Editar</button>
                     <button onClick={() => handleDelete(ev.id)}>Eliminar</button>
                   </div>

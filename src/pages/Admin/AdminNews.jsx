@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2"; 
-import "./AdminNoticias.css";
+import "./AdminNews.css";
 
 // ✅ 1️⃣ CAMBIO PRINCIPAL: usamos la variable del .env
 const API_URL = import.meta.env.VITE_API_URL + "/news";
 
-export default function AdminNoticias() {
-  const [noticias, setNoticias] = useState([]);
+export default function AdminNews() {
+  const [news, setNews] = useState([]);
   const [form, setForm] = useState({
     id: null,
-    titulo: "",
+    title: "",
     shortDesc: "",
-    contenido: "",
-    fechaPublicacion: "",
-    imagen: "",
+    content: "",
+    publicationDate: "",
+    image: "",
   });
   const [imagenFile, setImagenFile] = useState(null);
 
   useEffect(() => {
-    fetchNoticias();
+    fetchNews();
   }, []);
 
-  const fetchNoticias = async () => {
+  const fetchNews = async () => {
     try {
       const res = await axios.get(API_URL);
-      setNoticias(res.data);
+      setNews(res.data);
     } catch (err) {
       console.error("Error al obtener noticias:", err);
     }
@@ -35,13 +35,13 @@ export default function AdminNoticias() {
     const file = e.target.files?.[0];
     if (!file) return;
     setImagenFile(file);
-    setForm((f) => ({ ...f, imagen: URL.createObjectURL(file) }));
+    setForm((f) => ({ ...f, image: URL.createObjectURL(file) }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.titulo.trim() || !form.contenido.trim()) {
+    if (!form.title.trim() || !form.content.trim()) {
       Swal.fire({
         icon: 'warning',
         title: 'Faltan Campos',
@@ -51,14 +51,13 @@ export default function AdminNoticias() {
     }
 
     const fd = new FormData();
-    fd.append("titulo", form.titulo);
-    fd.append("shortDesc", form.shortDesc || form.contenido.slice(0, 120));
-    fd.append("contenido", form.contenido);
+    fd.append("titulo", form.title);
+    fd.append("shortDesc", form.shortDesc || form.content.slice(0, 120));
+    fd.append("contenido", form.content);
     fd.append(
-      "fechaPublicacion",
-      form.fechaPublicacion || new Date().toISOString()
+      "fechaPublicacion", form.publicationDate || new Date().toISOString()
     );
-    if (imagenFile) fd.append("imagen", imagenFile);
+    if (imageFile) fd.append("imagen", imageFile);
     
     let actionTitle = '';
 
@@ -83,7 +82,7 @@ export default function AdminNoticias() {
         timer: 1800
       });
       
-      fetchNoticias();
+      fetchNews();
       resetForm();
     } catch (err) {
       console.error("Error guardando noticia:", err);
@@ -98,11 +97,11 @@ export default function AdminNoticias() {
   const resetForm = () => {
     setForm({
       id: null,
-      titulo: "",
+      title: "",
       shortDesc: "",
-      contenido: "",
-      fechaPublicacion: "",
-      imagen: "",
+      content: "",
+      publicationDate: "",
+      image: "",
     });
     setImagenFile(null);
   };
@@ -110,15 +109,15 @@ export default function AdminNoticias() {
   const handleEdit = (n) => {
     setForm({
       id: n.id,
-      titulo: n.titulo,
+      title: n.title,
       shortDesc: n.shortDesc,
-      contenido: n.contenido,
-      fechaPublicacion: n.fechaPublicacion
-        ? new Date(n.fechaPublicacion).toISOString().slice(0, 16)
+      content: n.content,
+      publicationDate: n.publicationDate
+        ? new Date(n.PublicationDate).toISOString().slice(0, 16)
         : "",
       // ✅ 2️⃣ CAMBIO: imagen usa la URL del .env
-      imagen: n.imagen
-        ? `${import.meta.env.VITE_API_URL}/uploads/news/${n.imagen}`
+      image: n.image
+        ? `${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`
         : "",
     });
   };
@@ -138,7 +137,7 @@ export default function AdminNoticias() {
     if (result.isConfirmed) {
       try {
         await axios.delete(`${API_URL}/${id}`);
-        fetchNoticias();
+        fetchNews();
         Swal.fire('Borrado!', 'La noticia ha sido eliminada.', 'info');
       } catch (err) {
         console.error("Error eliminando noticia:", err);
@@ -148,16 +147,16 @@ export default function AdminNoticias() {
   };
 
   return (
-    <div className="admin-noticias">
-      <div className="seccion-formulario">
+    <div className="adminNews">
+      <div className="section-form">
         <h2>Crear Noticias:</h2>
 
-        <form onSubmit={handleSubmit} className="noticia-form">
+        <form onSubmit={handleSubmit} className="news-form">
           <input
             type="text"
             placeholder="Título"
-            value={form.titulo}
-            onChange={(e) => setForm({ ...form, titulo: e.target.value })}
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
             required
           />
           <input
@@ -169,13 +168,13 @@ export default function AdminNoticias() {
           <textarea
             placeholder="Contenido de la noticia"
             rows={6}
-            value={form.contenido}
-            onChange={(e) => setForm({ ...form, contenido: e.target.value })}
+            value={form.content}
+            onChange={(e) => setForm({ ...form, content: e.target.value })}
             required
           />
           <input type="file" accept="image/*" onChange={handleImage} />
 
-          {form.imagen && (
+          {form.image && (
             <img
               src={form.imagen}
               alt="Previsualización"
@@ -185,15 +184,15 @@ export default function AdminNoticias() {
 
           <input
             type="datetime-local"
-            value={form.fechaPublicacion}
+            value={form.publicationDate}
             onChange={(e) =>
-              setForm({ ...form, fechaPublicacion: e.target.value })
+              setForm({ ...form, publicationDate: e.target.value })
             }
           />
 
           <div style={{ display: "flex", gap: "0.5rem" }}>
             <button type="submit">
-              {form.id ? "Actualizar" : "Crear"} Noticia
+              {form.id ? "Update" : "Create"} Noticia
             </button>
             {form.id && (
               <button type="button" onClick={resetForm}>
@@ -204,30 +203,30 @@ export default function AdminNoticias() {
         </form>
       </div>
 
-      <div className="seccion-noticias">
+      <div className="section-news">
         <h2>Noticias registradas</h2>
-        <div className="noticias-lista">
-          {noticias.length === 0 ? (
+        <div className="news-list">
+          {news.length === 0 ? (
             <p>No hay noticias aún.</p>
           ) : (
-            noticias.map((n) => (
-              <div key={n.id} className="noticia-card">
-                {n.imagen && (
+            news.map((n) => (
+              <div key={n.id} className="news-card">
+                {n.image && (
                   // ✅ 3️⃣ CAMBIO: la imagen en lista usa también la base del .env
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.imagen}`}
-                    alt={n.titulo}
+                    src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
+                    alt={n.title}
                   />
                 )}
-                <div className="noticia-card-content">
+                <div className="news-card-content">
                   <h4>{n.titulo}</h4>
-                  <div className="fecha">
+                  <div className="date">
                     {new Date(n.fechaPublicacion).toLocaleString("es-CO", {
                       dateStyle: "medium",
                     })}
                   </div>
                   <p>{n.shortDesc}</p>
-                  <div className="acciones">
+                  <div className="actions">
                     <button onClick={() => handleEdit(n)}>Editar</button>
                     <button onClick={() => handleDelete(n.id)}>Eliminar</button>
                   </div>
