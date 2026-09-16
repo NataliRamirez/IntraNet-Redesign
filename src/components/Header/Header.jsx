@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 import Login from "../Login/Login";
 import NotificationBell from "../Notifications/NotificationBell";
-import logoBlanco from "../../assets/images/LogoEmcaBlanco.png";
+/*import logoBlanco from "../../assets/images/LogoEmcaBlanco.png";*/
+import logoBlanco from "../../assets/images/logo-blanco.png";
 import userImg from "../../assets/images/user-img.png";
 import logoutImg from "../../assets/images/logout-img.jpg";
 
@@ -28,13 +29,14 @@ export default function Header() {
     return (
         <header className="header">
             <section className="header-top">
-                <img src={logoBlanco} alt="Logo Principal" />
-                <h1 className="title-header">INTRANET</h1>
+                <div className="logo-container">
+                    <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal" />
+                    <h1 className="title-header">INTRANET</h1>
+                </div>
                 <nav className="nav-links">
                     <a href="">Inicio</a>
                     <a href="#">Noticias</a>
                     <a href="#">Eventos</a>
-                    <a href="#">Utilidades</a>
                     <a href="#">Nosotros</a>
                 </nav>
 

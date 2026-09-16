@@ -1,8 +1,8 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
-import logo from "../../assets/images/LogoEmcaGris.png";
-
+/*import logo from "../../assets/images/LogoEmcaGris.png";*/
+import logoBlanco from "../../assets/images/logo-blanco.png";
 import "./Footer.css";
 
 export default function Footer() {
@@ -15,7 +15,7 @@ export default function Footer() {
     return (
         <footer className="footer">
             <section className="footer-left">
-                <img src={logo} alt="LogoGrisEmca" />
+                <img src={logoBlanco} alt="LogoGrisEmca" />
                 <p>#SiempreLoHaremosPorTi</p>
                 <p>Carrera 24 No. 39-54, Calarcá, Quindío</p>
             </section>
@@ -23,7 +23,7 @@ export default function Footer() {
                 <div className="footer-top">
                     <div className="footer-section">
                         <h3>Acerca de</h3>
-                        <ul>
+                        <ul className="links">
                             {enlacesInstitucionales.map((enlace, index) => (
                                 <li key={index}>
                                     <a href={enlace.url}>{enlace.name}</a>
@@ -33,7 +33,7 @@ export default function Footer() {
                     </div>
                     <div className="footer-section">
                         <h3>Contáctanos</h3>
-                        <ul>
+                        <ul className="links">
                             <li><a href="#">Soporte</a></li>
                             <li><a href="#">Reportar un problema</a></li>
                             <li><a href="#">Preguntas frecuentes</a></li>
@@ -42,11 +42,13 @@ export default function Footer() {
                     </div>
                     <div className="footer-section">
                         <h3>Legal</h3>
-                        <ul>
+                        <ul className="links">
                             <li><a href="#">Política de privacidad</a></li>
                             <li><a href="#">Términos de servicio</a></li>
                         </ul>
                     </div>
+                </div>
+                <div className="inline">
                 </div>
                 <div className="footer-bottom">
                     <nav className="social-media">
@@ -77,7 +79,7 @@ export default function Footer() {
                             <FaTiktok />
                         </a>
                     </nav>
-                    <p>&copy; {new Date().getFullYear()} IntraNet. Todos los derechos reservados.</p>
+                    <p>&copy; 2024 IntraNet. Todos los derechos reservados.</p>
                     <p>Sitio web desarrollado por Simón Otalvaro</p>
                 </div>
             </section>

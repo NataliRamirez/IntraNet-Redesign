@@ -1,0 +1,163 @@
+/* ========= Layout General ========= */
+.news-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: "Inter", system-ui, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.news-container h1 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.hr-title{
+  color: green;
+  margin-bottom: 1rem;
+}
+
+/* ========= Contenedor Carrusel ========= */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* ← NUEVO */
+  width: 100%;               /* ← Asegura el ancho */
+}
+
+
+/* Carrusel */
+.news-carousel {
+  display: flex;
+  justify-content: center;   /* ← NUEVO */
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+
+.news-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.news-carousel::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+
+/* ========= Tarjeta ========= */
+.news-card {
+  flex: 0 0 480px;    /* ← Cambio aplicado: tarjetas más anchas */
+  max-width: 590px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Imagen */
+.news-card img {
+  width: 450px;
+  height: 500px;
+  border-radius: 5px;
+  object-fit: cover;
+  transition: transform .4s;
+}
+
+.news-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Contenido */
+.news-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.news-content h2 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: .5rem;
+}
+
+.date {
+  font-size: .9rem;
+  color: #3498db;
+  font-weight: 600;
+  margin-bottom: .6rem;
+}
+
+.news-content p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Botón */
+.see-more-btn {
+  background: #3498db;
+  padding: .6rem 1.1rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.see-more-btn:hover {
+  background: #2980b9;
+}
+
+/* ===== Botones laterales ===== */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  font-size: 2rem;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: background .2s;
+  z-index: 10;
+}
+
+.carousel-btn:hover {
+  background: #f1f1f1;
+}
+
+.carousel-btn.left {
+  left: -10px;
+}
+
+.carousel-btn.right {
+  right: -10px;
+}
+
+/* Responsive móvil: solo 1 tarjeta */
+@media (max-width: 700px) {
+  .news-card {
+    flex: 0 0 100%;
+  }
+}

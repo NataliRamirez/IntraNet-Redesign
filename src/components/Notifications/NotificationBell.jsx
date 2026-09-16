@@ -57,10 +57,10 @@ export default function NotificationBell() {
   const handleNotificationClick = async (n) => {
     if (!n.read) await markAsRead(n.id);
 
-    if (n.type === "evento" && n.eventId) {
-      navigate(`/eventos/${n.eventId}`);
-    } else if (n.type === "noticia" && n.newsId) {
-      navigate(`/noticias/${n.newsId}`);
+    if (n.type === "event" && n.eventId) {
+      navigate(`/event/${n.eventId}`);
+    } else if (n.type === "news" && n.newsId) {
+      navigate(`/news/${n.newsId}`);
     }
 
     setOpen(false);

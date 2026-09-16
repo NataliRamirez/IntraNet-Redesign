@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-family: sans-serif; */
+    font-family: montserrat; 
 }
 
 /* ===== HEADER ===== */
@@ -53,7 +53,13 @@
     z-index: 1000;
 }
 
-.logo-header {
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logoBlancoEmca {
     width: 90px;
     height: auto;
 }

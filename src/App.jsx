@@ -1,20 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import Header from "./components/header/header";
+import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Home from "./pages/Home/Home";
-import Nosotros from "./pages/Us/Us";
-import Utilidades from "./pages/Utils/Utils";
-import Eventos from "./pages/Events/Events";
-import Noticias from "./pages/News/News";
-import NoticiaDetalle from "./pages/News/Detail/News-Detail";
+import Us from "./pages/Us/Us";
+import Utils from "./pages/Utils/Utils";
+import Events from "./pages/Events/Events";
+import News from "./pages/News/News";
+import NewsDetail from "./pages/News/Detail/News-Detail";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import ComDashboard from "./pages/Comunications/Dashboard-Comunication";
-import AdminNoticias from "./pages/Admin/AdminNews";
-import AdminEventos from "./pages/Admin/AdminEvents";
+import DashboardComunication from "./pages/Comunications/Dashboard-Comunication";
+import AdminNews from "./pages/Admin/AdminNews";
+import AdminEvents from "./pages/Admin/AdminEvents";
 import PrivateRoute from "./components/Routes/PrivateRoutes";
 import Footer from "./components/Footer/Footer";
-import NoticiasGrid from "./pages/News/Carrousel/News-Carrousel";
-import EventoDetalle from "./pages/Events/Detail/Event-Detail"; 
+import GridNews from "./pages/News/GridNews/GridNews";
+import EventDetail from "./pages/Events/Detail/Event-Detail"; 
 import BirthdayModal from "./pages/BirthdayModal/BirthdayModal"; 
 import AdminBirthdayImage from "./pages/Admin/AdminBirthdayImage";
 
@@ -36,11 +37,11 @@ export default function App() {
         <Route path="/us" element={<Us />} />
         <Route path="/utils" element={<Utils />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/news" element={<NewsCarrousel />} />
+        <Route path="/news" element={<GridNews />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/birthdaymodal" element={<BirthdayModal />} />
-        <Route path="/admin/cumpleanos" element={<AdminBirthdayImage />} />
+        <Route path="/admin/birthday" element={<AdminBirthdayImage />} />
 
         <Route
           path="/admin"
@@ -51,10 +52,10 @@ export default function App() {
           }
         />
         <Route
-          path="/admin/notices"
+          path="/admin/news"
           element={
             <PrivateRoute allowedRoles={["admin"]}>
-              <AdminNotices />
+              <AdminNews />
             </PrivateRoute>
           }
         />
@@ -71,7 +72,7 @@ export default function App() {
           path="/comunications"
           element={
             <PrivateRoute allowedRoles={["comunications", "admin"]}>
-              <ComDashboard />
+              <DashboardComunication />
             </PrivateRoute>
           }
         />

@@ -3,7 +3,7 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay, isSameDay } from "date-fns";
 import esES from "date-fns/locale/es";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./Calendar.css";
+import "./CalendarComponent.css";
 
 const locals = { es: esES };
 const localizer = dateFnsLocalizer({
@@ -17,7 +17,7 @@ const localizer = dateFnsLocalizer({
 // Se lee la variable de entorno directamente
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default function Calendar() {
+export default function CalendarComponent() {
   const [events, setEvents] = useState([]);
   const [eventsOfTheDay, setEventsOfTheDay] = useState(null);
   const [actualDate, setActualDate] = useState(new Date());
