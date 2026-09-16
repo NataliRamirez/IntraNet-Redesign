@@ -34,10 +34,10 @@ export default function Header() {
                     <h1 className="title-header">INTRANET</h1>
                 </div>
                 <nav className="nav-links">
-                    <a href="">Inicio</a>
-                    <a href="#">Noticias</a>
-                    <a href="#">Eventos</a>
-                    <a href="#">Nosotros</a>
+                    <a href="#Inicio">Inicio</a>
+                    <a href="#Noticias">Noticias</a>
+                    <a href="#Eventos">Eventos</a>
+                    <a href="#Nosotros">Nosotros</a>
                 </nav>
 
                 <div className="header-right">
@@ -75,7 +75,7 @@ export default function Header() {
             </section>
             <div className="inline">
             </div>
-            <section className="header-bottom">
+            <section id="Inicio" className="header-bottom">
                 <h2 className="title-header-bottom">INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P</h2>
                 <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
             </section>

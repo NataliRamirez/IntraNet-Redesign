@@ -24,11 +24,9 @@ export default function Footer() {
                     <div className="footer-section">
                         <h3>Acerca de</h3>
                         <ul className="links">
-                            {enlacesInstitucionales.map((enlace, index) => (
-                                <li key={index}>
-                                    <a href={enlace.url}>{enlace.name}</a>
-                                </li>
-                            ))}
+                            <li><a href="#MisionVision">Misión y Visión</a></li>
+                            <li><a href="#Nosotros">Nosotros</a></li>
+                            <li><a href="#Organigrama">Organigrama</a></li>
                         </ul>
                     </div>
                     <div className="footer-section">

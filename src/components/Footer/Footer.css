@@ -9,7 +9,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;*/
-    background: linear-gradient(to top right, #3080C3, #32A7D9);
+    background: linear-gradient(to top right, #286ca3, #32A7D9);
 }
 
 .footer::before {
@@ -61,6 +61,14 @@
     gap: 1rem;
     color: white;
     align-items: center;
+    line-height: 1;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    margin-top: 0.7rem;
 }
 
 .links a {

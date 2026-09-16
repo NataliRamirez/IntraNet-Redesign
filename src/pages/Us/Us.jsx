@@ -11,7 +11,7 @@ export default function Nosotros() {
     <div className="nosotros">
 
       {/* Hero */}
-      <section className="nosotros-hero">
+      <section id="Nosotros" className="nosotros-hero">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: -30 }}
@@ -27,7 +27,7 @@ export default function Nosotros() {
       </section>
 
       {/* Misión y Visión */}
-      <section className="nosotros-mv">
+      <section id="MisionVision" className="nosotros-mv">
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <ShieldCheck size={48} color="#3b82f6" />
           <h2>Misión</h2>
@@ -66,7 +66,7 @@ export default function Nosotros() {
       </section>
 
       {/* Organigrama */}
-      <section className="nosotros-organigrama">
+      <section id="Organigrama" className="nosotros-organigrama">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

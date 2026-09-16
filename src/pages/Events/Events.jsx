@@ -14,7 +14,7 @@ export default function Eventos() {
   }, []);
 
   return (
-    <div className="eventos-publicos">
+    <div  id="Eventos" className="eventos-publicos">
       <h1>Eventos 🎉</h1>
 
       {eventos.length === 0 ? (
