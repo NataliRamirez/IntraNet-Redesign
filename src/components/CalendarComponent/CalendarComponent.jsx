@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { Calendar as BigCalendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay, isSameDay } from "date-fns";
-import esES from "date-fns/locale/es";
+import { es } from "date-fns/locale";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./CalendarComponent.css";
 
-const locals = { es: esES };
+const locales = {
+  es,
+};
+
 const localizer = dateFnsLocalizer({
   format,
   parse,
-  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
+  startOfWeek: (date) => startOfWeek(date, { weekStartsOn: 1 }),
   getDay,
-  locals: locals,
+  locales,
 });
 
-// Se lee la variable de entorno directamente
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CalendarComponent() {
@@ -26,54 +29,73 @@ export default function CalendarComponent() {
     fetch(`${API_URL}/events`)
       .then((res) => res.json())
       .then((data) => {
-        const transformedEvents = data.map((ev) => ({
-          id: ev.id,
-          title: ev.name,
-          start: new Date(ev.dateTime),
-          place: ev.place,
-          link: ev.link,
-          image: ev.image ? `${API_URL}/uploads/events/${ev.image}` : null,
-          description: ev.description,
-        }));
+        const transformedEvents = data.map((ev) => {
+          const startDate = new Date(ev.dateTime);
+
+          return {
+            id: ev.id,
+            title: ev.name,
+            start: startDate,
+            end: startDate,
+            place: ev.place,
+            link: ev.link,
+            image: ev.image
+              ? `${API_URL}/uploads/events/${ev.image}`
+              : null,
+            description: ev.description,
+          };
+        });
+
         setEvents(transformedEvents);
       })
       .catch((err) => console.error("Error al cargar eventos:", err));
   }, []);
 
   const handleSelectDay = (date) => {
-    const eventsOfTheDay = events.filter((ev) => isSameDay(ev.start, date));
-    setEventsOfTheDay(eventsOfTheDay);
+    const dayEvents = events.filter((ev) =>
+      isSameDay(ev.start, date)
+    );
+
+    setEventsOfTheDay(dayEvents);
   };
 
   const CustomDateCell = ({ date }) => {
-    if (!(date instanceof Date)) return null;
-    const hasEvent = events.some((ev) => isSameDay(ev.start, date));
+    const hasEvent = events.some((ev) =>
+      isSameDay(ev.start, date)
+    );
 
     return (
       <div
         onClick={() => handleSelectDay(date)}
         className={`cell-day ${hasEvent ? "with-event" : ""}`}
-        style={{ cursor: hasEvent ? "pointer" : "default" }}
+        style={{
+          cursor: hasEvent ? "pointer" : "default",
+        }}
       >
-        <span className="number-day">{date.getDate()}</span>
-        {hasEvent && <span className="marker-event">📍</span>}
+        <span className="number-day">
+          {date.getDate()}
+        </span>
+
+        {hasEvent && (
+          <span className="marker-event">📍</span>
+        )}
       </div>
     );
   };
 
-
   return (
-
     <div className="calendar-container">
       <h2 className="title-month">
-        {format(actualDate, "MMMM yyyy", { locale: esES }).toUpperCase()}
+        {format(actualDate, "MMMM yyyy", {
+          locale: es,
+        }).toUpperCase()}
       </h2>
 
       <div className="calendar-layout">
         <div className="calendar-main">
-          <Calendar
+          <BigCalendar
             localizer={localizer}
-            events={[]}
+            events={events}
             startAccessor="start"
             endAccessor="end"
             date={actualDate}
@@ -82,7 +104,9 @@ export default function CalendarComponent() {
             toolbar={false}
             views={["month"]}
             components={{
-              month: { dateHeader: CustomDateCell },
+              month: {
+                dateHeader: CustomDateCell,
+              },
             }}
           />
         </div>
@@ -91,16 +115,22 @@ export default function CalendarComponent() {
           {eventsOfTheDay === null ? (
             <div className="without-events">
               <h3>Selecciona una fecha</h3>
-              <p>Haz clic en un día del calendario para ver sus eventos.</p>
+              <p>
+                Haz clic en un día del calendario para ver sus
+                eventos.
+              </p>
             </div>
           ) : eventsOfTheDay.length === 0 ? (
             <div className="without-events">
               <h3>Sin eventos</h3>
-              <p>No hay eventos registrados para esta fecha.</p>
+              <p>
+                No hay eventos registrados para esta fecha.
+              </p>
             </div>
           ) : (
             <>
               <h3>Eventos del día:</h3>
+
               {eventsOfTheDay.map((ev) => (
                 <div key={ev.id} className="event-card">
                   {ev.image && (
@@ -110,10 +140,14 @@ export default function CalendarComponent() {
                       className="event-image"
                     />
                   )}
+
                   <h4>{ev.title}</h4>
+
                   <p>
-                    <strong>📍 Lugar:</strong> {ev.place || "Sin definir"}
+                    <strong>📍 Lugar:</strong>{" "}
+                    {ev.place || "Sin definir"}
                   </p>
+
                   <p>
                     <strong>🕒 Fecha y hora:</strong>{" "}
                     {ev.start.toLocaleString("es-ES", {
@@ -121,18 +155,29 @@ export default function CalendarComponent() {
                       timeStyle: "short",
                     })}
                   </p>
+
                   <p>{ev.description}</p>
+
                   {ev.link && (
                     <p>
                       🔗{" "}
-                      <a href={ev.link} target="_blank" rel="noreferrer">
+                      <a
+                        href={ev.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Registro de asistencia
                       </a>
                     </p>
                   )}
                 </div>
               ))}
-              <button onClick={() => setEventsOfTheDay(null)}>Cerrar</button>
+
+              <button
+                onClick={() => setEventsOfTheDay(null)}
+              >
+                Cerrar
+              </button>
             </>
           )}
         </div>

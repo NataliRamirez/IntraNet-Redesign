@@ -1,8 +1,9 @@
 import "./Home.css";
-import CalendarEvents from "../../components/CalendarComponent/CalendarComponent";
+import CalendarioEventos from "../../components/CalendarComponent/CalendarComponent";
 import { useState, useEffect } from "react";
 import Slider from "../../components/Slider/Slider";
-import News from "../../pages/News/News";
+import News from "../../Pages/News/News";
+import Us from "../../Pages/Us/Us";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -20,20 +21,22 @@ export default function Home() {
   return (
     <div className="home">
 
+      <section id="Noticias">
+        <News />
+      </section>
+
+      <div className="horizontal-line">
+        <span>Calendario EMCA</span>
+      </div>
+
+      <div id="Eventos" className="calendar-card">
+        <CalendarioEventos events={events} />
+      </div>
+
+      <section id="Nosotros" className="us-section">
+        <Us />
+      </section>
       <section className="hero-compact">
-        <div className="hero-content">
-
-          <h2>Portal de Noticias</h2>
-          <News />
-
-          <div className="horizontal-line">
-            <h2>Calendario EMCA</h2>
-          </div>
-
-          <div className="calendar-card">
-            <CalendarEvents events={events} />
-          </div>
-        </div>
         <Slider />
       </section>
     </div>

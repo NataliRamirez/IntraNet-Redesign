@@ -6,15 +6,18 @@
 
 .login-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
+  padding: 1rem;
+  border-radius: 16px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background: rgba(48, 128, 195, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-image: url("../../assets/images/fondo-login.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .login-form {
@@ -28,29 +31,26 @@
 
   background: rgba(255, 255, 255, 0.08);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(2px);
 
   border-radius: 20px;
 
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-.user-circle {
-  width: 90px;
-  height: 90px;
+.logoEmca {
+
+  height: 7rem;
+  width: auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  border-radius: 50%;
-
-  background: #0d3f8a;
-
   color: white;
   font-size: 2.5rem;
 
-  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .login-title {
@@ -73,8 +73,7 @@
 
   margin-bottom: 2rem;
 
-  border-bottom: 1px solid
-    rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 
   padding-bottom: 0.8rem;
 }
@@ -99,34 +98,24 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.login-btn {
-  width: 100%;
-
-  margin-top: 1rem;
-
-  padding: 1rem;
-
-  border: none;
-
-  background: #0d3f8a;
-
-  color: white;
-
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-}
-
-.login-btn:hover {
-  background: #082d66;
-}
-
 .login-error {
   color: #ffb3b3;
   margin-bottom: 1rem;
   text-align: center;
+}
+
+.loginForm-button {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 12rem;
+}
+
+.loginForm-button:hover {
+  background: rgba(255, 255, 255, 0.15);
 }

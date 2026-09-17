@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MdNotifications } from "react-icons/md";
 import "./NotificationBell.css";
 
 export default function NotificationBell() {
@@ -69,8 +70,10 @@ export default function NotificationBell() {
   return (
     <div className="notification-wrapper">
       <div className="notification-bell" onClick={() => setOpen(!open)}>
-        🔔
-        {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+
+        <MdNotifications   className="bell" />
+
+        {unreadCount > 0 && ( <span className="badge">{unreadCount}</span>)}
       </div>
 
       {open && (
@@ -105,7 +108,7 @@ export default function NotificationBell() {
                   deleteNotification(n.id);
                 }}
               >
-                
+
               </button>
             </div>
           ))}

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: montserrat; 
+    font-family: montserrat;
 }
 
 /* ===== HEADER ===== */
@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    background-image: url("../../assets/images/emca-header.jpg");
+    background-image: url("../../assets/images/emca-header.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -62,6 +62,8 @@
 .logoBlancoEmca {
     width: 90px;
     height: auto;
+    cursor: pointer;
+    display: inline-flex;
 }
 
 .title-header {
@@ -203,7 +205,7 @@
     z-index: 10000;
     background: #fff;
     border-radius: 16px;
-    padding: 2rem;
+    padding: 0.5rem;
     min-width: 380px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -217,4 +219,3 @@
     cursor: pointer;
     font-size: 1.3rem;
 }
-

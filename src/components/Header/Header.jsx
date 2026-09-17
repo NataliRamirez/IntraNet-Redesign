@@ -30,7 +30,17 @@ export default function Header() {
         <header className="header">
             <section className="header-top">
                 <div className="logo-container">
-                    <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal" />
+                    <a
+                        href="https://emca-calarca-quindio.micolombiadigital.gov.co/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            className="logoBlancoEmca"
+                            src={logoBlanco}
+                            alt="Logo Principal"
+                        />
+                    </a>
                     <h1 className="title-header">INTRANET</h1>
                 </div>
                 <nav className="nav-links">

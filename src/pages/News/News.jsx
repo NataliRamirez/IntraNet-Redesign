@@ -20,11 +20,11 @@ export default function News() {
   };
 
   useEffect(() => { 
-    const fetchNoticias = async () => {
+    const fetchNews = async () => {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news`;
         const res = await axios.get(API_URL);
-        setNoticias(res.data);
+        setNews(res.data);
       } catch (error) {
         console.error("Error al obtener noticias:", error);
       } finally {
@@ -32,7 +32,7 @@ export default function News() {
       }
     };
 
-    fetchNoticias();
+    fetchNews();
   }, []);
 
   if (loading) return <p className="loading-msg">Cargando noticias...</p>;
@@ -42,7 +42,7 @@ export default function News() {
       <h2>SECCIÓN DE NOTICIAS NUEVAS</h2>
       <hr className="hr-title"></hr>
 
-      {noticias.length === 0 ? (
+      {news.length === 0 ? (
         <p>No hay noticias disponibles.</p>
       ) : (
         <div className="carousel-wrapper">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import { FiUser, FiLock } from "react-icons/fi";
+import logoEmca from "../../assets/images/logo-blanco.png"
 import "./Login.css";
 
 export default function Login({ onClose }) {
@@ -29,8 +29,11 @@ export default function Login({ onClose }) {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="user-circle">
-          <FiUser />
+        <div className="emca-logo">
+          <img className="logoEmca"
+            src={logoEmca}
+            alt="Logo Color"
+          />
         </div>
 
         <h2 className="login-title">
@@ -38,7 +41,6 @@ export default function Login({ onClose }) {
         </h2>
 
         <div className="input-group">
-          <FiUser className="input-icon" />
 
           <input
             type="text"
@@ -51,7 +53,6 @@ export default function Login({ onClose }) {
         </div>
 
         <div className="input-group">
-          <FiLock className="input-icon" />
 
           <input
             type="password"
@@ -68,7 +69,7 @@ export default function Login({ onClose }) {
         )}
 
         <button
-          className="login-btn"
+          className="loginForm-button"
           type="submit"
         >
           INGRESAR

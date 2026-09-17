@@ -12,13 +12,6 @@
     background: linear-gradient(to top right, #286ca3, #32A7D9);
 }
 
-.footer::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
 .footer-left {
     display: flex;
     flex-direction: column;
@@ -124,4 +117,9 @@
 
 .social-media a:hover {
     transform: scale(1.15);
+}
+
+.social-link {
+  cursor: pointer;
+  display: inline-flex;
 }
