@@ -1,7 +1,6 @@
 import "./Home.css";
 import CalendarioEventos from "../../components/CalendarComponent/CalendarComponent";
 import { useState, useEffect } from "react";
-import Slider from "../../components/Slider/Slider";
 import News from "../../Pages/News/News";
 import Us from "../../Pages/Us/Us";
 
@@ -35,9 +34,6 @@ export default function Home() {
 
       <section id="Nosotros" className="us-section">
         <Us />
-      </section>
-      <section className="hero-compact">
-        <Slider />
       </section>
     </div>
   );

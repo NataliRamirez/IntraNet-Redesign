@@ -85,11 +85,11 @@ export default function CalendarComponent() {
 
   return (
     <div className="calendar-container">
-      <h2 className="title-month">
+      <h3 className="title-month">
         {format(actualDate, "MMMM yyyy", {
           locale: es,
         }).toUpperCase()}
-      </h2>
+      </h3>
 
       <div className="calendar-layout">
         <div className="calendar-main">

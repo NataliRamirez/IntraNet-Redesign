@@ -28,9 +28,6 @@ export default function App() {
   return (
     <>
       <Header />
-      <div>
-        <hr className="hr-line" />
-      </div>
       <Menu />
       <Routes>
         <Route path="/" element={<Home />} />

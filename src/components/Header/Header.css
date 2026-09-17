@@ -23,7 +23,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(48, 128, 195, 0.25);
+    background: rgba(48, 129, 195, 0.274);
     z-index: 1;
 }
 
@@ -48,7 +48,7 @@
     right: 0;
     height: 90px;
     padding: 0 3rem;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(4, 21, 46, 0.15);
     backdrop-filter: blur(4px);
     z-index: 1000;
 }
@@ -197,7 +197,7 @@
 .login-modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.877);
 }
 
 .login-modal-content {
@@ -205,8 +205,7 @@
     z-index: 10000;
     background: #fff;
     border-radius: 16px;
-    padding: 0.5rem;
-    min-width: 380px;
+    padding: 0.2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 

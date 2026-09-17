@@ -38,9 +38,8 @@ export default function News() {
   if (loading) return <p className="loading-msg">Cargando noticias...</p>;
 
   return (
-    <div id="Noticias" className="news-container">
+    <section id="Noticias" className="news-container">
       <h2>SECCIÓN DE NOTICIAS NUEVAS</h2>
-      <hr className="hr-title"></hr>
 
       {news.length === 0 ? (
         <p>No hay noticias disponibles.</p>
@@ -86,6 +85,6 @@ export default function News() {
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 }

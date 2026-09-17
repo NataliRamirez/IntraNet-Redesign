@@ -18,7 +18,7 @@ export default function Nosotros() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1>Sobre Nosotros</h1>
+          <h2>Sobre Nosotros</h2>
           <p>
             En <strong>EMCA E.S.P</strong> trabajamos con responsabilidad y compromiso
             para garantizar servicios de calidad que contribuyan al bienestar de la comunidad.
