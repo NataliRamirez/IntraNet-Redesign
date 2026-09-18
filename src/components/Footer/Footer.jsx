@@ -36,6 +36,7 @@ export default function Footer() {
                             <li><a href="#">Reportar un problema</a></li>
                             <li><a href="#">Preguntas frecuentes</a></li>
                             <li>Línea de atención: +57 (606) 7421114</li>
+                            <li><a href="https://emca-calarca-quindio.micolombiadigital.gov.co/">Página oficial</a></li>
                         </ul>
                     </div>
                     <div className="footer-section">

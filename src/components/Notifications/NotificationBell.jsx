@@ -3,13 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { MdNotifications } from "react-icons/md";
 import "./NotificationBell.css";
 
+/**
+ * Componente encargado de gestionar y visualizar las notificaciones de la Intranet. 
+ * Permite consultar, marcar como leídas, eliminar y redirigir al usuario
+ * hacia el contenido relacionado con cada notificación.
+ *
+ * @returns {JSX.Element}
+ */
 export default function NotificationBell() {
+
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  //hook de navegación
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL;
 
+  //Obtener notificaciones del backend
   const fetchNotifications = async () => {
     try {
       const response = await fetch(`${API_URL}/notifications`);
@@ -20,6 +30,11 @@ export default function NotificationBell() {
     }
   };
 
+  /**
+   * Marca una notificación específica como leída.
+   *
+   * @param {number} id Identificador de la notificación.
+   */
   const markAsRead = async (id) => {
     try {
       await fetch(`${API_URL}/notifications/${id}/read`, { method: "PATCH" });
@@ -38,6 +53,10 @@ export default function NotificationBell() {
     }
   };
 
+  /**
+   * Elimina una notificación específica.
+   * @param {number} id Identificador de la notificación.
+   */
   const deleteNotification = async (id) => {
     try {
       await fetch(`${API_URL}/notifications/${id}`, { method: "DELETE" });
@@ -47,6 +66,10 @@ export default function NotificationBell() {
     }
   };
 
+  /**
+   * Carga las notificaciones al iniciar el componente y 
+   * actualiza la información automáticamente cada 15 segundos.
+   */
   useEffect(() => {
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 15000);
@@ -55,6 +78,12 @@ export default function NotificationBell() {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
+  /**
+   * Gestiona la selección de una notificación. La marca como leída y 
+   * redirige al contenido relacionado según su tipo.
+   *
+   * @param {Object} n Notificación seleccionada.
+   */
   const handleNotificationClick = async (n) => {
     if (!n.read) await markAsRead(n.id);
 
@@ -69,47 +98,78 @@ export default function NotificationBell() {
 
   return (
     <div className="notification-wrapper">
-      <div className="notification-bell" onClick={() => setOpen(!open)}>
 
-        <MdNotifications   className="bell" />
+      {/* Botón de apertura del panel */}
+      <div
+        className="notification-bell"
+        onClick={() => setOpen(!open)}
+      >
 
-        {unreadCount > 0 && ( <span className="badge">{unreadCount}</span>)}
+        {/* Ícono de notificaciones */}
+        <MdNotifications className="bell" />
+
+        {/* Indicador de notificaciones sin leer */}
+        {unreadCount > 0 && (
+          <span className="badge">
+            {unreadCount}
+          </span>
+        )}
       </div>
 
+      {/* Panel desplegable de notificaciones */}
       {open && (
         <div className="notification-dropdown">
+
+          {/* Encabezado del panel */}
           <div className="dropdown-header">
             <strong>Notificaciones</strong>
+
             {unreadCount > 0 && (
-              <button className="mark-all-btn" onClick={markAllAsRead}>
+              <button
+                className="mark-all-btn"
+                onClick={markAllAsRead}
+              >
                 Marcar todas como leídas
               </button>
             )}
           </div>
 
+          {/* Mensaje cuando no existen notificaciones */}
           {notifications.length === 0 && (
-            <p className="no-notifications">No hay notificaciones</p>
+            <p className="no-notifications">
+              No hay notificaciones
+            </p>
           )}
 
+          {/* Listado de notificaciones */}
           {notifications.map((n) => (
             <div
               key={n.id}
-              className={`notification-item ${n.read ? "" : "unread"}`}
-              onClick={() => handleNotificationClick(n)}
+              className={`notification-item ${n.read ? "" : "unread"
+                }`}
+              onClick={() =>
+                handleNotificationClick(n)
+              }
             >
               <div className="notification-text">
+
+                {/* Título de la notificación */}
                 <strong>{n.title}</strong>
+
+                {/* Mensaje de la notificación */}
                 <p>{n.message}</p>
               </div>
+
+              {/* Botón para eliminar la notificación */}
               <button
                 className="delete-btn"
                 onClick={(e) => {
-                  e.stopPropagation(); // evita que redirija
+                  e.stopPropagation();
                   deleteNotification(n.id);
                 }}
               >
-
               </button>
+
             </div>
           ))}
         </div>

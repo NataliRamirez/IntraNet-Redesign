@@ -1,5 +1,17 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Hook personalizado que obtiene y actualiza
+ * la fecha y hora local del sistema en tiempo real.
+ *
+ * Actualiza la información cada segundo y retorna
+ * los valores formateados para ser utilizados
+ * en cualquier componente de la aplicación.
+ *
+ * @returns {Object} Objeto con la hora y fecha actual.
+ * @returns {string} returns.time - Hora actual en formato HH:MM:SS.
+ * @returns {string} returns.date - Fecha actual en formato largo.
+ */
 export default function useLocalTime() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");

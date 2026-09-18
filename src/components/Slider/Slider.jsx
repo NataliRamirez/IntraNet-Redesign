@@ -8,9 +8,20 @@ import img4 from "../../assets/images/imagen-noticias-1.jpeg"
 
 const images =  [img4, img1, img2, img3];
 
+/**
+ * Componente encargado de mostrar un carrusel automático de imágenes. Permite la navegación mediante 
+ * indicadores y cambia de imagen automáticamente cada 3 segundos.
+ *
+ * @returns {JSX.Element} Carrusel de imágenes con indicadores de navegación.
+ */
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  /**
+   * Configura el cambio automático de imágenes cada 3 segundos.
+   * También elimina el intervalo cuando el componente se desmonta
+   * para evitar fugas de memoria.
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>

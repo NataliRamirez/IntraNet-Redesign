@@ -4,6 +4,13 @@ import { useAuth } from "../../Context/AuthContext";
 import logoEmca from "../../assets/images/logo-blanco.png"
 import "./Login.css";
 
+
+/**
+ * Componente encargado de gestionar el inicio de sesión
+ * de los usuarios de la Intranet EMCA. Permite validar
+ * credenciales, autenticar usuarios y redirigirlos según
+ * el rol asignado.
+ */
 export default function Login({ onClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +19,10 @@ export default function Login({ onClose }) {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  /**
+   * Gestiona el envío del formulario de inicio de sesión.
+   * @param {Event} e Evento generado por el formulario.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     const validUsers = { admin: "admin123", comunicaciones: "comu123" };
@@ -28,20 +39,29 @@ export default function Login({ onClose }) {
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+
+      {/* Formulario principal de autenticación */}
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+      >
+
+        {/* Logo institucional */}
         <div className="emca-logo">
-          <img className="logoEmca"
+          <img
+            className="logoEmca"
             src={logoEmca}
             alt="Logo Color"
           />
         </div>
 
+        {/* Título del formulario */}
         <h2 className="login-title">
           INICIAR SESIÓN
         </h2>
 
+        {/* Campo de usuario */}
         <div className="input-group">
-
           <input
             type="text"
             placeholder="Usuario"
@@ -52,8 +72,8 @@ export default function Login({ onClose }) {
           />
         </div>
 
+        {/* Campo de contraseña */}
         <div className="input-group">
-
           <input
             type="password"
             placeholder="Contraseña"
@@ -64,16 +84,21 @@ export default function Login({ onClose }) {
           />
         </div>
 
+        {/* Mensaje de error */}
         {error && (
-          <p className="login-error">{error}</p>
+          <p className="login-error">
+            {error}
+          </p>
         )}
 
+        {/* Botón de acceso */}
         <button
           className="loginForm-button"
           type="submit"
         >
           INGRESAR
         </button>
+
       </form>
     </div>
   );

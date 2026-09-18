@@ -6,10 +6,20 @@ import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./CalendarComponent.css";
 
+/**
+ * Componente encargado de visualizar el calendario de eventos
+ * institucionales. Permite consultar los eventos registrados
+ * por fecha y visualizar sus detalles.
+ */
+
 const locales = {
   es,
 };
 
+/**
+ * Configuración del localizador utilizado por react-big-calendar.
+ * Define el formato de fechas, el inicio de semana y el idioma.
+ */
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -18,13 +28,22 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+/**
+ * URL base de la API obtenida desde las variables de entorno.
+ */
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CalendarComponent() {
+
   const [events, setEvents] = useState([]);
   const [eventsOfTheDay, setEventsOfTheDay] = useState(null);
   const [actualDate, setActualDate] = useState(new Date());
 
+  /**
+   * Obtiene los eventos registrados desde la API al cargar
+   * el componente y transforma la información al formato
+   * requerido por react-big-calendar.
+   */
   useEffect(() => {
     fetch(`${API_URL}/events`)
       .then((res) => res.json())
@@ -51,6 +70,12 @@ export default function CalendarComponent() {
       .catch((err) => console.error("Error al cargar eventos:", err));
   }, []);
 
+  /**
+   * Filtra los eventos que coinciden con la fecha
+   * seleccionada por el usuario.
+   *
+   * @param {Date} date Fecha seleccionada en el calendario.
+   */
   const handleSelectDay = (date) => {
     const dayEvents = events.filter((ev) =>
       isSameDay(ev.start, date)
@@ -59,6 +84,15 @@ export default function CalendarComponent() {
     setEventsOfTheDay(dayEvents);
   };
 
+  /**
+   * Componente personalizado para renderizar cada celda
+   * de fecha dentro del calendario mensual.
+   * Muestra un marcador cuando existen eventos asociados.
+   *
+   * @param {Object} props Propiedades de la celda.
+   * @param {Date} props.date Fecha representada en la celda.
+   * @returns {JSX.Element}
+   */
   const CustomDateCell = ({ date }) => {
     const hasEvent = events.some((ev) =>
       isSameDay(ev.start, date)
@@ -85,6 +119,7 @@ export default function CalendarComponent() {
 
   return (
     <div className="calendar-container">
+      {/* Título correspondiente al mes visualizado */}
       <h3 className="title-month">
         {format(actualDate, "MMMM yyyy", {
           locale: es,
@@ -92,6 +127,8 @@ export default function CalendarComponent() {
       </h3>
 
       <div className="calendar-layout">
+
+        {/* Calendario principal */}
         <div className="calendar-main">
           <BigCalendar
             localizer={localizer}
@@ -111,6 +148,7 @@ export default function CalendarComponent() {
           />
         </div>
 
+        {/* Panel de detalle de eventos */}
         <div className="event-detail">
           {eventsOfTheDay === null ? (
             <div className="without-events">
@@ -133,6 +171,8 @@ export default function CalendarComponent() {
 
               {eventsOfTheDay.map((ev) => (
                 <div key={ev.id} className="event-card">
+
+                  {/* Imagen del evento */}
                   {ev.image && (
                     <img
                       src={ev.image}
@@ -141,13 +181,16 @@ export default function CalendarComponent() {
                     />
                   )}
 
+                  {/* Nombre del evento */}
                   <h4>{ev.title}</h4>
 
+                  {/* Lugar del evento */}
                   <p>
                     <strong>📍 Lugar:</strong>{" "}
                     {ev.place || "Sin definir"}
                   </p>
 
+                  {/* Fecha y hora del evento */}
                   <p>
                     <strong>🕒 Fecha y hora:</strong>{" "}
                     {ev.start.toLocaleString("es-ES", {
@@ -156,8 +199,10 @@ export default function CalendarComponent() {
                     })}
                   </p>
 
+                  {/* Descripción del evento */}
                   <p>{ev.description}</p>
 
+                  {/* Enlace de registro o asistencia */}
                   {ev.link && (
                     <p>
                       🔗{" "}
@@ -173,6 +218,7 @@ export default function CalendarComponent() {
                 </div>
               ))}
 
+              {/* Botón para cerrar el panel de detalles */}
               <button
                 onClick={() => setEventsOfTheDay(null)}
               >
