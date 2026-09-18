@@ -1,4 +1,5 @@
 import "./Utils.css";
+import { motion } from "framer-motion";
 import pdfWord from "../../assets/images/PDF-WORD.jpg";
 import wordPdf from "../../assets/images/WORD-PDF.jpg";
 import pdfExcel from "../../assets/images/PDF-EXCEL.png";
@@ -8,7 +9,7 @@ import removeImg from "../../assets/images/REMOVE-IMG.png";
 import comprimirPdf from "../../assets/images/COMPRIMIR-PDF.png";
 import dividirPdf from "../../assets/images/DIVIDIR-PDF.png";
 
-export default function Us() {
+export default function Utils() {
   const tools = [
     {
       title: "PDF a Word",
@@ -62,32 +63,41 @@ export default function Us() {
 
   return (
     <div>
-      <div className="utilis-header">
-        <h1>Sección de Utilidades 📃</h1>
-        <p>
-          En esta sección encontrarás herramientas útiles para tu trabajo diario,
-          como convertir archivos PDF, imágenes y hojas de cálculo en diferentes formatos.
-        </p>
+      <div className="utils-header">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2>Utilidades</h2>
+          <p>
+            En esta sección encontrarás herramientas útiles para tu trabajo diario,
+            como convertir archivos PDF, imágenes y hojas de cálculo en diferentes formatos.
+          </p>
+        </motion.div>
       </div>
-
       <div className="utils-container">
         {tools.map((tool, index) => (
-          <div className="utilidad-card" key={index}>
+          <div className="utils-card" key={index}>
+            <div className="left-card-utils">
+              <h2 className="utils-title">{tool.title}</h2>
+              <p className="utils-description">{tool.description}</p>
+              <a
+                href={tool.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="utils-btn"
+              >
+                Ir a la herramienta
+              </a>
+            </div>
             <img
               src={tool.image}
               alt={tool.title}
-              className="utilidad-image"
+              className="utils-image"
             />
-            <h2 className="utilidad-title">{tool.title}</h2>
-            <p className="utilidad-description">{tool.description}</p>
-            <a
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="utilidad-btn"
-            >
-              Ir a la herramienta
-            </a>
+
           </div>
         ))}
       </div>

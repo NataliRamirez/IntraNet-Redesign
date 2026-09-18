@@ -59,7 +59,7 @@
 
 .footer-section h3 {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.7rem;
     margin-top: 0.7rem;
 }
@@ -77,6 +77,8 @@
 
 .links li {
     font-size: 0.85rem;
+    font-weight: 500;
+    color: #d3e4ff;
 }
 
 .inline {

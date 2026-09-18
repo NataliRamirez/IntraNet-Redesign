@@ -4,13 +4,13 @@
 }
 
 .nosotros-hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 350px;
-  background: linear-gradient(135deg, #3b82f6, #0f172a);
-  text-align: center;
-  color: white;
+  max-width: 100vw;
+  height: 50vh;
+  padding-top: 15vh;
+
+  background: linear-gradient(to bottom, #286ca3, #32A7D9);
+
+  color: #fff;
 }
 
 .nosotros-hero h2 {

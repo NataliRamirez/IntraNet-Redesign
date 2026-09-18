@@ -110,24 +110,7 @@ export default function Header() {
                 </div>
             </section>
 
-            {/* Línea divisoria del encabezado */}
-            <div className="inline"></div>
-
-            {/* Sección principal de bienvenida */}
-            <section
-                id="Inicio"
-                className="header-bottom"
-            >
-                <h2 className="title-header-bottom">
-                    INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P
-                </h2>
-
-                <p>
-                    En este portal podrás acceder a información
-                    relevante sobre noticias, eventos, herramientas
-                    e información corporativa.
-                </p>
-            </section>
+            
 
             {/* Modal de autenticación */}
             {showLogin && !user && (
