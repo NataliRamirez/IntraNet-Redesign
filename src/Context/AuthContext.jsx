@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
 
   //Inicio de sesión
   const login = (username) => {
-    const role = username === "admin" ? "admin" : "comunicaciones";
+    const role = username === "admin" ? "admin" : "comunications";
     const userData = { username, role };
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));

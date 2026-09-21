@@ -25,22 +25,22 @@ export default function AdminDashboard() {
           <p>Crea, edita y elimina las noticias de la empresa.</p>
           <button
             className="action-btn"
-            onClick={() => navigate("/admin/noticias")}
+            onClick={() => navigate("/admin/news")}
           >
             Gestionar Noticias
           </button>
         </div>
 
         <div className="action-card">
-  <h2>Cumpleaños</h2>
-  <p>Sube la imagen de los cumpleañeros del mes.</p>
-  <button
-    className="action-btn"
-    onClick={() => navigate("/admin/cumpleanos")}
-  >
-    Gestionar Imagen
-  </button>
-</div>
+          <h2>Cumpleaños</h2>
+          <p>Sube la imagen de los cumpleañeros del mes.</p>
+          <button
+            className="action-btn"
+            onClick={() => navigate("/admin/birthday")}
+          >
+            Gestionar Imagen
+          </button>
+        </div>
 
 
 
@@ -50,7 +50,10 @@ export default function AdminDashboard() {
           <p>Administra los eventos de la organización.</p>
           <button
             className="action-btn"
-            onClick={() => navigate("/admin/eventos")}
+            onClick={() => {
+              console.log("click eventos");
+              navigate("/admin/events");
+            }}
           >
             Gestionar Eventos
           </button>

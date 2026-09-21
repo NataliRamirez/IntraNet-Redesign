@@ -3,15 +3,15 @@ import { ShieldCheck, Lightbulb, HeartHandshake, Users } from "lucide-react";
 import "./Us.css";
 import OrganigramaImage from "../../assets/images/Organigrama - EMCA.png"; 
 
-export default function Nosotros() {
-  const valores = ["Honestidad", "Compromiso", "Respeto", "Diligencia", "Justicia", "Confianza"];
+export default function Us() {
+  const values = ["Honestidad", "Compromiso", "Respeto", "Diligencia", "Justicia", "Confianza"];
   const urlOrganigramaPDF = "https://emca-calarca-quindio.micolombiadigital.gov.co/sites/emca-calarca-quindio/content/files/000516/25760_estructura-organizacional.pdf";
 
   return (
-    <div className="nosotros">
+    <div className="us">
 
       {/* Hero */}
-      <section id="Nosotros" className="nosotros-hero">
+      <section id="Nosotros" className="us-hero">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: -30 }}
@@ -27,7 +27,7 @@ export default function Nosotros() {
       </section>
 
       {/* Misión y Visión */}
-      <section id="MisionVision" className="nosotros-mv">
+      <section id="MisionVision" className="us-mv">
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <ShieldCheck size={48} color="#3b82f6" />
           <h2>Misión</h2>
@@ -49,30 +49,30 @@ export default function Nosotros() {
       </section>
 
       {/* Valores */}
-      <section className="nosotros-valores">
+      <section className="us-values">
         <h2>Nuestros Valores</h2>
-        <div className="valores-grid">
-          {valores.map((valor, i) => (
+        <div className="values-grid">
+          {values.map((valor, i) => (
             <motion.div
               key={i}
-              className="valor-item"
+              className="value-item"
               whileHover={{ scale: 1.05, boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
             >
               <HeartHandshake size={28} color="#3b82f6" />
-              <span>{valor}</span>
+              <span>{value}</span>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Organigrama */}
-      <section id="Organigrama" className="nosotros-organigrama">
+      <section id="Organigrama" className="us-organizational-chart">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
-          className="organigrama-content"
+          className="organizational-chart-content"
         >
           <Users size={48} color="#3b82f6" />
           <h2>Estructura Organizacional</h2>
@@ -81,7 +81,7 @@ export default function Nosotros() {
           </p>
           
           <motion.div
-            className="organigrama-visual"
+            className="organizational-chart-visual"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300 }}
           >

@@ -122,15 +122,6 @@
     gap: 0.8rem;
 }
 
-.user-img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #fff;
-    object-fit: cover;
-}
-
 .logout-button {
     background: transparent;
     border: none;
@@ -151,10 +142,6 @@
     margin: 100px auto 0;
     border-top: 1px solid rgba(255, 255, 255, 0.7);
 }
-
-/* ===== CONTENIDO PRINCIPAL ===== */
-
-
 
 /* ===== MODAL LOGIN ===== */
 
@@ -190,4 +177,33 @@
     background: none;
     cursor: pointer;
     font-size: 1.3rem;
+}
+
+.logout-button, .user-button {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+}
+
+.logout-button:hover, .user-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.logout-button svg, .user-button svg{
+    font-size: 1.3rem;
+    background-color: transparent;
 }

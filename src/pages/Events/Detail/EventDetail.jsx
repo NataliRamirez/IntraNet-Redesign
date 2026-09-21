@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import "./Event-Detail.css"; // Crea este CSS si quieres estilos específicos, similar a NoticiaDetalle.css
+import "./EventDetail.css"; // Crea este CSS si quieres estilos específicos, similar a NoticiaDetalle.css
 
 export default function EventDetail() {
   const { id } = useParams(); // Obtiene el ID del evento de la URL
@@ -30,10 +30,10 @@ export default function EventDetail() {
 
   return (
     <div className="detail-container">
-      {event.imagen && (
+      {event.image && (
         <img
           className="detail-img"
-          src={`${import.meta.env.VITE_API_URL}/uploads/events/${event.imagen}`} // Ajusta la ruta de imágenes si es diferente
+          src={`${import.meta.env.VITE_API_URL}/uploads/events/${event.image}`} // Ajusta la ruta de imágenes si es diferente
           alt={event.title}
         />
       )}

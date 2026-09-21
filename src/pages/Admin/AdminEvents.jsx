@@ -7,7 +7,7 @@ import "./AdminEvents.css";
 const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
 export default function AdminEvents() {
-  const [events, setEventos] = useState([]);
+  const [events, setEvents] = useState([]);
   const [form, setForm] = useState({
     id: null,
     title: "",
@@ -83,7 +83,7 @@ export default function AdminEvents() {
         timer: 1800,
       });
 
-      fetchEventos();
+      fetchEvents();
       resetForm();
     } catch (err) {
       console.error("Error guardando evento:", err);
@@ -137,7 +137,7 @@ export default function AdminEvents() {
     if (result.isConfirmed) {
       try {
         await axios.delete(`${API_URL}/${id}`);
-        fetchEventos();
+        fetchEvents();
         Swal.fire("¡Eliminado!", "El evento ha sido eliminado correctamente.", "success");
       } catch (err) {
         console.error("Error eliminando evento:", err);
@@ -209,10 +209,10 @@ export default function AdminEvents() {
       <div className="section-events">
         <h2>Eventos registrados:</h2>
         <div className="events-list">
-          {eventos.length === 0 ? (
+          {events.length === 0 ? (
             <p>No hay eventos registrados aún.</p>
           ) : (
-            eventos.map((ev) => (
+            events.map((ev) => (
               <div key={ev.id} className="event-card">
                 {ev.imagen && (
                   <img

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Events.css";
 
-export default function Eventos() {
-  const [eventos, setEventos] = useState([]);
+export default function Events() {
+  const [eventos, setEvents] = useState([]);
 
   useEffect(() => {
-    const API_URL = `${import.meta.env.VITE_API_URL}/eventos`;
+    const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
     fetch(API_URL)
       .then((res) => res.json())
@@ -14,37 +14,37 @@ export default function Eventos() {
   }, []);
 
   return (
-    <div  id="Eventos" className="eventos-publicos">
+    <div  id="Events" className="public-events">
       <h1>Eventos 🎉</h1>
 
-      {eventos.length === 0 ? (
+      {events.length === 0 ? (
         <p>No hay eventos programados en este momento.</p>
       ) : (
-        <div className="eventos-grid">
-          {eventos.map((ev) => (
-            <article className="evento-card" key={ev.id}>
-              {ev.imagen && (
+        <div className="events-grid">
+          {events.map((ev) => (
+            <article className="event-card" key={ev.id}>
+              {ev.imagn && (
                 <img
-                  src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.imagen}`}
-                  alt={ev.nombre}
-                  className="evento-imagen"
+                  src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
+                  alt={ev.name}
+                  className="event-image"
                 />
               )}
 
-              <div className="evento-body">
-                <h2>{ev.nombre}</h2>
+              <div className="event-body">
+                <h2>{ev.name}</h2>
 
-                <p className="fecha">
-                  {ev.fechaHora ? (
+                <p className="date">
+                  {ev.dateTime ? (
                     <>
                       📅{" "}
-                      {new Date(ev.fechaHora).toLocaleDateString("es-CO", {
+                      {new Date(ev.dateTime).toLocaleDateString("es-CO", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       })}{" "}
                       | 🕒{" "}
-                      {new Date(ev.fechaHora).toLocaleTimeString("es-CO", {
+                      {new Date(ev.dateTime).toLocaleTimeString("es-CO", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -54,16 +54,16 @@ export default function Eventos() {
                   )}
                 </p>
 
-                {ev.lugar && <p className="lugar">📍 {ev.lugar}</p>}
+                {ev.place && <p className="place">📍 {ev.place}</p>}
 
-                <p className="desc">{ev.descripcion}</p>
+                <p className="desc">{ev.description}</p>
 
                 {ev.link && (
                   <a
                     href={ev.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="evento-btn"
+                    className="event-btn"
                   >
                     Inscribirse
                   </a>

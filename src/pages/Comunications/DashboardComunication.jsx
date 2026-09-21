@@ -1,4 +1,4 @@
-import "./Dashboard-Comunication.css";
+import "./DashboardComunication.css";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   const { user } = useAuth();
 
   // Solo Admin debería ver este panel
-  if (!user || user.role !== "comunicaciones") {
+  if (!user || user.role !== "comunications") {
     return <Navigate to="/" replace />;
   }
 
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
           <p>Crea, edita y elimina las noticias de la empresa.</p>
           <button
             className="action-btn"
-            onClick={() => navigate("/admin/noticias")}
+            onClick={() => navigate("/admin/news")}
           >
             Gestionar Noticias
           </button>
@@ -37,7 +37,7 @@ export default function AdminDashboard() {
           <p>Administra los eventos de la organización.</p>
           <button
             className="action-btn"
-            onClick={() => navigate("/admin/eventos")}
+            onClick={() => navigate("/admin/events")}
           >
             Gestionar Eventos
           </button>

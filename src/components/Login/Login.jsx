@@ -25,12 +25,12 @@ export default function Login({ onClose }) {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validUsers = { admin: "admin123", comunicaciones: "comu123" };
+    const validUsers = { admin: "admin123", comunications: "comu123" };
 
     if (validUsers[username] && validUsers[username] === password) {
       login(username);
       if (username === "admin") navigate("/admin");
-      if (username === "comunicaciones") navigate("/comunicaciones");
+      if (username === "comunications") navigate("/comunications");
       if (onClose) onClose();
     } else {
       setError("Usuario o contraseña incorrectos");

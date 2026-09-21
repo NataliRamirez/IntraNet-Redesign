@@ -5,7 +5,9 @@ import Login from "../Login/Login";
 import NotificationBell from "../Notifications/NotificationBell";
 import logoBlanco from "../../assets/images/logo-blanco.png";
 import userImg from "../../assets/images/user-img.png";
-import logoutImg from "../../assets/images/logout-img.jpg";
+import { FiLogOut } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
+
 
 import "./Header.css";
 
@@ -28,9 +30,18 @@ export default function Header() {
     };
 
     const goToDashboard = () => {
+        console.log("Usuario actual:", user);
+        console.log("Rol:", user?.role);
+
         if (!user) return;
-        if (user.role === "admin") navigate("/admin");
-        if (user.role === "comunicaciones") navigate("/comunicaciones");
+
+        if (user.role === "admin") {
+            navigate("/admin");
+        } else if (user.role === "comunications") {
+            navigate("/comunications");
+        } else {
+            console.log("Rol no reconocido:", user.role);
+        }
     };
 
     return (
@@ -60,10 +71,10 @@ export default function Header() {
 
                 {/* Menú de navegación interna */}
                 <nav className="nav-links">
-                    <a href="#Inicio">Inicio</a>
-                    <a href="#Noticias">Noticias</a>
-                    <a href="#Eventos">Eventos</a>
-                    <a href="#Nosotros">Nosotros</a>
+                    <a href="#Home">Inicio</a>
+                    <a href="#News">Noticias</a>
+                    <a href="#Events">Eventos</a>
+                    <a href="#Us">Nosotros</a>
                 </nav>
 
                 {/* Acciones de usuario */}
@@ -76,23 +87,23 @@ export default function Header() {
                         <div className="user-actions">
 
                             {/* Imagen de perfil del usuario */}
-                            <img
-                                src={userImg}
-                                alt="Usuario"
-                                className="user-img"
-                                onClick={goToDashboard}
-                            />
+                            <button
+                                className="user-button"
+                                onClick={() => {
+                                    console.log("click usuario");
+                                    goToDashboard();
+                                }}
+                            >
+                                <FiUser size={24} />
+                            </button>
+
 
                             {/* Botón para cerrar sesión */}
                             <button
                                 className="logout-button"
                                 onClick={handleLogout}
                             >
-                                <img
-                                    src={logoutImg}
-                                    alt="Cerrar sesión"
-                                    className="logout-img"
-                                />
+                                <FiLogOut size={24} />
                             </button>
 
                         </div>
@@ -110,7 +121,7 @@ export default function Header() {
                 </div>
             </section>
 
-            
+
 
             {/* Modal de autenticación */}
             {showLogin && !user && (

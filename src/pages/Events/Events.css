@@ -1,16 +1,16 @@
-.eventos-publicos {
+.public-events {
   padding: 2rem;
   text-align: center;
 }
 
-.eventos-grid {
+.events-grid {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-top: 2rem;
 }
 
-.evento-card {
+.event-card {
   background: #fff;
   border-radius: 1rem;
   overflow: hidden;
@@ -18,28 +18,28 @@
   transition: transform 0.2s;
 }
 
-.evento-card:hover {
+.event-card:hover {
   transform: scale(1.02);
 }
 
-.evento-imagen {
+.event-image {
   width: 600px;
   height: 400px;
   object-fit: cover;
 }
 
-.evento-body {
+.event-body {
   padding: 1.5rem;
   text-align: left;
 }
 
-.fecha {
+.date {
   font-weight: bold;
   color: #007bff;
   margin: 0.5rem 0;
 }
 
-.lugar {
+.place {
   color: #444;
   font-style: italic;
   margin-bottom: 0.5rem;
@@ -50,7 +50,7 @@
   margin-bottom: 1rem;
 }
 
-.evento-btn {
+.event-btn {
   display: inline-block;
   background-color: #007bff;
   color: white;
@@ -60,6 +60,6 @@
   transition: background-color 0.3s;
 }
 
-.evento-btn:hover {
+.event-btn:hover {
   background-color: #0056b3;
 }

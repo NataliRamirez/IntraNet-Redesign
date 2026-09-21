@@ -212,7 +212,6 @@ export default function AdminNews() {
             news.map((n) => (
               <div key={n.id} className="news-card">
                 {n.image && (
-                  // ✅ 3️⃣ CAMBIO: la imagen en lista usa también la base del .env
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
                     alt={n.title}
