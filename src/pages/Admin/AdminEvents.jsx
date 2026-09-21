@@ -37,7 +37,7 @@ export default function AdminEvents() {
     if (!file) return;
     setImageFile(file);
     const url = URL.createObjectURL(file);
-    setForm((f) => ({ ...f, imagen: url }));
+    setForm((f) => ({ ...f, image: url }));
   };
 
   const handleSubmit = async (e) => {
@@ -111,12 +111,12 @@ export default function AdminEvents() {
   const handleEdit = (ev) => {
     setForm({
       id: ev.id,
-      title: ev.nombre,
-      description: ev.descripcion,
-      dateTime: new Date(ev.fechaHora).toISOString().slice(0, 16),
-      place: ev.lugar || "",
+      title: ev.name,
+      description: ev.description,
+      dateTime: new Date(ev.dateTime).toISOString().slice(0, 16),
+      place: ev.place || "",
       link: ev.link || "",
-      image: ev.imagen
+      image: ev.image
         ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`
         : "",
     });
@@ -194,7 +194,7 @@ export default function AdminEvents() {
             />
           )}
 
-          <div style={{ display: "flex", gap: "0.5rem" }}>
+          <div className="divButton" style={{ display: "flex", gap: "0.5rem" }}>
             <button type="submit">{form.id ? "Actualizar" : "Crear"} Evento</button>
             {form.id && (
               <button type="button" onClick={resetForm}>
@@ -214,24 +214,24 @@ export default function AdminEvents() {
           ) : (
             events.map((ev) => (
               <div key={ev.id} className="event-card">
-                {ev.imagen && (
+                {ev.image && (
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.imagen}`}
-                    alt={ev.nombre}
+                    src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
+                    alt={ev.name}
                   />
                 )}
                 <div className="event-card-content">
-                  <h4>{ev.nombre}</h4>
+                  <h4>{ev.name}</h4>
                   <div className="date">
-                    {new Date(ev.fechaHora).toLocaleString("es-CO", {
+                    {new Date(ev.dateTime).toLocaleString("es-CO", {
                       dateStyle: "medium",
                       timeStyle: "short",
                     })}
                   </div>
-                  <p>{ev.descripcion}</p>
-                  {ev.lugar && (
+                  <p>{ev.description}</p>
+                  {ev.place && (
                     <p>
-                      <b>Lugar:</b> {ev.lugar}
+                      <b>Lugar:</b> {ev.place}
                     </p>
                   )}
                   {ev.link && (

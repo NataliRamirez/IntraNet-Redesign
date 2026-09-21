@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Events.css";
 
 export default function Events() {
-  const [eventos, setEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const API_URL = `${import.meta.env.VITE_API_URL}/events`;
@@ -23,7 +23,7 @@ export default function Events() {
         <div className="events-grid">
           {events.map((ev) => (
             <article className="event-card" key={ev.id}>
-              {ev.imagn && (
+              {ev.image && (
                 <img
                   src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
                   alt={ev.name}

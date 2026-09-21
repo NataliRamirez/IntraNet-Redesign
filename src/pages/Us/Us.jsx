@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Lightbulb, HeartHandshake, Users } from "lucide-react";
 import "./Us.css";
-import OrganigramaImage from "../../assets/images/Organigrama - EMCA.png"; 
+import OrganigramaImage from "../../assets/images/Organigrama - EMCA.png";
 
 export default function Us() {
   const values = ["Honestidad", "Compromiso", "Respeto", "Diligencia", "Justicia", "Confianza"];
@@ -52,11 +52,14 @@ export default function Us() {
       <section className="us-values">
         <h2>Nuestros Valores</h2>
         <div className="values-grid">
-          {values.map((valor, i) => (
+          {values.map((value, i) => (
             <motion.div
               key={i}
               className="value-item"
-              whileHover={{ scale: 1.05, boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+              }}
             >
               <HeartHandshake size={28} color="#3b82f6" />
               <span>{value}</span>
@@ -79,20 +82,20 @@ export default function Us() {
           <p>
             Conozca la jerarquía y distribución de los cargos que conforman la estructura de EMCA E.S.P., asegurando una gestión eficiente y transparente.
           </p>
-          
+
           <motion.div
             className="organizational-chart-visual"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <a href={urlOrganigramaPDF} target="_blank" rel="noopener noreferrer"> 
-              <img 
-                src={OrganigramaImage} 
-                alt="Organigrama de EMCA E.S.P." 
-                style={{ 
-                  maxWidth: '50%', 
-                  height: 'auto', 
-                  borderRadius: '8px', 
+            <a href={urlOrganigramaPDF} target="_blank" rel="noopener noreferrer">
+              <img
+                src={OrganigramaImage}
+                alt="Organigrama de EMCA E.S.P."
+                style={{
+                  maxWidth: '50%',
+                  height: 'auto',
+                  borderRadius: '8px',
                   boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                   cursor: 'pointer'
                 }}
