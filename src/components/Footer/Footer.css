@@ -1,6 +1,6 @@
 .footer {
     background-color: #3080c3;
-    width: 100%;
+    width: 100vw;
     height: 70vh;
     display: flex;
     justify-content: space-evenly;
