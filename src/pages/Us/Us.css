@@ -21,7 +21,7 @@
 .us-hero h2 {
   font-size: 2.4rem;
   margin-bottom: 1rem;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .us-hero p {
@@ -46,7 +46,7 @@
   padding: 2.5rem 2rem;
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -140,7 +140,7 @@
 .us-organizational-chart {
   padding: 60px 20px;
   text-align: center;
-  background-color: #f9f9f9; 
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,12 +150,12 @@
 .organizational-chart-content {
   max-width: 1000px;
   margin: 0 auto;
-  
+
 }
 
 .us-organizational-chart h2 {
   margin-top: 15px;
-  color: #1f2937; 
+  color: #1f2937;
   font-size: 2.2rem;
 }
 

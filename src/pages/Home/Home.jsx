@@ -35,10 +35,10 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-        <h2 className="title-header-bottom">
-          INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P
-        </h2>
-</motion.div>
+          <h2 className="title-header-bottom">
+            INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P
+          </h2>
+        </motion.div>
         <p>
           En este portal podrás acceder a información
           relevante sobre noticias, eventos, herramientas

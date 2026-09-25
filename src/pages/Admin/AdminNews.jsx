@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import "./AdminNews.css";
 
 // ✅ 1️⃣ CAMBIO PRINCIPAL: usamos la variable del .env
@@ -58,7 +58,7 @@ export default function AdminNews() {
       "fechaPublicacion", form.publicationDate || new Date().toISOString()
     );
     if (imageFile) fd.append("imagen", imageFile);
-    
+
     let actionTitle = '';
 
     try {
@@ -73,7 +73,7 @@ export default function AdminNews() {
         });
         actionTitle = 'Noticia Publicada';
       }
-      
+
       Swal.fire({
         icon: 'success',
         title: actionTitle,
@@ -81,7 +81,7 @@ export default function AdminNews() {
         showConfirmButton: false,
         timer: 1800
       });
-      
+
       fetchNews();
       resetForm();
     } catch (err) {

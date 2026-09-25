@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0%;
   padding: 0%;
 }
@@ -83,7 +83,7 @@
   font-weight: 500;
 }
 
-.body-text p{
+.body-text p {
   width: 70%;
   line-height: 1.8rem;
   text-align: justify;
@@ -98,7 +98,7 @@
   justify-content: center;
 }
 
-.body-img img{
+.body-img img {
   width: 80%;
   height: auto;
 }

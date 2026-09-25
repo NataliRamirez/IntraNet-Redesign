@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 import Login from "../Login/Login";
 import NotificationBell from "../Notifications/NotificationBell";
@@ -64,17 +65,19 @@ export default function Header() {
                         />
                     </a>
 
-                    <h1 className="title-header">
-                        INTRANET
-                    </h1>
+                    <Link to="/" className="title-link">
+                        <h1 className="title-header">
+                            INTRANET
+                        </h1>
+                    </Link>
                 </div>
 
                 {/* Menú de navegación interna */}
                 <nav className="nav-links">
                     <a href="#Home">Inicio</a>
-                    <a href="#News">Noticias</a>
-                    <a href="#Events">Eventos</a>
-                    <a href="#Us">Nosotros</a>
+                    <a href="#Noticias">Noticias</a>
+                    <a href="#Eventos">Eventos</a>
+                    <a href="#Nosotros">Nosotros</a>
                 </nav>
 
                 {/* Acciones de usuario */}

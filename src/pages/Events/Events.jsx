@@ -19,16 +19,16 @@ export default function Events() {
       <div className="events-header">
         <div className="hero-content">
           <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2>Eventos</h2>
-          <p>
-            Conoce los próximos eventos, actividades y espacios de participación
-            organizados por EMCA E.S.P.
-          </p>
+            className="hero-content"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2>Eventos</h2>
+            <p>
+              Conoce los próximos eventos, actividades y espacios de participación
+              organizados por EMCA E.S.P.
+            </p>
           </motion.div>
         </div>
       </div>

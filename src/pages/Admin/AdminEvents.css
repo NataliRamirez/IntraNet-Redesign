@@ -130,15 +130,14 @@
 }
 
 .section-events {
-  border-top: ;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.section-form h2, h2 {
-   font-size: 2.4rem;
-   font-weight: 300;
+.section-form h2,
+h2 {
+  font-size: 2.4rem;
+  font-weight: 300;
 }
-

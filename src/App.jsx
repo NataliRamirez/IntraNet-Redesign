@@ -16,8 +16,8 @@ import AdminEvents from "./pages/Admin/AdminEvents";
 import PrivateRoute from "./components/Routes/PrivateRoutes";
 import Footer from "./components/Footer/Footer";
 import GridNews from "./pages/News/GridNews/GridNews";
-import EventDetail from "./pages/Events/Detail/EventDetail"; 
-import BirthdayModal from "./pages/BirthdayModal/BirthdayModal"; 
+import EventDetail from "./pages/Events/Detail/EventDetail";
+import BirthdayModal from "./pages/BirthdayModal/BirthdayModal";
 import AdminBirthdayImage from "./pages/Admin/AdminBirthdayImage";
 
 
@@ -76,7 +76,7 @@ export default function App() {
           }
         />
       </Routes>
-      <Footer /> 
+      <Footer />
     </>
   );
 }

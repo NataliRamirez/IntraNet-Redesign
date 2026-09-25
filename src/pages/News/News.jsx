@@ -46,16 +46,16 @@ export default function News() {
       <div className="news-header">
         <div className="hero-content">
           <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2>Noticias</h2>
-          <p>
-            Mantente informado sobre las últimas novedades, comunicados,
-            actividades y eventos de EMCA E.S.P.
-          </p>
+            className="hero-content"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2>Noticias</h2>
+            <p>
+              Mantente informado sobre las últimas novedades, comunicados,
+              actividades y eventos de EMCA E.S.P.
+            </p>
           </motion.div>
         </div>
       </div>

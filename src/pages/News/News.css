@@ -47,11 +47,9 @@
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(
-    to bottom,
-    #286ca3,
-    #32a7d9
-  );
+  background: linear-gradient(to bottom,
+      #286ca3,
+      #32a7d9);
 
   padding: 0%;
   color: white;
@@ -120,12 +118,10 @@
 .news-card:hover {
   transform: translateY(-6px);
 
-  box-shadow: 0 10px 25px rgba(
-    0,
-    0,
-    0,
-    0.12
-  );
+  box-shadow: 0 10px 25px rgba(0,
+      0,
+      0,
+      0.12);
 }
 
 /* ========= Imagen ========= */
@@ -204,12 +200,10 @@
   border-radius: 50%;
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(
-    0,
-    0,
-    0,
-    0.12
-  );
+  box-shadow: 0 4px 12px rgba(0,
+      0,
+      0,
+      0.12);
 
   z-index: 10;
 }

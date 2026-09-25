@@ -4,9 +4,9 @@ import "./Slider.css";
 import img1 from "../../assets/images/banner1.png";
 import img2 from "../../assets/images/banner2.png";
 import img3 from "../../assets/images/banner3.png";
-import img4 from "../../assets/images/imagen-noticias-1.jpeg"   
+import img4 from "../../assets/images/imagen-noticias-1.jpeg"
 
-const images =  [img4, img1, img2, img3];
+const images = [img4, img1, img2, img3];
 
 /**
  * Componente encargado de mostrar un carrusel automático de imágenes. Permite la navegación mediante 
@@ -37,9 +37,8 @@ export default function Slider() {
       {images.map((imgSrc, index) => (
         <div
           key={index}
-          className={`slide-image-wrapper ${
-            index === currentIndex ? "active" : ""
-          }`}
+          className={`slide-image-wrapper ${index === currentIndex ? "active" : ""
+            }`}
           style={{ "--bg": `url(${imgSrc})` }}
         >
           <img

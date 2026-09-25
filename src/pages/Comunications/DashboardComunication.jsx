@@ -21,8 +21,8 @@ export default function AdminDashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-        <h1>Panel de Comunicaciones</h1>
-        <p>Bienvenido, aquí puedes gestionar Intranet.</p>
+          <h1>Panel de Comunicaciones</h1>
+          <p>Bienvenido, aquí puedes gestionar Intranet.</p>
         </motion.div>
       </header>
 
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
             Gestionar Noticias
           </button>
         </div>
-        
+
         {/* Eventos */}
         <div className="action-card">
           <h2>Eventos</h2>
