@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./BirthdayModal.css";
 import logoColor from "../../assets/images/logo-color.png";
@@ -53,8 +54,15 @@ export default function BirthdayModal() {
     <section className="birthday-page">
 
       <div className="head-bd">
-        <h3 className="title-bd">Cumpleañeros del Mes</h3>
-        <p>En esta sección podrás encontrar a nuestros cumpleañeros del mes</p>
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h3 className="title-bd">Cumpleañeros del Mes</h3>
+          <p>En esta sección podrás encontrar a nuestros cumpleañeros del mes</p>
+        </motion.div>
       </div>
 
       <div className="body-bd">

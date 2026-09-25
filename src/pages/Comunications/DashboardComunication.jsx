@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import "./DashboardComunication.css";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
@@ -14,8 +15,15 @@ export default function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
         <h1>Panel de Comunicaciones</h1>
         <p>Bienvenido, aquí puedes gestionar Intranet.</p>
+        </motion.div>
       </header>
 
       <section className="admin-actions">

@@ -1,0 +1,232 @@
+.event-detail-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #eaf3ff;
+}
+
+/* HERO */
+
+.event-detail-header {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    #286ca3,
+    #32a7d9
+  );
+  color: #fff;
+  text-align: center;
+}
+
+.event-detail-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.event-detail-hero h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.event-detail-hero p {
+  max-width: 700px;
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* CONTENEDOR */
+
+.event-detail-container {
+  width: 100%;
+  min-height: 50vh;
+  padding: 3rem 5%;
+  box-sizing: border-box;
+  background: #eaf3ff;
+}
+
+/* TARJETA */
+
+.event-detail-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGEN */
+
+.detail-img {
+  display: block;
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+/* CONTENIDO */
+
+.event-detail-content {
+  padding: 2.5rem;
+}
+
+.event-detail-content h2 {
+  margin: 0 0 1.2rem;
+  color: #1d3557;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* FECHA Y HORA */
+
+.event-detail-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.event-detail-info p {
+  margin: 0;
+  color: #286ca3;
+  font-weight: 600;
+}
+
+/* LUGAR */
+
+.event-detail-place {
+  margin: 0 0 1.5rem;
+  color: #475569;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* DESCRIPCIÓN */
+
+.event-detail-description {
+  margin-bottom: 2rem;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.event-detail-description p {
+  margin-bottom: 1rem;
+}
+
+.event-detail-description h1,
+.event-detail-description h2,
+.event-detail-description h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #1d3557;
+}
+
+/* BOTÓN INSCRIPCIÓN */
+
+.event-detail-btn {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.8rem 1.4rem;
+  background-color: #286ca3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.event-detail-btn:hover {
+  background-color: #1d3557;
+}
+
+/* BOTÓN VOLVER */
+
+.volver-btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  background-color: #eaf3ff;
+  color: #286ca3;
+  text-decoration: none;
+  border: 2px solid #286ca3;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.volver-btn:hover {
+  background-color: #286ca3;
+  color: #fff;
+}
+
+/* MENSAJES */
+
+.event-detail-message {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #eaf3ff;
+  color: #475569;
+  text-align: center;
+}
+
+.event-detail-message p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .event-detail-header {
+    height: 40vh;
+  }
+
+  .event-detail-hero h1 {
+    font-size: 2rem;
+  }
+
+  .event-detail-hero p {
+    font-size: 1rem;
+  }
+
+  .event-detail-container {
+    padding: 2rem 1rem;
+  }
+
+  .detail-img {
+    height: 280px;
+  }
+
+  .event-detail-content {
+    padding: 1.5rem;
+  }
+
+  .event-detail-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .event-detail-info {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .event-detail-btn,
+  .volver-btn {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0 0 0.8rem;
+  }
+}

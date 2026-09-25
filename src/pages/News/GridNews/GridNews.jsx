@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -31,11 +32,18 @@ export default function GridNews() {
     <div className="grid-news-page">
       <div className="grid-news-header">
         <div className="hero-content">
+          <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>Todas las Noticias</h2>
           <p>
             Consulta las noticias, comunicados y novedades publicadas
             por EMCA E.S.P.
           </p>
+          </motion.div>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import ScrollToTop from "./components/ScrollTop/ScrollToTop";
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Home from "./pages/Home/Home";
@@ -29,6 +30,7 @@ export default function App() {
     <>
       <Header />
       <Menu />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/us" element={<Us />} />

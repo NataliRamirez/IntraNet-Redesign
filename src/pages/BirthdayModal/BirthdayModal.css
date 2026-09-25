@@ -15,7 +15,8 @@
   gap: 1.5rem;
 
   position: relative;
-  background-color:  #e4ebff;
+  background-image: url("../../assets/images/background-bd.jpg");
+  background-repeat: repeat;
 
   text-align: center;
 }
@@ -29,10 +30,10 @@
   align-items: center;
   gap: 1.5rem;
 
-  background-image: url("../../assets/images/baloon-wallper.jpg");
+  background-image: url("../../assets/images/stars-bd.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center 9%;
+  background-position: center 13%;
 }
 
 .head-bd h3 {
