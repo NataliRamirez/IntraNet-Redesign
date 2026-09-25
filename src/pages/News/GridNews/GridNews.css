@@ -1,125 +1,202 @@
-/* ======== Layout general ======== */
+/* ========= Página ========= */
+
+.grid-news-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #eaf3ff;
+}
+
+/* ========= Hero ========= */
+
+.grid-news-header {
+  max-width: 100vw;
+  height: 50vh;
+  padding-top: 15vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    to bottom,
+    #286ca3,
+    #32a7d9
+  );
+
+  color: white;
+  text-align: center;
+}
+
+.grid-news-header .hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grid-news-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.grid-news-header p {
+  max-width: 700px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* ========= Contenedor ========= */
+
 .news-grid-container {
-    max-width: 1100px;
-    margin: 20px;
-    padding: 0 1rem;
-    font-family: "Inter", system-ui, sans-serif;
-    text-align: center;
-  }
-  
-  .news-grid-container h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
-  
-  .hr-title {
-    width: 130px;
-    height: 4px;
-    background: #27ae60;
-    border: none;
-    margin: 0 auto 2rem;
-    border-radius: 5px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 5%;
+}
+
+.subtitle {
+  text-align: center;
+  color: #475569;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+/* ========= Grid ========= */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(400px, 1fr)
+  );
+  gap: 2rem;
+}
+
+/* ========= Tarjetas ========= */
+
+.grid-card {
+  background: white;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 6px 20px rgba(
+    0,
+    0,
+    0,
+    0.08
+  );
+
+  transition: 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 10px 25px rgba(
+    0,
+    0,
+    0,
+    0.12
+  );
+}
+
+/* ========= Imagen ========= */
+
+.grid-card img {
+  width: 100%;
+  height: 260px;
+
+  object-fit: cover;
+
+  transition: 0.4s;
+}
+
+.grid-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ========= Información ========= */
+
+.grid-info {
+  padding: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.grid-info h2 {
+  color: #1e293b;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.fecha {
+  color: #286ca3;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.grid-info p {
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ========= Botón ========= */
+
+.btn {
+  margin-top: auto;
+
+  display: inline-block;
+
+  width: fit-content;
+
+  padding: 0.7rem 1.2rem;
+
+  background-color: #286ca3;
+
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #1d3557;
+}
+
+/* ========= Loading ========= */
+
+.loading-msg {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+}
+
+/* ========= Responsive ========= */
+
+@media (max-width: 768px) {
+  .grid-news-header h2 {
+    font-size: 2rem;
   }
 
-  .subtitle{
-    margin-bottom: 1rem;
+  .grid-news-header p {
+    padding: 0 1rem;
   }
-  
-  /* ======== Grid ======== */
+
   .news-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-    padding-bottom: 2rem;
+    grid-template-columns: 1fr;
   }
-  
-  /* ======== Card ======== */
-  .grid-card {
-    background: #ffffff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-    transition: transform .25s ease, box-shadow .25s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .grid-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  }
-  
-  /* Imagen */
+
   .grid-card img {
-    width: 400px;
-    height: 450px;
-    border-radius: 10px;
-    margin: 5px;
-    display: block;
-    object-fit: cover;
-    transition: transform .4s ease;
+    height: 240px;
   }
-  
-  .grid-card:hover img {
-    transform: scale(1.05);
-  }
-  
-  /* Texto */
-  .grid-info {
-    padding: 1.3rem;
-    text-align: left;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .grid-info h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: .5rem;
-  }
-  
-  .grid-info .fecha {
-    font-size: .9rem;
-    font-weight: 600;
-    color: #3498db;
-    margin-bottom: .8rem;
-  }
-  
-  .grid-info p {
-    color: #555;
-    margin-bottom: 1.2rem;
-  }
-  
-  /* Botón */
-  .btn {
-    align-self: flex-start;
-    background: #3498db;
-    color: white;
-    text-decoration: none;
-    padding: .6rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background .3s;
-  }
-  
-  .btn:hover {
-    background: #2980b9;
-  }
-  
-  /* ======== Responsive ======== */
-  @media (max-width: 768px) {
-    .news-grid {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    .grid-card img {
-      height: 490px;
-      width: 440px;
-      border-radius: 10px;
-    }
-  }
-  
+}

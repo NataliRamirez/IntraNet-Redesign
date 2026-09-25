@@ -3,39 +3,138 @@
   padding: 0%;
 }
 
-.body {
-  background-color: rgb(123, 140, 187);
+.birthday-page {
+  width: 100%;
+  padding-top: 20vh;
+  padding-bottom: 20vh;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  gap: 1.5rem;
+
+  position: relative;
+  background-color:  #e4ebff;
+
+  text-align: center;
 }
 
-.birthday-page {
-  width: 100vw;
-  min-height: 100vh;
-}
-
-.birthday-month {
-  height: 100vh;
+.head-bd {
+  height: 30vh;
   width: 90vw;
-  background-color: rgb(178, 191, 224);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+
+  background-image: url("../../assets/images/baloon-wallper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 9%;
+}
+
+.head-bd h3 {
+  color: #102b41;
+  font-size: 3rem;
+  font-weight: 700;
+  max-width: 60vw;
+}
+
+.head-bd p {
+  color: #102b41;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 750px;
+}
+
+.body-bd {
+  height: 85vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.body-text {
+  background-image: url("../../assets/images/cake-wallper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 9%;
+
+  width: 60%;
+  height: 90%;
+  padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: #102b41;
 }
 
-.month-bd-text {
+.body-text h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.body-text p{
+  width: 70%;
+  line-height: 1.8rem;
+  text-align: justify;
+}
+
+.body-img {
+  background-color: #fff;
   width: 40%;
   height: 90%;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
 }
 
-.bd-title {
-  font-size: 2.4rem;
-  font-weight: 700;
+.body-img img{
+  width: 80%;
+  height: auto;
+}
+
+.birthday-message p {
+  overflow-y: auto;
+  width: 70%;
+  line-height: 1.8rem;
+  text-align: justify;
+}
+
+.birthday-message {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.body-bd {
+  min-height: 85vh;
+}
+
+.birthday-message,
+.body-img {
+  height: 90%;
+}
+
+.body-img img {
+  width: 75%;
+  max-width: 400px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
