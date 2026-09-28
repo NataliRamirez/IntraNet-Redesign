@@ -37,7 +37,7 @@ export default function NotificationBell() {
    */
   const markAsRead = async (id) => {
     try {
-      await fetch(`${API_URL}/notifications/${id}/read`, { method: "PATCH" });
+      await fetch(`${API_URL}/notifications/${id}/is_read`, { method: "PATCH" });
       fetchNotifications();
     } catch (error) {
       console.error("Error marcando como leído:", error);
@@ -76,7 +76,7 @@ export default function NotificationBell() {
     return () => clearInterval(interval);
   }, []);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.is_read && !n.read).length;
 
   /**
    * Gestiona la selección de una notificación. La marca como leída y 
@@ -85,7 +85,7 @@ export default function NotificationBell() {
    * @param {Object} n Notificación seleccionada.
    */
   const handleNotificationClick = async (n) => {
-    if (!n.read) await markAsRead(n.id);
+    if (!n.is_read && !n.read) await markAsRead(n.id);
 
     if (n.type === "event" && n.eventId) {
       navigate(`/event/${n.eventId}`);
@@ -97,83 +97,56 @@ export default function NotificationBell() {
   };
 
   return (
-    <div className="notification-wrapper">
+    <>
+      {open && <div className="overlay-notifications" onClick={() => setOpen(false)}></div>}
 
-      {/* Botón de apertura del panel */}
-      <div
-        className="notification-bell"
-        onClick={() => setOpen(!open)}
-      >
+      <div className="notification-wrapper">
+        <div className="notification-bell" onClick={() => setOpen(!open)}>
+          <MdNotifications className="bell" />
 
-        {/* Ícono de notificaciones */}
-        <MdNotifications className="bell" />
+          {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+        </div>
 
-        {/* Indicador de notificaciones sin leer */}
-        {unreadCount > 0 && (
-          <span className="badge">
-            {unreadCount}
-          </span>
+        {open && (
+          <div className="notification-dropdown">
+            <div className="dropdown-header">
+              <strong>Notificaciones</strong>
+
+              {unreadCount > 0 && (
+                <button className="mark-all-btn" onClick={markAllAsRead}>
+                  Marcar todas como leídas
+                </button>
+              )}
+            </div>
+
+            {notifications.length === 0 && (
+              <p className="no-notifications">No hay notificaciones</p>
+            )}
+
+            {notifications.map((n) => (
+              <div
+                key={n.id}
+                className={`notification-item ${n.is_read || n.read ? "" : "unread"}`}
+                onClick={() => handleNotificationClick(n)}
+              >
+                <div className="notification-text">
+                  <strong>{n.title}</strong>
+                  <p>{n.message}</p>
+                </div>
+
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteNotification(n.id);
+                  }}
+                ></button>
+              </div>
+            ))}
+          </div>
         )}
       </div>
-
-      {/* Panel desplegable de notificaciones */}
-      {open && (
-        <div className="notification-dropdown">
-
-          {/* Encabezado del panel */}
-          <div className="dropdown-header">
-            <strong>Notificaciones</strong>
-
-            {unreadCount > 0 && (
-              <button
-                className="mark-all-btn"
-                onClick={markAllAsRead}
-              >
-                Marcar todas como leídas
-              </button>
-            )}
-          </div>
-
-          {/* Mensaje cuando no existen notificaciones */}
-          {notifications.length === 0 && (
-            <p className="no-notifications">
-              No hay notificaciones
-            </p>
-          )}
-
-          {/* Listado de notificaciones */}
-          {notifications.map((n) => (
-            <div
-              key={n.id}
-              className={`notification-item ${n.read ? "" : "unread"
-                }`}
-              onClick={() =>
-                handleNotificationClick(n)
-              }
-            >
-              <div className="notification-text">
-
-                {/* Título de la notificación */}
-                <strong>{n.title}</strong>
-
-                {/* Mensaje de la notificación */}
-                <p>{n.message}</p>
-              </div>
-
-              {/* Botón para eliminar la notificación */}
-              <button
-                className="delete-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteNotification(n.id);
-                }}
-              >
-              </button>
-
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      {open && <div className="overlay" onClick={() => setOpen(false)}></div>}
+    </>
   );
 }

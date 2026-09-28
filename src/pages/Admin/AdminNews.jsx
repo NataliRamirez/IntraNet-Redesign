@@ -11,9 +11,9 @@ export default function AdminNews() {
   const [form, setForm] = useState({
     id: null,
     title: "",
-    shortDesc: "",
+    short_desc: "",
     content: "",
-    publicationDate: "",
+    publication_date: "",
     image: "",
   });
   const [imagenFile, setImagenFile] = useState(null);
@@ -52,10 +52,10 @@ export default function AdminNews() {
 
     const fd = new FormData();
     fd.append("titulo", form.title);
-    fd.append("shortDesc", form.shortDesc || form.content.slice(0, 120));
+    fd.append("shortDesc", form.short_desc || form.content.slice(0, 120));
     fd.append("contenido", form.content);
     fd.append(
-      "fechaPublicacion", form.publicationDate || new Date().toISOString()
+      "fechaPublicacion", form.publication_date || new Date().toISOString()
     );
     if (imageFile) fd.append("imagen", imageFile);
 
@@ -98,9 +98,9 @@ export default function AdminNews() {
     setForm({
       id: null,
       title: "",
-      shortDesc: "",
+      short_desc: "",
       content: "",
-      publicationDate: "",
+      publication_date: "",
       image: "",
     });
     setImagenFile(null);
@@ -110,10 +110,10 @@ export default function AdminNews() {
     setForm({
       id: n.id,
       title: n.title,
-      shortDesc: n.shortDesc,
+      short_desc: n.short_desc,
       content: n.content,
-      publicationDate: n.publicationDate
-        ? new Date(n.PublicationDate).toISOString().slice(0, 16)
+      publication_date: n.publication_date
+        ? new Date(n.Publication_date).toISOString().slice(0, 16)
         : "",
       // ✅ 2️⃣ CAMBIO: imagen usa la URL del .env
       image: n.image
@@ -162,8 +162,8 @@ export default function AdminNews() {
           <input
             type="text"
             placeholder="Descripción corta"
-            value={form.shortDesc}
-            onChange={(e) => setForm({ ...form, shortDesc: e.target.value })}
+            value={form.short_desc}
+            onChange={(e) => setForm({ ...form, short_desc: e.target.value })}
           />
           <textarea
             placeholder="Contenido de la noticia"
@@ -176,7 +176,7 @@ export default function AdminNews() {
 
           {form.image && (
             <img
-              src={form.imagen}
+              src={form.image}
               alt="Previsualización"
               style={{ width: 150, borderRadius: 8, marginTop: 8 }}
             />
@@ -184,9 +184,9 @@ export default function AdminNews() {
 
           <input
             type="datetime-local"
-            value={form.publicationDate}
+            value={form.publication_date}
             onChange={(e) =>
-              setForm({ ...form, publicationDate: e.target.value })
+              setForm({ ...form, publication_date: e.target.value })
             }
           />
 
@@ -218,13 +218,13 @@ export default function AdminNews() {
                   />
                 )}
                 <div className="news-card-content">
-                  <h4>{n.titulo}</h4>
+                  <h4>{n.title}</h4>
                   <div className="date">
-                    {new Date(n.fechaPublicacion).toLocaleString("es-CO", {
+                    {new Date(n.publication_date).toLocaleString("es-CO", {
                       dateStyle: "medium",
                     })}
                   </div>
-                  <p>{n.shortDesc}</p>
+                  <p>{n.short_desc}</p>
                   <div className="actions">
                     <button onClick={() => handleEdit(n)}>Editar</button>
                     <button onClick={() => handleDelete(n.id)}>Eliminar</button>

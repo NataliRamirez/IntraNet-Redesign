@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import "./NewsDetail.css";
 
 export default function NewsDetail() {
@@ -13,8 +12,16 @@ export default function NewsDetail() {
     const fetchNews = async () => {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news/${id}`;
-        const res = await axios.get(API_URL);
-        setNews(res.data);
+
+        const res = await fetch(API_URL);
+
+        console.log("Estado /news/:id:", res.status);
+
+        const data = await res.json();
+
+        console.log("Respuesta /news/:id:", data);
+
+        setNews(data);
       } catch (error) {
         console.error("Error al obtener la noticia:", error);
       } finally {
@@ -57,7 +64,7 @@ export default function NewsDetail() {
         <h1>{news.title}</h1>
 
         <p className="date">
-          {new Date(news.publicationDate).toLocaleDateString("es-CO", {
+          {new Date(news.publication_date).toLocaleDateString("es-CO", {
             day: "2-digit",
             month: "long",
             year: "numeric",

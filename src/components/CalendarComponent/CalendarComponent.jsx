@@ -46,10 +46,22 @@ export default function CalendarComponent() {
    */
   useEffect(() => {
     fetch(`${API_URL}/events`)
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("Estado /events:", res.status);
+        return res.json();
+      })
       .then((data) => {
+        console.log("Respuesta /events:", data);
+
+        if (!Array.isArray(data)) {
+          console.error("La API no devolvió un arreglo:", data);
+          return;
+        }
+
         const transformedEvents = data.map((ev) => {
-          const startDate = new Date(ev.dateTime);
+          console.log("Evento recibido:", ev);
+
+          const startDate = new Date(ev.date_time);
 
           return {
             id: ev.id,
@@ -67,7 +79,9 @@ export default function CalendarComponent() {
 
         setEvents(transformedEvents);
       })
-      .catch((err) => console.error("Error al cargar eventos:", err));
+      .catch((err) => {
+        console.error("Error al cargar eventos:", err);
+      });
   }, []);
 
   /**

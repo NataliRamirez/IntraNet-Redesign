@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import "./News.css";
 
@@ -25,8 +24,21 @@ export default function News() {
     const fetchNews = async () => {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news`;
-        const res = await axios.get(API_URL);
-        setNews(res.data);
+
+        const res = await fetch(API_URL);
+
+        console.log("Estado /news:", res.status);
+
+        const data = await res.json();
+
+        console.log("Respuesta /news:", data);
+
+        if (!Array.isArray(data)) {
+          console.error("La API no devolvió un arreglo:", data);
+          return;
+        }
+
+        setNews(data);
       } catch (error) {
         console.error("Error al obtener noticias:", error);
       } finally {
@@ -86,7 +98,7 @@ export default function News() {
                     <h2>{n.title}</h2>
 
                     <p className="date">
-                      {new Date(n.publicationDate).toLocaleDateString(
+                      {new Date(n.publication_date).toLocaleDateString(
                         "es-CO",
                         {
                           day: "2-digit",
@@ -96,7 +108,7 @@ export default function News() {
                       )}
                     </p>
 
-                    <p>{n.shortDesc}</p>
+                    <p>{n.short_desc}</p>
 
                     <Link
                       to={`/news/${n.id}`}
