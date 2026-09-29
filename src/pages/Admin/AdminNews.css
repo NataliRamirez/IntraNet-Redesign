@@ -80,6 +80,10 @@
 
 /* === TARJETAS === */
 .news-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background: #ffffff;
   border: 1px solid #e1e5eb;
   border-radius: 12px;
@@ -91,12 +95,6 @@
 .news-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(52, 152, 219, 0.15);
-}
-
-.news-card img {
-  width: 350px;
-  height: 400px;
-  object-fit: cover;
 }
 
 .news-card-content {

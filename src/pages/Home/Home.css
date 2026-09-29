@@ -2,7 +2,7 @@
 
 .home {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  color: #2b4f6d;
   line-height: 1.6;
 }
 
@@ -25,20 +25,11 @@
   text-align: center;
 }
 
-.header-bottom::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(50, 167, 217, 0.15);
-  /* azul muy transparente */
-  z-index: 1;
-}
-
 .title-header-bottom {
   color: #fff;
   font-size: 3rem;
   font-weight: 700;
-  max-width: 60vw;
+  max-width: 70vw;
 }
 
 .header-bottom p {
@@ -46,7 +37,7 @@
   font-size: 1.2rem;
   line-height: 1.6;
   font-weight: 500;
-  max-width: 750px;
+  max-width: 710px;
 }
 
 .hero-compact {
@@ -72,14 +63,14 @@
   display: flex;
   align-items: center;
   text-align: center;
-  margin: -5px 0;
+  height: 15vh;
 }
 
 .horizontal-line span {
   padding: 0 15px;
   font-weight: 700;
   font-size: 2.4rem;
-  color: #333;
+  color: #2b4f6d;
   font-family: 'Montserrat', sans-serif;
   position: relative;
 }

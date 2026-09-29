@@ -1,46 +1,15 @@
-/* ========= Layout General ========= */
-
 .news-page {
   width: 100%;
-}
-
-.news-containers {
-  width: 100%;
-  min-height: 100vh;
-  background: #eaf3ff;
-  margin: 0%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.news-containers h2 {
-  color: #333;
-  font-size: 2.4rem;
-  font-weight: 700;
-}
-
-.loading-msg {
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.2rem;
-}
-
-/* ========= Hero ========= */
-
-/* ========= Página ========= */
-
-.grid-news-page {
-  width: 100%;
   min-height: 100vh;
   background: #eaf3ff;
 }
 
-/* ========= Hero ========= */
+/* =========================
+   ENCABEZADO
+========================= */
 
 .news-header {
-  max-width: 100vw;
+  width: 100%;
   height: 50vh;
 
   display: flex;
@@ -51,7 +20,6 @@
       #286ca3,
       #32a7d9);
 
-  padding: 0%;
   color: white;
   text-align: center;
 }
@@ -59,153 +27,317 @@
 .news-header .hero-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
+
+  padding: 0 1rem;
 }
 
 .news-header h2 {
+  margin: 0;
+
   font-size: 2.5rem;
   font-weight: 700;
 }
 
 .news-header p {
   max-width: 700px;
+
+  margin: 0;
+
   font-size: 1.1rem;
   line-height: 1.6;
 }
 
-/* ========= Carrusel ========= */
+/* =========================
+   CONTENEDOR
+========================= */
+
+.news-containers {
+  width: 100%;
+  min-height: 50vh;
+
+  margin-bottom: 5vh;
+
+  box-sizing: border-box;
+
+  padding: 4rem 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eaf3ff;
+}
+
+.loading-msg {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+}
+
+/* =========================
+   CARRUSEL
+========================= */
 
 .carousel-wrapper {
   position: relative;
-  max-width: 1500px;
+
+  width: 100%;
+  max-width: 1400px;
+
   margin: 0 auto;
 }
 
 .news-carousel {
+  width: 100%;
+
   display: flex;
+
   gap: 1.5rem;
-  overflow-x: auto;
+
+  overflow-x: hidden;
+
   padding: 1rem 0;
+
   scroll-behavior: smooth;
+
   scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
 }
 
-.news-carousel::-webkit-scrollbar {
-  height: 8px;
-}
-
-.news-carousel::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
-  border-radius: 10px;
-}
-
-/* ========= Tarjetas ========= */
+/* =========================
+   TARJETAS
+========================= */
 
 .news-card {
+
   flex: 0 0 420px;
 
-  background: white;
-  border-radius: 16px;
+  width: 420px;
+  height: 560px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   overflow: hidden;
 
+  background: white;
+
+  border-radius: 16px;
+
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 
-  transition: 0.3s ease;
+  scroll-snap-align: start;
+
+  transition: transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .news-card:hover {
   transform: translateY(-6px);
 
-  box-shadow: 0 10px 25px rgba(0,
-      0,
-      0,
-      0.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* ========= Imagen ========= */
+/* =========================
+   IMAGEN
+========================= */
+
+.news-image-container {
+  margin-top: 1rem;
+  width: 90%;
+  height: 260px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  background: #dbeafe;
+}
 
 .news-card img {
   width: 100%;
-  height: 260px;
+  height: 100%;
+
+  border-radius: 8px;
+
+  display: block;
+
   object-fit: cover;
 
-  transition: 0.4s;
+  transition: transform 0.4s ease;
 }
 
 .news-card:hover img {
   transform: scale(1.05);
 }
 
-/* ========= Contenido ========= */
+.news-image-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #64748b;
+
+  font-size: 1rem;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
 
 .news-content {
+  flex: 1;
+
   padding: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .news-content h2 {
+  min-height: 3.2rem;
+
+  margin: 0 0 0.8rem;
+
   color: #1e293b;
+
   font-size: 1.3rem;
-  margin-bottom: 0.8rem;
+  font-weight: 700;
+
+  line-height: 1.4;
 }
 
-.news-content p {
-  color: #475569;
-  line-height: 1.6;
-}
+.news-content .date {
+  min-height: 1.5rem;
 
-.date {
-  color: #286ca3;
+  margin: 0 0 1rem;
+
+  color: #1d4c74;
+
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 1rem;
 }
 
-/* ========= Botón ========= */
+.news-description {
+  flex: 1;
 
-.see-more-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.7rem 1.2rem;
+  margin: 0;
 
-  background-color: #286ca3;
-  color: white;
+  color: #475569;
 
-  text-decoration: none;
+  line-height: 1.6;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+
+.see-more-news-btn {
+  position: relative;
+  isolation: isolate;
+
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: rgb(30, 82, 124);
+
+  border: 2px solid rgb(30, 82, 124);
   border-radius: 8px;
 
+  padding: 0.6rem 1.2rem;
+
   font-weight: 600;
-  transition: 0.3s;
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    color 0.5s ease,
+    border-color 0.5s ease;
 }
 
-.see-more-btn:hover {
-  background-color: #1d3557;
+.see-more-news-btn::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    #286ca377,
+    #286ca3
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.5s ease;
+
+  z-index: -1;
 }
 
-/* ========= Flechas ========= */
+.see-more-news-btn:hover {
+  color: white;
+  border-color: #286ca3;
+}
+
+.see-more-news-btn:hover::before {
+  opacity: 1;
+}
+
+/* =========================
+   FLECHAS
+========================= */
 
 .carousel-btn {
   position: absolute;
+
   top: 50%;
+
   transform: translateY(-50%);
 
-  background: white;
-  color: #286ca3;
-
-  border: none;
+  z-index: 10;
 
   width: 50px;
   height: 50px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
   border-radius: 50%;
+
+  background: white;
+
+  color: #286ca3;
+
+  font-size: 1.2rem;
+
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(0,
-      0,
-      0,
-      0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 
-  z-index: 10;
+  transition: background 0.3s ease,
+    color 0.3s ease;
 }
 
 .carousel-btn:hover {
@@ -214,29 +346,9 @@
 }
 
 .carousel-btn.left {
-  left: -20px;
+  left: -25px;
 }
 
 .carousel-btn.right {
-  right: -20px;
-}
-
-/* ========= Responsive ========= */
-
-@media (max-width: 768px) {
-  .news-header h2 {
-    font-size: 2rem;
-  }
-
-  .news-header p {
-    padding: 0 1rem;
-  }
-
-  .news-card {
-    flex: 0 0 100%;
-  }
-
-  .carousel-btn {
-    display: none;
-  }
+  right: -25px;
 }
