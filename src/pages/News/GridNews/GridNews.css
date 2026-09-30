@@ -59,10 +59,11 @@
 /* ========= Grid ========= */
 
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: start;
+  gap: 3rem;
 }
 
 /* ========= Tarjetas ========= */
@@ -80,6 +81,7 @@
 
   padding: 1rem;
 
+  width: 22rem;
   height: fit-content;
   box-sizing: border-box;
 

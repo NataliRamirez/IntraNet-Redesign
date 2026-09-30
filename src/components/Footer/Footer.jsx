@@ -2,16 +2,18 @@ import React from "react";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 /*import logo from "../../assets/images/LogoEmcaGris.png";*/
+import { Link } from "react-router-dom";
 import logoBlanco from "../../assets/images/logo-blanco.png";
+
 import "./Footer.css";
 
 export default function Footer() {
     const enlacesInstitucionales = [
         { name: "Misión y Visión", url: "/nosotros" },
         { name: "Nosotros", url: "/nosotros" },
-        { name: "Organigrama", url: "/nosotros" }
+        { name: "Organigrama", url: "/nosotros" },
+        { name: "Terminos de servicio", path: "/useTerms" },
     ];
-
     return (
         <footer className="footer">
             <section className="footer-left">
@@ -42,8 +44,12 @@ export default function Footer() {
                     <div className="footer-section">
                         <h3>Legal</h3>
                         <ul className="links">
-                            <li><a href="#">Política de privacidad</a></li>
-                            <li><a href="#">Términos de servicio</a></li>
+                            <li><Link to="/useTerms">
+                                Política de privacidad
+                            </Link></li>
+                            <li><Link to="/useTerms">
+                                Términos de servicio
+                            </Link></li>
                         </ul>
                     </div>
                 </div>

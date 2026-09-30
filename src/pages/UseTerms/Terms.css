@@ -1,0 +1,80 @@
+.terms-page {
+  min-height: 100vh;
+  background: #eaf3ff;
+  padding-bottom: 60px;
+}
+
+.terms-header {
+  min-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+
+  background: linear-gradient(
+    135deg,
+    #286ca3,
+    #32a7d9
+  );
+
+  color: white;
+}
+
+.terms-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.terms-header p {
+  max-width: 750px;
+  margin-top: 15px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.terms-content {
+  width: 90%;
+  max-width: 1100px;
+  margin: 50px auto 0;
+}
+
+.terms-card {
+  background: white;
+  padding: 30px;
+  margin-bottom: 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(40, 108, 163, 0.12);
+}
+
+.terms-card h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #286ca3;
+  font-size: 1.35rem;
+}
+
+.terms-card p {
+  color: #4b5563;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.terms-card ul {
+  padding-left: 25px;
+  color: #4b5563;
+  line-height: 1.9;
+}
+
+.terms-card li {
+  margin-bottom: 5px;
+}
+
+.terms-footer {
+  text-align: center;
+  color: #6b7280;
+  padding: 20px;
+  font-size: 0.9rem;
+}

@@ -19,6 +19,7 @@ import GridNews from "./pages/News/GridNews/GridNews";
 import EventDetail from "./pages/Events/Detail/EventDetail";
 import BirthdayModal from "./pages/BirthdayModal/BirthdayModal";
 import AdminBirthdayImage from "./pages/Admin/AdminBirthdayImage";
+import UseTerms from "./pages/UseTerms/Terms";
 
 
 import "./App.css";
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/birthdaymodal" element={<BirthdayModal />} />
         <Route path="/admin/birthday" element={<AdminBirthdayImage />} />
+        <Route path="/useTerms" element={<UseTerms/>} />
 
         <Route
           path="/admin"
