@@ -23,6 +23,8 @@
   font-weight: 700;
   margin-bottom: 1rem;
   width: 70vw;
+  display: flex;
+  justify-content: center;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 

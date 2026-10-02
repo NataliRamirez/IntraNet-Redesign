@@ -1,0 +1,317 @@
+
+.notifications-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 50px;
+  background: #eaf3ff;
+  box-sizing: border-box;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.notifications-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.notifications-title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.notifications-title > svg {
+  font-size: 55px;
+  color: #286ca3;
+}
+
+.notifications-title h1 {
+  margin: 0;
+  color: #286ca3;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.notifications-title p {
+  margin: 7px 0 0;
+  color: #5d7185;
+  font-size: 1rem;
+}
+
+/* =========================
+   ACCIONES
+========================= */
+
+.notifications-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.unread-counter {
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #d8ecfa;
+  color: #286ca3;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mark-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 17px;
+  background: #286ca3;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mark-all-btn svg {
+  font-size: 20px;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.notifications-content {
+  width: 100%;
+}
+
+/* =========================
+   GRID DE TARJETAS
+========================= */
+
+.notifications-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(350px, 1fr));
+  gap: 22px;
+}
+
+/* =========================
+   TARJETA
+========================= */
+
+.notification-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  min-height: 190px;
+  padding: 24px;
+  background: white;
+  border-radius: 18px;
+  box-sizing: border-box;
+  box-shadow:
+    0 5px 18px rgba(40, 108, 163, 0.10);
+}
+
+/* Notificación sin leer */
+
+.notification-card.unread {
+  border-left: 5px solid #32a7d9;
+}
+
+/* Notificación leída */
+
+.notification-card.read {
+  opacity: 0.78;
+}
+
+/* =========================
+   ICONO
+========================= */
+
+.notification-icon {
+  min-width: 52px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: #e3f3fc;
+  color: #286ca3;
+  font-size: 30px;
+}
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.notification-card-content {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.notification-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.notification-type {
+  color: #6c8295;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.new-label {
+  padding: 4px 9px;
+  border-radius: 12px;
+  background: #32a7d9;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.notification-card-content h2 {
+  margin: 0 0 9px;
+  color: #286ca3;
+  font-size: 1.15rem;
+}
+
+.notification-card-content p {
+  margin: 0;
+  color: #526779;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.notification-date {
+  display: block;
+  margin-top: 15px;
+  color: #8a9aaa;
+  font-size: 0.78rem;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.notification-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.read-btn,
+.delete-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.read-btn {
+  background: #e3f3fc;
+  color: #286ca3;
+}
+
+.delete-btn {
+  background: #f6e8e8;
+  color: #b65c5c;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.notifications-state {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #6c8295;
+}
+
+.notifications-state > svg {
+  margin-bottom: 15px;
+  font-size: 70px;
+  color: #7db9d8;
+}
+
+.notifications-state h2 {
+  margin: 0 0 8px;
+  color: #286ca3;
+}
+
+.notifications-state p {
+  margin: 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .notifications-page {
+    padding: 30px 25px;
+  }
+
+  .notifications-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .notifications-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .notifications-page {
+    padding: 25px 15px;
+  }
+
+  .notifications-title h1 {
+    font-size: 1.7rem;
+  }
+
+  .notifications-title > svg {
+    font-size: 42px;
+  }
+
+  .notifications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .notification-card {
+    padding: 18px;
+  }
+
+  .notification-icon {
+    min-width: 43px;
+    width: 43px;
+    height: 43px;
+    font-size: 25px;
+  }
+
+  .notification-card-actions {
+    gap: 5px;
+  }
+}

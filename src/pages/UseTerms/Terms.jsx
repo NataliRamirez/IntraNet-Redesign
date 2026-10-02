@@ -16,131 +16,112 @@ export default function Terms() {
 
         <article className="terms-card">
           <h2>EMCA Empresas Públicas de Calarcá E.S.P.</h2>
-          <ul>NIT: [Número de NIT]</ul>
+          <ul>NIT: 890.000.377-0</ul>
           <ul>Domicilio: Cra. 24 #3974, Calarcá, Quindío</ul>
           <ul>Teléfono: +57 (606) 7421114</ul>
-          <ul>Correo Electrónico: [correo_proteccion_datos@empresa.com]</ul>
+          <ul>Correo Electrónico: contactenos@emca-calarca-quindio.gov.co.</ul>
         </article>
 
         <article className="terms-card">
-          <h2>2. Uso de la plataforma</h2>
+          <h2>OBJETIVO Y ALCANCE</h2>
           <p>
-            Los usuarios se comprometen a utilizar la plataforma de
-            manera responsable, respetuosa y conforme a la legislación
-            colombiana vigente.
+            La presente Política de Tratamiento de Datos Personales establece los lineamientos, derechos, deberes y procedimientos para garantizar el derecho constitucional de Habeas Data de los empleados directos de EMCA Empresas Públicas de Calarcá E.S.P. (en adelante, el "Responsable"), cuyas bases de datos y perfiles se gestionen a través de la Intranet Corporativa.
           </p>
+        </article>
 
+        <article className="terms-card">
+          <h2>DEFINICIONES CLAVE</h2>
           <ul>
-            <li>No compartir las credenciales de acceso.</li>
-            <li>No utilizar cuentas pertenecientes a otros usuarios.</li>
-            <li>No alterar, copiar o manipular información sin autorización.</li>
-            <li>No realizar actividades que puedan afectar el funcionamiento de la plataforma.</li>
+            <li> Dato Público: Dato que la ley o la Constitución determina como tal (ej. Nombre y Cédula).</li>
+            <li> Dato Privado: Dato que por su naturaleza íntima solo interesa al titular (ej. Fecha de cumpleaños).</li>
+            <li> Dato Sensible (Biométrico): Aquellos que afectan la intimidad del Titular o cuyo uso indebido puede generar discriminación. Para efectos de esta política, la fotografía del rostro del empleado se categoriza como un dato biométrico sensible.</li>
           </ul>
         </article>
 
         <article className="terms-card">
-          <h2>3. Tratamiento de datos personales</h2>
+          <h2>FINALIDADES DEL TRATAMIENTO</h2>
           <p>
-            La organización podrá recopilar y tratar datos personales
-            necesarios para la gestión de usuarios, comunicación
-            interna, administración de servicios y funcionamiento de
-            la plataforma.
+            EMCA ESP recolectará, almacenará, usará y circulará los datos de sus empleados directos para las siguientes finalidades exclusivas del vínculo laboral y la operación de la Intranet:
           </p>
+          <h3> A. Datos Operativos y de Identificación, para administradores y usuarios de comunicaciones (Nombre, Cédula, Cargo, área de trabajo y Correo electrónico):</h3>
+          <ul>
+            <li>Validar la identidad del trabajador para permitir el acceso de seguridad a los sistemas de la empresa.</li>
+            <li>Asignar perfiles, roles y permisos de software según la estructura organizacional.</li>
+          </ul>
+          <h3>B. Datos Operativos y de Identificación, para usuarios empleados de la empresa(Nombre, Cédula, Cargo y área de trabajo): </h3>
+          <ul>
+            <li>Ilustrar en la sección de notificaciones y la sección de cumpleaños los datos ya especificados.</li>
+          </ul>
+          <h3>C. Datos de Bienestar y Gestión Interna (Cumpleaños):</h3>
+          <ul>
+            <li>Gestionar y publicar felicitaciones en el calendario de la Intranet corporativa para actividades de bienestar e integración.</li>
+          </ul>
+          <h3>D. Datos Biométricos Sensibles (Fotografías):</h3>
+          <ul>
+            <li>Ilustrar el perfil del usuario administrador o usuario de comunicaciones dentro de la Intranet para humanizar la plataforma y permitir el reconocimiento mutuo del equipo de trabajo.</li>
+            <li>Ilustrar al/los empleados en su día y mes de cumpleaños en la sección de notificaciones y la sección de cumpleaños de la Intranet corporativa.</li>
+          </ul>
 
-          <p>
-            Los datos serán tratados de acuerdo con la normativa
-            colombiana aplicable en materia de protección de datos
-            personales, incluyendo la Ley 1581 de 2012 y sus normas
-            reglamentarias.
-          </p>
         </article>
 
         <article className="terms-card">
-          <h2>4. Información recopilada</h2>
+          <h2>TRATAMIENTO DE DATOS SENSIBLES (FOTOS)</h2>
           <p>
-            Dependiendo de las funcionalidades utilizadas, la
-            plataforma podrá almacenar información como:
+            En cumplimiento del Artículo 6 de la Ley 1581 de 2012, EMCA ESP informa a sus empleados que:
           </p>
 
           <ul>
-            <li>Nombre del usuario.</li>
-            <li>Número de identificación.</li>
-            <li>Correo electrónico.</li>
-            <li>Cargo o área dentro de la organización.</li>
-            <li>Información relacionada con el uso de la plataforma.</li>
+            <li>No están obligados a autorizar el tratamiento de su fotografía corporativa para la Intranet.</li>
+            <li>La negativa a suministrar o publicar su fotografía no afectará su estabilidad laboral, sus condiciones de trabajo, ni su acceso a las herramientas operativas de la plataforma.</li>
+            <li>Si el empleado decide no autorizar su foto, el sistema asignará un avatar genérico por defecto.</li>
           </ul>
         </article>
 
         <article className="terms-card">
-          <h2>5. Finalidad del tratamiento</h2>
+          <h2>DERECHOS DE LOS EMPLEADOS (TITULARES)</h2>
           <p>
-            Los datos personales podrán ser utilizados para:
+            Todo empleado directo, en su calidad de titular de los datos, tiene derecho a:
           </p>
-
           <ul>
-            <li>Gestionar y autenticar las cuentas de usuario.</li>
-            <li>Facilitar el acceso a los servicios de la IntraNet.</li>
-            <li>Enviar comunicaciones relacionadas con la organización.</li>
-            <li>Gestionar noticias, eventos y actividades internas.</li>
-            <li>Mejorar la seguridad y funcionamiento de la plataforma.</li>
+            <li>Conocer, actualizar y rectificar sus datos personales frente a la empresa si son parciales, inexactos, incompletos o inducen a error.</li>
+            <li>Solicitar la autorización otorgada a la empresa.</li>
+            <li>Revocar la autorización o solicitar la supresión de la fotografía o de la fecha de cumpleaños en cualquier momento de la Intranet, sin que esto altere el contrato laboral.</li>
           </ul>
         </article>
 
         <article className="terms-card">
-          <h2>6. Seguridad de la información</h2>
+          <h2>PROCEDIMIENTO PARA EJERCER LOS DERECHOS (HÁBEAS DATA)</h2>
           <p>
-            Se implementan medidas técnicas y organizativas orientadas
-            a proteger la información contra accesos no autorizados,
-            pérdida, alteración o divulgación indebida.
+            El empleado que desee consultar, actualizar, rectificar o eliminar su información de la Intranet deberá seguir el siguiente canal oficial:
+          </p>
+          <ul>
+            <li>Canal habilitado: Enviar un correo electrónico a [correo_proteccion_datos@empresa.com] con el asunto "Solicitud Hábeas Data - Intranet".</li>
+            <li>Contenido: Debe incluir nombre completo, número de cédula y la descripción clara del derecho que desea ejercer (ej. "Solicito retirar mi fotografía de la Intranet").</li>
+            <li>Tiempos de respuesta: Las consultas serán atendidas en un término máximo de diez (10) días hábiles. Los reclamos o solicitudes de supresión/revocatoria se resolverán en un máximo de quince (15) días hábiles.</li>
+          </ul>
+        </article>
+
+        <article className="terms-card">
+          <h2>MEDIDAS DE SEGURIDAD DE LA INFORMACIÓN</h2>
+          <p>
+            La empresa adoptará las medidas técnicas, humanas y administrativas necesarias para garantizar la seguridad de la base de datos de la Intranet, evitando su adulteración, pérdida, consulta, uso o acceso no autorizado o fraudulento por parte de personas ajenas a la organización.
           </p>
         </article>
 
         <article className="terms-card">
-          <h2>7. Derechos de los usuarios</h2>
+          <h2>VIGENCIA</h2>
           <p>
-            Los titulares de los datos personales podrán ejercer los
-            derechos reconocidos por la legislación colombiana,
-            incluyendo consultar, actualizar, corregir o solicitar la
-            supresión de sus datos cuando corresponda.
-          </p>
-        </article>
-
-        <article className="terms-card">
-          <h2>8. Responsabilidad del usuario</h2>
-          <p>
-            Cada usuario es responsable de mantener la confidencialidad
-            de sus credenciales y de todas las actividades realizadas
-            mediante su cuenta.
-          </p>
-        </article>
-
-        <article className="terms-card">
-          <h2>9. Cambios en los términos</h2>
-          <p>
-            La organización podrá actualizar estos términos cuando sea
-            necesario para reflejar cambios legales, técnicos u
-            operativos. Las modificaciones serán publicadas en esta
-            plataforma.
-          </p>
-        </article>
-
-        <article className="terms-card">
-          <h2>10. Contacto</h2>
-          <p>
-            Para realizar consultas relacionadas con el tratamiento de
-            datos personales o el uso de la plataforma, el usuario
-            podrá comunicarse con los canales oficiales establecidos
-            por la organización.
+            La presente política rige a partir de Octubre de 2026 y los datos se mantendrán almacenados durante la vigencia del contrato laboral
           </p>
         </article>
 
         <div className="terms-footer">
           <p>
-            Última actualización: septiembre de 2026
+            Última actualización: octubre de 2026
           </p>
         </div>
 
-      </section>
-    </main>
+      </section >
+    </main >
   );
 }

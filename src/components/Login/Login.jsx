@@ -1,46 +1,217 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import logoEmca from "../../assets/images/logo-blanco.png"
+import axios from "axios";
+
+import logoEmca from "../../assets/images/logo-blanco.png";
 import "./Login.css";
 
 
 /**
  * Componente encargado de gestionar el inicio de sesión
- * de los usuarios de la Intranet EMCA. Permite validar
- * credenciales, autenticar usuarios y redirigirlos según
- * el rol asignado.
+ * de los usuarios de la Intranet EMCA.
+ *
+ * Las credenciales son validadas por el backend mediante
+ * MySQL, bcrypt y JWT.
  */
 export default function Login({ onClose }) {
-  const [username, setUsername] = useState("");
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
   const { login } = useAuth();
+
 
   /**
    * Gestiona el envío del formulario de inicio de sesión.
-   * @param {Event} e Evento generado por el formulario.
    */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validUsers = { admin: "admin123", comunications: "comu123" };
+  const handleSubmit = async (e) => {
 
-    if (validUsers[username] && validUsers[username] === password) {
-      login(username);
-      if (username === "admin") navigate("/admin");
-      if (username === "comunications") navigate("/comunications");
-      if (onClose) onClose();
-    } else {
-      setError("Usuario o contraseña incorrectos");
+    e.preventDefault();
+
+    setError("");
+
+    /*
+     * Validamos que los campos no estén vacíos.
+     */
+    if (!email || !password) {
+
+      setError(
+        "Ingresa tu correo y contraseña"
+      );
+
+      return;
+    }
+
+    try {
+
+      setLoading(true);
+
+      /*
+       * URL del backend.
+       */
+      const API_URL =
+        import.meta.env.VITE_API_URL;
+
+      console.log(
+        "API_URL:",
+        import.meta.env.VITE_API_URL
+      );
+      
+      /*
+       * Enviamos las credenciales al backend.
+       */
+      const response = await axios.post(
+        `${API_URL}/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+
+      /*
+       * Mostramos temporalmente la respuesta
+       * para comprobar qué devuelve el backend.
+       */
+      console.log(
+        "RESPUESTA DEL LOGIN:",
+        response.data
+      );
+
+      const data = response.data;
+
+      /*
+       * Obtenemos el JWT.
+       */
+      const token =
+        data.access_token ||
+        data.data?.access_token;
+
+      /*
+       * Si el backend no devuelve el token,
+       * detenemos el proceso.
+       */
+      if (!token) {
+
+        throw new Error(
+          "El servidor no devolvió un token de acceso"
+        );
+      }
+
+      /*
+       * Guardamos el JWT mediante AuthContext.
+       */
+      login(token);
+
+      /*
+       * Decodificamos únicamente el payload
+       * para conocer el rol del usuario.
+       *
+       * La seguridad real está en el backend.
+       */
+      const payload = JSON.parse(
+        atob(token.split(".")[1])
+      );
+
+      const role = payload.role;
+
+      console.log(
+        "ROL DEL USUARIO:",
+        role
+      );
+
+      /*
+       * Redirección según el rol almacenado
+       * en la tabla roles de MySQL.
+       *
+       * ADMINISTRADOR
+       * COMUNICACIONES
+       */
+      if (role === "ADMINISTRADOR") {
+
+        navigate("/admin");
+
+      } else if (role === "COMUNICACIONES") {
+
+        navigate("/comunications");
+
+      } else {
+
+        navigate("/");
+
+      }
+
+      /*
+       * Cerramos el modal si existe.
+       */
+      if (onClose) {
+        onClose();
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Error al iniciar sesión:",
+        error
+      );
+
+      /*
+       * Credenciales incorrectas.
+       */
+      if (error.response?.status === 401) {
+
+        setError(
+          "Correo o contraseña incorrectos"
+        );
+
+      }
+
+      /*
+       * Errores enviados por NestJS.
+       */
+      else if (
+        error.response?.data?.message
+      ) {
+
+        setError(
+          Array.isArray(
+            error.response.data.message
+          )
+            ? error.response.data.message.join(
+              ", "
+            )
+            : error.response.data.message
+        );
+
+      }
+
+      /*
+       * Otros errores.
+       */
+      else {
+
+        setError(
+          "No fue posible iniciar sesión. Intenta nuevamente."
+        );
+      }
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
+
 
   return (
     <div className="login-container">
 
-      {/* Formulario principal de autenticación */}
+      {/* Formulario principal */}
       <form
         className="login-form"
         onSubmit={handleSubmit}
@@ -48,32 +219,41 @@ export default function Login({ onClose }) {
 
         {/* Logo institucional */}
         <div className="emca-logo">
+
           <img
             className="logoEmca"
             src={logoEmca}
-            alt="Logo Color"
+            alt="Logo EMCA"
           />
+
         </div>
 
-        {/* Título del formulario */}
+
+        {/* Título */}
         <h2 className="login-title">
           INICIAR SESIÓN
         </h2>
 
-        {/* Campo de usuario */}
+
+        {/* Correo electrónico */}
         <div className="input-group">
+
           <input
-            type="text"
-            placeholder="Usuario"
-            value={username}
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
             onChange={(e) =>
-              setUsername(e.target.value)
+              setEmail(e.target.value)
             }
+            autoComplete="email"
           />
+
         </div>
 
-        {/* Campo de contraseña */}
+
+        {/* Contraseña */}
         <div className="input-group">
+
           <input
             type="password"
             placeholder="Contraseña"
@@ -81,25 +261,38 @@ export default function Login({ onClose }) {
             onChange={(e) =>
               setPassword(e.target.value)
             }
+            autoComplete="current-password"
           />
+
         </div>
+
 
         {/* Mensaje de error */}
         {error && (
+
           <p className="login-error">
             {error}
           </p>
+
         )}
 
-        {/* Botón de acceso */}
+
+        {/* Botón */}
         <button
           className="loginForm-button"
           type="submit"
+          disabled={loading}
         >
-          INGRESAR
+
+          {loading
+            ? "INGRESANDO..."
+            : "INGRESAR"
+          }
+
         </button>
 
       </form>
+
     </div>
   );
 }
