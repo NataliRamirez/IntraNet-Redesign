@@ -57,7 +57,7 @@ export default function Menu() {
       name: "Utilidades",
       path: "/utils",
       icon: <FaTools />,
-    },
+    }
   ];
 
   return (

@@ -51,7 +51,7 @@ export default function BirthdayModal() {
   }, []);
 
   return (
-    <section className="birthday-page">
+    <section className="birthday-page"  id="Cumpleaños">
 
       <div className="head-bd">
         <motion.div
@@ -79,7 +79,7 @@ export default function BirthdayModal() {
 
       </div>
 
-      <div className="head-bd">
+      <div className="head-bd" id="Agradecimientos">
         <h3>Agradecimientos</h3>
         <p>...</p>
       </div>

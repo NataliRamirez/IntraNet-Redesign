@@ -5,7 +5,7 @@
 
 .birthday-page {
   width: 100%;
-  padding-top: 20vh;
+  padding-top: 14vh;
   padding-bottom: 20vh;
 
   display: flex;
@@ -22,7 +22,7 @@
 }
 
 .head-bd {
-  height: 30vh;
+  height: 29vh;
   width: 90vw;
   display: flex;
   flex-direction: column;

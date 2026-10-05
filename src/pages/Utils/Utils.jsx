@@ -63,7 +63,7 @@ export default function Utils() {
 
   return (
     <div>
-      <div className="utils-header">
+      <div className="utils-header" id="Utilidades">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: -30 }}
@@ -77,7 +77,7 @@ export default function Utils() {
           </p>
         </motion.div>
       </div>
-      <div className="utils-container">
+      <div className="utils-container" id="Herramientas">
         {tools.map((tool, index) => (
           <div className="utils-card" key={index}>
             <div className="left-card-utils">
