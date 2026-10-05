@@ -27,12 +27,10 @@ export default function Header() {
         if (!user) return;
 
         if (
-            user.role === "admin" ||
             user.role === "ADMINISTRADOR"
         ) {
             navigate("/admin");
         } else if (
-            user.role === "comunications" ||
             user.role === "COMUNICACIONES"
         ) {
             navigate("/comunications");

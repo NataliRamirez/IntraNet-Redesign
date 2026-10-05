@@ -3,61 +3,169 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 /**
+ * Decodifica el payload de un JWT.
+ */
+const decodeToken = (token) => {
+  try {
+    const payload = token.split(".")[1];
+
+    if (!payload) {
+      return null;
+    }
+
+    const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(
+          (char) =>
+            "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2)
+        )
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error("Error al decodificar el token:", error);
+    return null;
+  }
+};
+
+/**
+ * Normaliza los roles para que todo el frontend
+ * trabaje únicamente con los nombres del backend.
+ */
+const normalizeRole = (role) => {
+  if (!role) return null;
+
+  const normalizedRole = role.toString().toUpperCase();
+
+  if (
+    normalizedRole === "ADMINISTRADOR"
+  ) {
+    return "ADMINISTRADOR";
+  }
+
+  if (
+    normalizedRole === "COMUNICACIONES"
+  ) {
+    return "COMUNICACIONES";
+  }
+
+  return null;
+};
+
+/**
  * Proveedor del contexto de autenticación.
- * Gestiona el estado del usuario autenticado y sincroniza
- * la información con el almacenamiento local del navegador.
- *
- * @param {Object} props - Propiedades del componente.
- * @param {React.ReactNode} props.children - Componentes hijos que tendrán acceso al contexto.
- * @returns {JSX.Element} Proveedor de autenticación.
  */
 export function AuthProvider({ children }) {
-
   /**
-  * Estado que almacena la información del usuario autenticado.
-  * Se inicializa recuperando los datos almacenados en localStorage.
-  */
+   * Recuperar usuario almacenado.
+   */
   const [user, setUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("user")) || null;
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(storedUser);
+    } catch (error) {
+      console.error("Error leyendo usuario almacenado:", error);
+      localStorage.removeItem("user");
+      return null;
+    }
   });
 
-  //Inicio de sesión
-  const login = (username) => {
-    const role = username === "admin" ? "admin" : "comunications";
-    const userData = { username, role };
+  /**
+   * Inicio de sesión.
+   *
+   * Recibe el JWT que devuelve el backend.
+   */
+  const login = (token) => {
+    const decodedToken = decodeToken(token);
+
+    if (!decodedToken) {
+      console.error("Token JWT inválido.");
+      return false;
+    }
+
+    const role = normalizeRole(decodedToken.role);
+
+    if (!role) {
+      console.error("Rol no reconocido:", decodedToken.role);
+      return false;
+    }
+
+    const userData = {
+      token,
+      username: decodedToken.email || decodedToken.sub,
+      userId: decodedToken.sub,
+      email: decodedToken.email,
+      role,
+    };
+
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+
+    console.log("Usuario autenticado:", userData);
+
+    return true;
   };
 
+  /**
+   * Cerrar sesión.
+   */
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
   };
 
   /**
-   * Escucha los cambios realizados en localStorage desde otras
-   * pestañas o ventanas del navegador para mantener sincronizado
-   * el estado de autenticación.
+   * Sincronizar cambios de localStorage
+   * entre diferentes pestañas.
    */
   useEffect(() => {
     const handleStorage = () => {
-      setUser(JSON.parse(localStorage.getItem("user")) || null);
+      const storedUser = localStorage.getItem("user");
+
+      if (!storedUser) {
+        setUser(null);
+        return;
+      }
+
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Error leyendo usuario:", error);
+        setUser(null);
+      }
     };
+
     window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+    };
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
 /**
- * Hook personalizado para acceder al contexto de autenticación.
- *
- * @returns {Object} Información del usuario autenticado y funciones de autenticación.
+ * Hook personalizado para acceder al contexto.
  */
 export function useAuth() {
   return useContext(AuthContext);

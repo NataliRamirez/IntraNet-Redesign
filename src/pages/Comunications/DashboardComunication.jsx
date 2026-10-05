@@ -3,18 +3,18 @@ import "./DashboardComunication.css";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
-export default function AdminDashboard() {
+export default function ComunitactionDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Solo Admin debería ver este panel
-  if (!user || user.role !== "comunications") {
+  // Solo Comunicaciones debería ver este panel
+  if (!user || user.role !== "COMUNICACIONES") {
     return <Navigate to="/" replace />;
   }
 
   return (
-    <div className="admin-dashboard">
-      <header className="admin-header">
+    <div className="comunication-dashboard">
+      <header className="comunication-header">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: -30 }}
@@ -22,11 +22,11 @@ export default function AdminDashboard() {
           transition={{ duration: 0.6 }}
         >
           <h1>Panel de Comunicaciones</h1>
-          <p>Bienvenido, aquí puedes gestionar Intranet.</p>
+          <p>Bienvenido, aquí puedes gestionar Noticias y Eventos de la Intranet.</p>
         </motion.div>
       </header>
 
-      <section className="admin-actions">
+      <section className="comunication-actions">
         {/* Noticias */}
         <div className="action-card">
           <h2>Noticias</h2>

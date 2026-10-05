@@ -62,7 +62,7 @@ export default function Login({ onClose }) {
         "API_URL:",
         import.meta.env.VITE_API_URL
       );
-      
+
       /*
        * Enviamos las credenciales al backend.
        */
@@ -106,7 +106,11 @@ export default function Login({ onClose }) {
       /*
        * Guardamos el JWT mediante AuthContext.
        */
-      login(token);
+      const loginSuccess = login(token);
+
+      if (!loginSuccess) {
+        throw new Error("No fue posible guardar la sesión");
+      }
 
       /*
        * Decodificamos únicamente el payload
@@ -118,32 +122,16 @@ export default function Login({ onClose }) {
         atob(token.split(".")[1])
       );
 
-      const role = payload.role;
+      const role = payload.role?.toUpperCase();
 
-      console.log(
-        "ROL DEL USUARIO:",
-        role
-      );
+      console.log("ROL DEL USUARIO:", role);
 
-      /*
-       * Redirección según el rol almacenado
-       * en la tabla roles de MySQL.
-       *
-       * ADMINISTRADOR
-       * COMUNICACIONES
-       */
       if (role === "ADMINISTRADOR") {
-
         navigate("/admin");
-
       } else if (role === "COMUNICACIONES") {
-
         navigate("/comunications");
-
       } else {
-
         navigate("/");
-
       }
 
       /*
@@ -160,24 +148,13 @@ export default function Login({ onClose }) {
         error
       );
 
-      /*
-       * Credenciales incorrectas.
-       */
       if (error.response?.status === 401) {
 
         setError(
           "Correo o contraseña incorrectos"
         );
 
-      }
-
-      /*
-       * Errores enviados por NestJS.
-       */
-      else if (
-        error.response?.data?.message
-      ) {
-
+      } else if (error.response?.data?.message) {
         setError(
           Array.isArray(
             error.response.data.message
@@ -187,13 +164,7 @@ export default function Login({ onClose }) {
             )
             : error.response.data.message
         );
-
-      }
-
-      /*
-       * Otros errores.
-       */
-      else {
+      } else {
 
         setError(
           "No fue posible iniciar sesión. Intenta nuevamente."

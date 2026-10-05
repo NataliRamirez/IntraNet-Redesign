@@ -1,26 +1,26 @@
-.admin-dashboard {
+.comunication-dashboard {
   padding: 2rem;
   min-height: 80vh;
   background: #f4f7fa;
   font-family: "Segoe UI", sans-serif;
 }
 
-.admin-header {
+.comunication-header {
   text-align: center;
   margin-bottom: 2.5rem;
 }
 
-.admin-header h1 {
+.comunication-header h1 {
   font-size: 2.2rem;
   color: #1a365d;
 }
 
-.admin-header p {
+.comunication-header p {
   font-size: 1rem;
   color: #555;
 }
 
-.admin-actions {
+.comunication-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
