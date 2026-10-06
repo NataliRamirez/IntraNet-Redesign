@@ -67,7 +67,9 @@ export default function Header() {
                     </Link>
                 </>
             );
-        } else if (location.pathname.startsWith("/comunications")) {
+        }
+
+        if (location.pathname.startsWith("/comunications")) {
             return (
                 <>
                     <Link to="/comunications">Inicio</Link>

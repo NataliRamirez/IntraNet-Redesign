@@ -32,35 +32,32 @@ export default function NotificationBell() {
     "Content-Type": "application/json",
   });
 
-  /*
-   * Obtener notificaciones.
-   */
   const fetchNotifications = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}/notifications`,
-        {
-          headers: getAuthHeaders(),
-        }
-      );
+  try {
+    console.log("USUARIO:", user);
+    console.log("TOKEN:", user?.token);
 
-      if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status}`
-        );
-      }
+    const response = await fetch(`${API_URL}/notifications`, {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-      const data = await response.json();
+    console.log("STATUS NOTIFICATIONS:", response.status);
 
-      setNotifications(data);
-
-    } catch (error) {
-      console.error(
-        "Error obteniendo notificaciones:",
-        error
-      );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log("RESPUESTA DEL BACKEND:", errorText);
+      throw new Error(`Error HTTP: ${response.status}`);
     }
-  };
+
+    const data = await response.json();
+    setNotifications(data);
+  } catch (error) {
+    console.error("Error obteniendo notificaciones:", error);
+  }
+};
 
   /*
    * Marcar una notificación como leída.

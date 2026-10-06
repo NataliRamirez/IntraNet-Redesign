@@ -3,7 +3,7 @@
   min-height: 100vh;
   padding: 3rem 5%;
   box-sizing: border-box;
-  background: #eaf3ff;
+  background: #e3efff;
 }
 
 /* TÍTULO */
@@ -50,7 +50,7 @@
 
 .rbc-header {
   padding: 10px 0;
-  background: #f1f5f9;
+  background: #e9f1fa;
   color: #1d3557;
   font-weight: 600;
   text-align: center;
@@ -76,7 +76,7 @@
 }
 
 .rbc-off-range-bg {
-  background: #f8fafc;
+  background: #f2f7fc;
 }
 
 .rbc-date-cell {
@@ -103,7 +103,7 @@
 }
 
 .cell-day:hover {
-  background: #f1f5f9;
+  background: #ebf1f8;
 }
 
 .number-day {
