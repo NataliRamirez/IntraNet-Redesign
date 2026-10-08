@@ -26,13 +26,9 @@ export default function Header() {
 
         if (!user) return;
 
-        if (
-            user.role === "ADMINISTRADOR"
-        ) {
+        if (user.role === "ADMINISTRADOR") {
             navigate("/admin");
-        } else if (
-            user.role === "COMUNICACIONES"
-        ) {
+        } else if (user.role === "COMUNICACIONES") {
             navigate("/comunications");
         } else {
             console.log("Rol no reconocido:", user.role);

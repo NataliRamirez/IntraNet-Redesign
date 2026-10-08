@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdNotifications } from "react-icons/md";
+import {
+  MdNotifications,
+  MdDelete,
+  MdCheck,
+  MdDoneAll,
+  MdSearch,
+  MdClose,
+  MdEvent,
+  MdArticle,
+} from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext";
 import "./NotificationBell.css";
 
-/**
- * Componente encargado de gestionar y visualizar las notificaciones de la Intranet.
- *
- * Permite:
- * - Consultar notificaciones.
- * - Marcar una notificación como leída.
- * - Marcar todas como leídas.
- * - Eliminar notificaciones.
- * - Redirigir a noticias y eventos existentes.
- */
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
+
+  // ================================
+  // FILTROS
+  // ================================
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("ALL");
+  const [readFilter, setReadFilter] = useState("ALL");
 
   const navigate = useNavigate();
 
@@ -24,45 +30,78 @@ export default function NotificationBell() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  /*
-   * Headers de autenticación.
+  /**
+   * ============================================
+   * HEADERS DE AUTENTICACIÓN
+   * ============================================
+   *
+   * Solamente se envía Authorization cuando
+   * existe un usuario autenticado.
    */
-  const getAuthHeaders = () => ({
-    Authorization: `Bearer ${user?.token}`,
-    "Content-Type": "application/json",
-  });
+  const getAuthHeaders = () => {
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-  const fetchNotifications = async () => {
-  try {
-    console.log("USUARIO:", user);
-    console.log("TOKEN:", user?.token);
-
-    const response = await fetch(`${API_URL}/notifications`, {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    console.log("STATUS NOTIFICATIONS:", response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log("RESPUESTA DEL BACKEND:", errorText);
-      throw new Error(`Error HTTP: ${response.status}`);
+    if (user?.token) {
+      headers.Authorization = `Bearer ${user.token}`;
     }
 
-    const data = await response.json();
-    setNotifications(data);
-  } catch (error) {
-    console.error("Error obteniendo notificaciones:", error);
-  }
-};
+    return headers;
+  };
 
-  /*
-   * Marcar una notificación como leída.
+  /**
+   * ============================================
+   * OBTENER NOTIFICACIONES
+   * ============================================
+   *
+   * Esta función NO requiere autenticación.
+   *
+   * Por eso los usuarios públicos también
+   * pueden consultar las notificaciones.
+   */
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}/notifications`,
+        {
+          method: "GET",
+          headers: getAuthHeaders(),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Error HTTP: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      setNotifications(
+        Array.isArray(data) ? data : []
+      );
+
+    } catch (error) {
+      console.error(
+        "Error obteniendo notificaciones:",
+        error
+      );
+    }
+  };
+
+  /**
+   * ============================================
+   * MARCAR UNA COMO LEÍDA
+   * ============================================
+   *
+   * Solamente usuarios autenticados.
    */
   const markAsRead = async (id) => {
+    if (!user?.token) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `${API_URL}/notifications/${id}/is_read`,
@@ -78,20 +117,35 @@ export default function NotificationBell() {
         );
       }
 
-      await fetchNotifications();
+      setNotifications((current) =>
+        current.map((notification) =>
+          notification.id === id
+            ? {
+                ...notification,
+                is_read: true,
+              }
+            : notification
+        )
+      );
 
     } catch (error) {
       console.error(
-        "Error marcando como leído:",
+        "Error marcando como leída:",
         error
       );
     }
   };
 
-  /*
-   * Marcar todas las notificaciones como leídas.
+  /**
+   * ============================================
+   * MARCAR TODAS COMO LEÍDAS
+   * ============================================
    */
   const markAllAsRead = async () => {
+    if (!user?.token) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `${API_URL}/notifications/read-all`,
@@ -107,7 +161,12 @@ export default function NotificationBell() {
         );
       }
 
-      await fetchNotifications();
+      setNotifications((current) =>
+        current.map((notification) => ({
+          ...notification,
+          is_read: true,
+        }))
+      );
 
     } catch (error) {
       console.error(
@@ -117,10 +176,16 @@ export default function NotificationBell() {
     }
   };
 
-  /*
-   * Eliminar una notificación.
+  /**
+   * ============================================
+   * ELIMINAR NOTIFICACIÓN
+   * ============================================
    */
   const deleteNotification = async (id) => {
+    if (!user?.token) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `${API_URL}/notifications/${id}`,
@@ -136,7 +201,12 @@ export default function NotificationBell() {
         );
       }
 
-      await fetchNotifications();
+      setNotifications((current) =>
+        current.filter(
+          (notification) =>
+            notification.id !== id
+        )
+      );
 
     } catch (error) {
       console.error(
@@ -146,14 +216,15 @@ export default function NotificationBell() {
     }
   };
 
-  /*
-   * Cargar notificaciones.
+  /**
+   * ============================================
+   * CARGA INICIAL
+   * ============================================
+   *
+   * Se ejecuta tanto con usuario autenticado
+   * como sin usuario.
    */
   useEffect(() => {
-    if (!user?.token) {
-      return;
-    }
-
     fetchNotifications();
 
     const interval = setInterval(
@@ -164,41 +235,101 @@ export default function NotificationBell() {
     return () => clearInterval(interval);
   }, [user?.token]);
 
-  /*
-   * Cantidad de notificaciones sin leer.
+  /**
+   * ============================================
+   * FILTRAR NOTIFICACIONES
+   * ============================================
+   */
+  const filteredNotifications =
+    notifications.filter((notification) => {
+      const searchText =
+        search.toLowerCase().trim();
+
+      // -------------------------------
+      // BÚSQUEDA
+      // -------------------------------
+      const matchesSearch =
+        !searchText ||
+        notification.title
+          ?.toLowerCase()
+          .includes(searchText) ||
+        notification.message
+          ?.toLowerCase()
+          .includes(searchText);
+
+      // -------------------------------
+      // TIPO
+      // -------------------------------
+      const matchesType =
+        typeFilter === "ALL" ||
+        notification.entity_type === typeFilter;
+
+      // -------------------------------
+      // ESTADO
+      // -------------------------------
+      const matchesRead =
+        readFilter === "ALL" ||
+        (readFilter === "UNREAD" &&
+          !notification.is_read) ||
+        (readFilter === "READ" &&
+          notification.is_read);
+
+      return (
+        matchesSearch &&
+        matchesType &&
+        matchesRead
+      );
+    });
+
+  /**
+   * ============================================
+   * LIMPIAR FILTROS
+   * ============================================
+   */
+  const clearFilters = () => {
+    setSearch("");
+    setTypeFilter("ALL");
+    setReadFilter("ALL");
+  };
+
+  /**
+   * ============================================
+   * CANTIDAD SIN LEER
+   * ============================================
    */
   const unreadCount = notifications.filter(
-    (n) => !n.is_read
+    (notification) =>
+      !notification.is_read
   ).length;
 
   /**
-   * Gestiona la selección de una notificación.
-   *
-   * CREATED:
-   *   NEWS  -> /news/:id
-   *   EVENT -> /events/:id
-   *
-   * UPDATED:
-   *   NEWS  -> /news/:id
-   *   EVENT -> /events/:id
-   *
-   * DELETED:
-   *   No redirige porque el contenido ya no existe.
+   * ============================================
+   * CLIC EN NOTIFICACIÓN
+   * ============================================
    */
-  const handleNotificationClick = async (n) => {
+  const handleNotificationClick = async (
+    notification
+  ) => {
     try {
       /*
-       * Marcar como leída.
+       * Si está autenticado, marcar como leída.
        */
-      if (!n.is_read) {
-        await markAsRead(n.id);
+      if (
+        user?.token &&
+        !notification.is_read
+      ) {
+        await markAsRead(
+          notification.id
+        );
       }
 
       /*
-       * Si fue eliminado, no intentamos
-       * abrir el contenido.
+       * Si el contenido fue eliminado,
+       * no intentamos abrirlo.
        */
-      if (n.action === "DELETED") {
+      if (
+        notification.action === "DELETED"
+      ) {
         setOpen(false);
         return;
       }
@@ -207,25 +338,38 @@ export default function NotificationBell() {
        * NOTICIA
        */
       if (
-        n.entity_type === "NEWS" &&
-        n.reference_id
+        notification.entity_type === "NEWS" &&
+        notification.reference_id
       ) {
+        setOpen(false);
+
         navigate(
-          `/news/${n.reference_id}`
+          `/news/${notification.reference_id}`
         );
+
+        return;
       }
 
       /*
        * EVENTO
        */
-      else if (
-        n.entity_type === "EVENT" &&
-        n.reference_id
+      if (
+        notification.entity_type === "EVENT" &&
+        notification.reference_id
       ) {
+        setOpen(false);
+
         navigate(
-          `/events/${n.reference_id}`
+          `/events/${notification.reference_id}`
         );
+
+        return;
       }
+
+      console.warn(
+        "Notificación sin referencia válida:",
+        notification
+      );
 
       setOpen(false);
 
@@ -237,20 +381,70 @@ export default function NotificationBell() {
     }
   };
 
+  /**
+   * ============================================
+   * ICONO DE NOTIFICACIÓN
+   * ============================================
+   */
+  const getNotificationIcon = (
+    entityType
+  ) => {
+    if (entityType === "NEWS") {
+      return <MdArticle />;
+    }
+
+    if (entityType === "EVENT") {
+      return <MdEvent />;
+    }
+
+    return <MdNotifications />;
+  };
+
+  /**
+   * ============================================
+   * TEXTO DEL TIPO
+   * ============================================
+   */
+  const getNotificationType = (
+    entityType
+  ) => {
+    if (entityType === "NEWS") {
+      return "Noticia";
+    }
+
+    if (entityType === "EVENT") {
+      return "Evento";
+    }
+
+    return "Notificación";
+  };
+
   return (
     <>
+      {/* ====================================== */}
+      {/* OVERLAY */}
+      {/* ====================================== */}
+
       {open && (
         <div
           className="overlay-notifications"
           onClick={() => setOpen(false)}
-        ></div>
+        />
       )}
+
+      {/* ====================================== */}
+      {/* CAMPANA */}
+      {/* ====================================== */}
 
       <div className="notification-wrapper">
 
-        <div
+        <button
+          type="button"
           className="notification-bell"
-          onClick={() => setOpen(!open)}
+          onClick={() =>
+            setOpen((current) => !current)
+          }
+          aria-label="Abrir notificaciones"
         >
           <MdNotifications className="bell" />
 
@@ -259,78 +453,329 @@ export default function NotificationBell() {
               {unreadCount}
             </span>
           )}
-        </div>
+        </button>
+
+        {/* ==================================== */}
+        {/* DROPDOWN */}
+        {/* ==================================== */}
 
         {open && (
-          <div className="notification-dropdown">
+          <div
+            className="notification-dropdown"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
+
+            {/* ================================= */}
+            {/* HEADER */}
+            {/* ================================= */}
 
             <div className="dropdown-header">
 
-              <strong>
-                Notificaciones
-              </strong>
+              <div>
+                <strong>
+                  Notificaciones
+                </strong>
 
-              {unreadCount > 0 && (
+                <span className="notification-total">
+                  {notifications.length}
+                </span>
+              </div>
+
+              {user?.token &&
+                unreadCount > 0 && (
+                  <button
+                    type="button"
+                    className="mark-all-btn"
+                    onClick={
+                      markAllAsRead
+                    }
+                  >
+                    <MdDoneAll />
+                    Marcar todas
+                  </button>
+                )}
+
+            </div>
+
+            {/* ================================= */}
+            {/* BÚSQUEDA */}
+            {/* ================================= */}
+
+            <div className="notification-filters">
+
+              <div className="notification-search">
+
+                <MdSearch />
+
+                <input
+                  type="text"
+                  placeholder="Buscar notificación..."
+                  value={search}
+                  onChange={(e) =>
+                    setSearch(
+                      e.target.value
+                    )
+                  }
+                />
+
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSearch("")
+                    }
+                    className="clear-search"
+                  >
+                    <MdClose />
+                  </button>
+                )}
+
+              </div>
+
+              {/* ================================= */}
+              {/* FILTRO TIPO */}
+              {/* ================================= */}
+
+              <select
+                value={typeFilter}
+                onChange={(e) =>
+                  setTypeFilter(
+                    e.target.value
+                  )
+                }
+              >
+                <option value="ALL">
+                  Todas
+                </option>
+
+                <option value="NEWS">
+                  Noticias
+                </option>
+
+                <option value="EVENT">
+                  Eventos
+                </option>
+              </select>
+
+              {/* ================================= */}
+              {/* FILTRO ESTADO */}
+              {/* ================================= */}
+
+              <select
+                value={readFilter}
+                onChange={(e) =>
+                  setReadFilter(
+                    e.target.value
+                  )
+                }
+              >
+                <option value="ALL">
+                  Todas
+                </option>
+
+                <option value="UNREAD">
+                  Sin leer
+                </option>
+
+                <option value="READ">
+                  Leídas
+                </option>
+              </select>
+
+              {/* ================================= */}
+              {/* LIMPIAR FILTROS */}
+              {/* ================================= */}
+
+              {(search ||
+                typeFilter !== "ALL" ||
+                readFilter !== "ALL") && (
                 <button
-                  className="mark-all-btn"
-                  onClick={markAllAsRead}
+                  type="button"
+                  className="clear-filters-btn"
+                  onClick={
+                    clearFilters
+                  }
                 >
-                  Marcar todas como leídas
+                  Limpiar filtros
                 </button>
               )}
 
             </div>
 
-            {notifications.length === 0 && (
-              <p className="no-notifications">
-                No hay notificaciones
-              </p>
-            )}
+            {/* ================================= */}
+            {/* RESULTADOS */}
+            {/* ================================= */}
 
-            {notifications.map((n) => (
-              <div
-                key={n.id}
-                className={`notification-item ${n.is_read ? "" : "unread"
-                  }`}
-                onClick={() =>
-                  handleNotificationClick(n)
-                }
-              >
+            {notifications.length === 0 ? (
 
-                <div className="notification-text">
+              <div className="no-notifications">
 
-                  <strong>
-                    {n.title}
-                  </strong>
+                <MdNotifications />
 
-                  <p>
-                    {n.message}
-                  </p>
-
-                </div>
-
-                <button
-                  className="delete-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteNotification(n.id);
-                  }}
-                ></button>
+                <p>
+                  No hay notificaciones
+                </p>
 
               </div>
-            ))}
 
+            ) : filteredNotifications.length ===
+              0 ? (
+
+              <div className="no-notifications">
+
+                <MdSearch />
+
+                <p>
+                  No se encontraron
+                  notificaciones.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={
+                    clearFilters
+                  }
+                >
+                  Limpiar filtros
+                </button>
+
+              </div>
+
+            ) : (
+
+              <div className="notifications-list">
+
+                {filteredNotifications.map(
+                  (notification) => {
+
+                    const unread =
+                      !notification.is_read;
+
+                    return (
+                      <div
+                        key={
+                          notification.id
+                        }
+                        className={`notification-item ${
+                          unread
+                            ? "unread"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          handleNotificationClick(
+                            notification
+                          )
+                        }
+                      >
+
+                        {/* ICONO */}
+                        <div className="notification-item-icon">
+                          {getNotificationIcon(
+                            notification.entity_type
+                          )}
+                        </div>
+
+                        {/* TEXTO */}
+                        <div className="notification-text">
+
+                          <div className="notification-item-header">
+
+                            <span className="notification-type">
+                              {getNotificationType(
+                                notification.entity_type
+                              )}
+                            </span>
+
+                            {unread && (
+                              <span className="notification-new">
+                                Nueva
+                              </span>
+                            )}
+
+                          </div>
+
+                          <strong>
+                            {
+                              notification.title
+                            }
+                          </strong>
+
+                          <p>
+                            {
+                              notification.message
+                            }
+                          </p>
+
+                          {notification.created_at && (
+                            <small>
+                              {new Date(
+                                notification.created_at
+                              ).toLocaleString(
+                                "es-CO",
+                                {
+                                  dateStyle:
+                                    "short",
+                                  timeStyle:
+                                    "short",
+                                }
+                              )}
+                            </small>
+                          )}
+
+                        </div>
+
+                        {/* ACCIONES */}
+                        {user?.token && (
+                          <div className="notification-actions">
+
+                            {unread && (
+                              <button
+                                type="button"
+                                className="read-btn"
+                                title="Marcar como leída"
+                                onClick={(
+                                  e
+                                ) => {
+                                  e.stopPropagation();
+
+                                  markAsRead(
+                                    notification.id
+                                  );
+                                }}
+                              >
+                                <MdCheck />
+                              </button>
+                            )}
+
+                            <button
+                              type="button"
+                              className="delete-btn"
+                              title="Eliminar notificación"
+                              onClick={(
+                                e
+                              ) => {
+                                e.stopPropagation();
+
+                                deleteNotification(
+                                  notification.id
+                                );
+                              }}
+                            >
+                              <MdDelete />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            )}
           </div>
         )}
-
       </div>
-
-      {open && (
-        <div
-          className="overlay"
-          onClick={() => setOpen(false)}
-        ></div>
-      )}
     </>
   );
 }

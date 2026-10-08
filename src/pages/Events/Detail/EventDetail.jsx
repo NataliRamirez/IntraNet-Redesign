@@ -45,78 +45,76 @@ export default function EventDetail() {
   }
 
   return (
-    <div className="event-detail-page">
-      <section className="event-detail-header">
-        <div className="event-detail-hero">
-          <h1>{event.name}</h1>
-          <p>Conoce toda la información de este evento.</p>
-        </div>
-      </section>
+    <>
+    <section className="event-detail-header">
+      <div className="event-detail-hero">
+        <h1>{event.name}</h1>
+        <p>Conoce toda la información de este evento.</p>
+      </div>
+    </section><div className="event-detail-page">
 
-      <main className="event-detail-container">
-        <article className="event-detail-card">
-          {event.image && (
-            <img
-              className="detail-img"
-              src={`${import.meta.env.VITE_API_URL}/uploads/events/${event.image}`}
-              alt={event.name}
-            />
-          )}
+        <main className="event-detail-container">
+          <article className="event-detail-card">
+            {event.image && (
+              <img
+                className="detail-img"
+                src={`${import.meta.env.VITE_API_URL}/uploads/events/${event.image}`}
+                alt={event.name} />
+            )}
 
-          <div className="event-detail-content">
-            <h2>{event.name}</h2>
+            <div className="event-detail-content">
+              <h2>{event.name}</h2>
 
-            {event.dateTime && (
-              <div className="event-detail-info">
-                <p>
-                  📅{" "}
-                  {new Date(event.dateTime).toLocaleDateString("es-CO", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
+              {event.dateTime && (
+                <div className="event-detail-info">
+                  <p>
+                    📅{" "}
+                    {new Date(event.dateTime).toLocaleDateString("es-CO", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+
+                  <p>
+                    🕒{" "}
+                    {new Date(event.dateTime).toLocaleTimeString("es-CO", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              )}
+
+              {event.place && (
+                <p className="event-detail-place">
+                  📍 {event.place}
                 </p>
+              )}
 
-                <p>
-                  🕒{" "}
-                  {new Date(event.dateTime).toLocaleTimeString("es-CO", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
-              </div>
-            )}
+              <div
+                className="event-detail-description"
+                dangerouslySetInnerHTML={{
+                  __html: event.description || "",
+                }} />
 
-            {event.place && (
-              <p className="event-detail-place">
-                📍 {event.place}
-              </p>
-            )}
+              {event.link && (
+                <a
+                  href={event.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="event-detail-btn"
+                >
+                  Inscribirse
+                </a>
+              )}
 
-            <div
-              className="event-detail-description"
-              dangerouslySetInnerHTML={{
-                __html: event.description || "",
-              }}
-            />
-
-            {event.link && (
-              <a
-                href={event.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="event-detail-btn"
-              >
-                Inscribirse
-              </a>
-            )}
-
-            <Link to="/events" className="volver-btn">
-              ← Volver a Eventos
-            </Link>
-          </div>
-        </article>
-      </main>
-    </div>
+              <Link to="/events" className="volver-btn">
+                ← Volver a Eventos
+              </Link>
+            </div>
+          </article>
+        </main>
+      </div></>
   );
 }

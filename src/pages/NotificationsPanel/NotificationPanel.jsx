@@ -19,9 +19,6 @@ export default function Notifications() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  /**
-   * Obtiene las notificaciones del backend.
-   */
   const fetchNotifications = async () => {
     try {
       setLoading(true);
@@ -51,9 +48,6 @@ export default function Notifications() {
     }
   };
 
-  /**
-   * Marca una notificación como leída.
-   */
   const markAsRead = async (id) => {
     try {
       const response = await fetch(
@@ -78,9 +72,6 @@ export default function Notifications() {
     }
   };
 
-  /**
-   * Marca todas las notificaciones como leídas.
-   */
   const markAllAsRead = async () => {
     try {
       const response = await fetch(
@@ -105,9 +96,6 @@ export default function Notifications() {
     }
   };
 
-  /**
-   * Elimina una notificación.
-   */
   const deleteNotification = async (id) => {
     try {
       const response = await fetch(
@@ -132,42 +120,38 @@ export default function Notifications() {
     }
   };
 
-  /**
-   * Redirige al contenido relacionado.
-   */
   const handleNotificationClick = async (notification) => {
-    const isUnread =
+    const unread =
       !notification.is_read &&
       !notification.read;
 
-    if (isUnread) {
+    if (unread) {
       await markAsRead(notification.id);
     }
 
     if (
-      notification.type === "event" &&
-      notification.eventId
+      notification.entity_type === "EVENT" &&
+      notification.reference_id
     ) {
       navigate(
-        `/events/${notification.eventId}`
+        `/events/${notification.reference_id}`
       );
 
       return;
     }
 
-    if (
-      notification.type === "news" &&
-      notification.newsId
-    ) {
-      navigate(
-        `/news/${notification.newsId}`
-      );
+    if ( notification.entity_type === "NEWS" && notification.reference_id) {
+      navigate( `/news/${notification.reference_id}` );
+
+      return;
     }
+
+    console.warn(
+      "La notificación no tiene una referencia válida:",
+      notification
+    );
   };
 
-  /**
-   * Carga inicial y actualización automática.
-   */
   useEffect(() => {
     fetchNotifications();
 
@@ -186,30 +170,24 @@ export default function Notifications() {
         !notification.read
     ).length;
 
-  /**
-   * Icono dependiendo del tipo.
-   */
-  const getNotificationIcon = (type) => {
-    if (type === "event") {
+  const getNotificationIcon = (entityType) => {
+    if (entityType === "EVENT") {
       return <MdEvent />;
     }
 
-    if (type === "news") {
+    if (entityType === "NEWS") {
       return <MdArticle />;
     }
 
     return <MdNotifications />;
   };
 
-  /**
-   * Texto del tipo de notificación.
-   */
-  const getNotificationType = (type) => {
-    if (type === "event") {
+  const getNotificationType = (entityType) => {
+    if (entityType === "EVENT") {
       return "Evento";
     }
 
-    if (type === "news") {
+    if (entityType === "NEWS") {
       return "Noticia";
     }
 
@@ -218,32 +196,20 @@ export default function Notifications() {
 
   return (
     <main className="notifications-page">
-
-      {/* Encabezado */}
       <section className="notifications-header">
         <div className="notifications-title">
           <MdNotifications />
-
           <div>
             <h1>Notificaciones</h1>
-
-            <p>
-              Mantente al día con las novedades de
-              IntraNet EMCA.
-            </p>
+            <p> Mantente al día con las novedades de IntraNet EMCA. </p>
           </div>
         </div>
-
         <div className="notifications-actions">
           {unreadCount > 0 && (
             <span className="unread-counter">
-              {unreadCount}{" "}
-              {unreadCount === 1
-                ? "sin leer"
-                : "sin leer"}
+              {unreadCount} sin leer
             </span>
           )}
-
           {unreadCount > 0 && (
             <button
               className="mark-all-btn"
@@ -256,53 +222,53 @@ export default function Notifications() {
         </div>
       </section>
 
-      {/* Contenido */}
       <section className="notifications-content">
 
         {loading ? (
+
           <div className="notifications-state">
+
             <MdNotifications />
 
             <p>
               Cargando notificaciones...
             </p>
+
           </div>
+
         ) : notifications.length === 0 ? (
+
           <div className="notifications-state">
+
             <MdNotifications />
 
-            <h2>
-              No tienes notificaciones
-            </h2>
+            <h2>No tienes notificaciones</h2>
+            <p>Cuando haya novedades aparecerán aquí.</p>
 
-            <p>
-              Cuando haya novedades aparecerán
-              aquí.
-            </p>
           </div>
+
         ) : (
+
+          /* LISTA */
           <div className="notifications-grid">
 
             {notifications.map((notification) => {
-              const unread =
-                !notification.is_read &&
-                !notification.read;
+
+              const unread = !notification.is_read && !notification.read;
 
               return (
+
                 <article
                   key={notification.id}
                   className={`notification-card ${
                     unread ? "unread" : "read"
                   }`}
                 >
-                  {/* Icono */}
+
                   <div className="notification-icon">
-                    {getNotificationIcon(
-                      notification.type
-                    )}
+                    {getNotificationIcon(notification.entity_type)}
                   </div>
 
-                  {/* Información */}
                   <div
                     className="notification-card-content"
                     onClick={() =>
@@ -311,12 +277,15 @@ export default function Notifications() {
                       )
                     }
                   >
+
                     <div className="notification-card-top">
 
                       <span className="notification-type">
+
                         {getNotificationType(
-                          notification.type
+                          notification.entity_type
                         )}
+
                       </span>
 
                       {unread && (
@@ -324,15 +293,12 @@ export default function Notifications() {
                           Nueva
                         </span>
                       )}
+
                     </div>
 
-                    <h2>
-                      {notification.title}
-                    </h2>
+                    <h2>{notification.title}</h2>
 
-                    <p>
-                      {notification.message}
-                    </p>
+                    <p>{notification.message}</p>
 
                     {notification.created_at && (
                       <span className="notification-date">
@@ -349,9 +315,11 @@ export default function Notifications() {
                     )}
                   </div>
 
-                  {/* Acciones */}
-                  <div className="notification-card-actions">
+                  {/* ================================= */}
+                  {/* ACCIONES */}
+                  {/* ================================= */}
 
+                  <div className="notification-card-actions">
                     {unread && (
                       <button
                         className="read-btn"
@@ -365,7 +333,6 @@ export default function Notifications() {
                         <MdCheck />
                       </button>
                     )}
-
                     <button
                       className="delete-btn"
                       title="Eliminar notificación"
@@ -381,10 +348,8 @@ export default function Notifications() {
                 </article>
               );
             })}
-
           </div>
         )}
-
       </section>
     </main>
   );

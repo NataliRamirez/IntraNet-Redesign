@@ -41,47 +41,45 @@ export default function NewsDetail() {
   }
 
   return (
-    <div className="detail-page">
-      <div className="detail-header">
-        <div className="hero-content">
-          <h2>Noticias</h2>
-          <p>
-            Mantente informado sobre las últimas novedades,
-            actividades y comunicados de EMCA E.S.P.
-          </p>
-        </div>
-      </div>
-
-      <div className="detail-container">
-        {news.image && (
-          <img
-            className="detail-img"
-            src={`${import.meta.env.VITE_API_URL}/uploads/news/${news.image}`}
-            alt={news.title}
-          />
-        )}
-
-        <h1>{news.title}</h1>
-
-        <p className="date">
-          {new Date(news.publication_date).toLocaleDateString("es-CO", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-          })}
+    <>
+    <div className="detail-header">
+      <div className="hero-content">
+        <h2>Noticias</h2>
+        <p>
+          Mantente informado sobre las últimas novedades,
+          actividades y comunicados de EMCA E.S.P.
         </p>
-
-        <div
-          className="content"
-          dangerouslySetInnerHTML={{
-            __html: news.content || "",
-          }}
-        />
-
-        <Link to="/news" className="return-btn">
-          ← Volver a noticias
-        </Link>
       </div>
     </div>
+    <div className="detail-page">
+        <div className="detail-container">
+          {news.image && (
+            <img
+              className="detail-img"
+              src={`${import.meta.env.VITE_API_URL}/uploads/news/${news.image}`}
+              alt={news.title} />
+          )}
+
+          <h1>{news.title}</h1>
+
+          <p className="date">
+            {new Date(news.publication_date).toLocaleDateString("es-CO", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
+
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: news.content || "",
+            }} />
+
+          <Link to="/news" className="return-btn">
+            ← Volver a noticias
+          </Link>
+        </div>
+      </div></>
   );
 }
