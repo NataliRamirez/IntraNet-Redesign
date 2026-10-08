@@ -129,8 +129,8 @@ export default function Menu() {
       icon: <FaHome />,
     },
     {
-      name: "Herramientas",
-      path: "/admin/tools",
+      name: "Utilidades",
+      path: "/utils",
       icon: <FaTools />,
     },
     {
