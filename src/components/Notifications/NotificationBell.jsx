@@ -34,9 +34,6 @@ export default function NotificationBell() {
    * ============================================
    * HEADERS DE AUTENTICACIÓN
    * ============================================
-   *
-   * Solamente se envía Authorization cuando
-   * existe un usuario autenticado.
    */
   const getAuthHeaders = () => {
     const headers = {
@@ -56,9 +53,6 @@ export default function NotificationBell() {
    * ============================================
    *
    * Esta función NO requiere autenticación.
-   *
-   * Por eso los usuarios públicos también
-   * pueden consultar las notificaciones.
    */
   const fetchNotifications = async () => {
     try {
@@ -118,13 +112,11 @@ export default function NotificationBell() {
       }
 
       setNotifications((current) =>
-        current.map((notification) =>
-          notification.id === id
-            ? {
-                ...notification,
-                is_read: true,
-              }
-            : notification
+        current.map((notification) => notification.id === id ? {
+          ...notification,
+          is_read: true,
+        }
+          : notification
         )
       );
 
@@ -201,12 +193,7 @@ export default function NotificationBell() {
         );
       }
 
-      setNotifications((current) =>
-        current.filter(
-          (notification) =>
-            notification.id !== id
-        )
-      );
+      setNotifications((current) => current.filter((notification) => notification.id !== id));
 
     } catch (error) {
       console.error(
@@ -248,36 +235,24 @@ export default function NotificationBell() {
       // -------------------------------
       // BÚSQUEDA
       // -------------------------------
-      const matchesSearch =
-        !searchText ||
-        notification.title
-          ?.toLowerCase()
-          .includes(searchText) ||
-        notification.message
-          ?.toLowerCase()
-          .includes(searchText);
+      const matchesSearch = !searchText ||
+        notification.title?.toLowerCase()
+          .includes(searchText) || notification.message?.toLowerCase().includes(searchText);
 
       // -------------------------------
       // TIPO
       // -------------------------------
-      const matchesType =
-        typeFilter === "ALL" ||
-        notification.entity_type === typeFilter;
+      const matchesType = typeFilter === "ALL" || notification.entity_type === typeFilter;
 
       // -------------------------------
       // ESTADO
       // -------------------------------
-      const matchesRead =
-        readFilter === "ALL" ||
-        (readFilter === "UNREAD" &&
-          !notification.is_read) ||
-        (readFilter === "READ" &&
-          notification.is_read);
+      const matchesRead = readFilter === "ALL" ||
+        (readFilter === "UNREAD" && !notification.is_read) ||
+        (readFilter === "READ" && notification.is_read);
 
       return (
-        matchesSearch &&
-        matchesType &&
-        matchesRead
+        matchesSearch && matchesType && matchesRead
       );
     });
 
@@ -298,8 +273,7 @@ export default function NotificationBell() {
    * ============================================
    */
   const unreadCount = notifications.filter(
-    (notification) =>
-      !notification.is_read
+    (notification) => !notification.is_read
   ).length;
 
   /**
@@ -315,12 +289,9 @@ export default function NotificationBell() {
        * Si está autenticado, marcar como leída.
        */
       if (
-        user?.token &&
-        !notification.is_read
+        user?.token && !notification.is_read
       ) {
-        await markAsRead(
-          notification.id
-        );
+        await markAsRead(notification.id);
       }
 
       /*
@@ -338,14 +309,11 @@ export default function NotificationBell() {
        * NOTICIA
        */
       if (
-        notification.entity_type === "NEWS" &&
-        notification.reference_id
+        notification.entity_type === "NEWS" && notification.reference_id
       ) {
         setOpen(false);
 
-        navigate(
-          `/news/${notification.reference_id}`
-        );
+        navigate(`/news/${notification.reference_id}`);
 
         return;
       }
@@ -354,15 +322,11 @@ export default function NotificationBell() {
        * EVENTO
        */
       if (
-        notification.entity_type === "EVENT" &&
-        notification.reference_id
+        notification.entity_type === "EVENT" && notification.reference_id
       ) {
         setOpen(false);
 
-        navigate(
-          `/events/${notification.reference_id}`
-        );
-
+        navigate(`/events/${notification.reference_id}`);
         return;
       }
 
@@ -386,9 +350,7 @@ export default function NotificationBell() {
    * ICONO DE NOTIFICACIÓN
    * ============================================
    */
-  const getNotificationIcon = (
-    entityType
-  ) => {
+  const getNotificationIcon = (entityType) => {
     if (entityType === "NEWS") {
       return <MdArticle />;
     }
@@ -421,20 +383,12 @@ export default function NotificationBell() {
 
   return (
     <>
-      {/* ====================================== */}
-      {/* OVERLAY */}
-      {/* ====================================== */}
-
       {open && (
         <div
           className="overlay-notifications"
           onClick={() => setOpen(false)}
         />
       )}
-
-      {/* ====================================== */}
-      {/* CAMPANA */}
-      {/* ====================================== */}
 
       <div className="notification-wrapper">
 
@@ -454,10 +408,6 @@ export default function NotificationBell() {
             </span>
           )}
         </button>
-
-        {/* ==================================== */}
-        {/* DROPDOWN */}
-        {/* ==================================== */}
 
         {open && (
           <div
@@ -485,13 +435,7 @@ export default function NotificationBell() {
 
               {user?.token &&
                 unreadCount > 0 && (
-                  <button
-                    type="button"
-                    className="mark-all-btn"
-                    onClick={
-                      markAllAsRead
-                    }
-                  >
+                  <button type="button" className="mark-all-btn" onClick={markAllAsRead}>
                     <MdDoneAll />
                     Marcar todas
                   </button>
@@ -499,147 +443,67 @@ export default function NotificationBell() {
 
             </div>
 
-            {/* ================================= */}
-            {/* BÚSQUEDA */}
-            {/* ================================= */}
-
             <div className="notification-filters">
-
               <div className="notification-search">
-
                 <MdSearch />
-
-                <input
-                  type="text"
-                  placeholder="Buscar notificación..."
-                  value={search}
-                  onChange={(e) =>
-                    setSearch(
-                      e.target.value
-                    )
-                  }
+                <input type="text" placeholder="Buscar notificación..." value={search} onChange={(e) => setSearch(e.target.value)}
                 />
 
-                {search && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSearch("")
-                    }
-                    className="clear-search"
-                  >
-                    <MdClose />
-                  </button>
+                {search && (<button type="button" onClick={() => setSearch("")} className="clear-search" >
+                  <MdClose />
+                </button>
                 )}
 
               </div>
+              <div className="filtersContainer">
+                <select className="notification-filter" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+                  <option value="ALL">
+                    Todas
+                  </option>
 
-              {/* ================================= */}
-              {/* FILTRO TIPO */}
-              {/* ================================= */}
+                  <option value="NEWS">
+                    Noticias
+                  </option>
 
-              <select
-                value={typeFilter}
-                onChange={(e) =>
-                  setTypeFilter(
-                    e.target.value
-                  )
-                }
-              >
-                <option value="ALL">
-                  Todas
-                </option>
+                  <option value="EVENT">
+                    Eventos
+                  </option>
+                </select>
 
-                <option value="NEWS">
-                  Noticias
-                </option>
+                <select className="notification-filter" value={readFilter} onChange={(e) => setReadFilter(e.target.value)}>
+                  <option value="ALL">
+                    Todas
+                  </option>
 
-                <option value="EVENT">
-                  Eventos
-                </option>
-              </select>
+                  <option value="UNREAD">
+                    Sin leer
+                  </option>
 
-              {/* ================================= */}
-              {/* FILTRO ESTADO */}
-              {/* ================================= */}
-
-              <select
-                value={readFilter}
-                onChange={(e) =>
-                  setReadFilter(
-                    e.target.value
-                  )
-                }
-              >
-                <option value="ALL">
-                  Todas
-                </option>
-
-                <option value="UNREAD">
-                  Sin leer
-                </option>
-
-                <option value="READ">
-                  Leídas
-                </option>
-              </select>
-
-              {/* ================================= */}
-              {/* LIMPIAR FILTROS */}
-              {/* ================================= */}
-
-              {(search ||
-                typeFilter !== "ALL" ||
-                readFilter !== "ALL") && (
-                <button
-                  type="button"
-                  className="clear-filters-btn"
-                  onClick={
-                    clearFilters
-                  }
-                >
+                  <option value="READ">
+                    Leídas
+                  </option>
+                </select>
+              </div>
+              {(search || typeFilter !== "ALL" || readFilter !== "ALL") && (
+                <button type="button" className="clear-filters-btn" onClick={clearFilters}>
                   Limpiar filtros
                 </button>
               )}
 
             </div>
 
-            {/* ================================= */}
-            {/* RESULTADOS */}
-            {/* ================================= */}
-
             {notifications.length === 0 ? (
-
               <div className="no-notifications">
-
                 <MdNotifications />
-
-                <p>
-                  No hay notificaciones
-                </p>
-
+                <p>No hay notificaciones</p>
               </div>
-
-            ) : filteredNotifications.length ===
-              0 ? (
+            ) : filteredNotifications.length === 0 ? (
 
               <div className="no-notifications">
-
                 <MdSearch />
+                <p> No se encontraron notificaciones.</p>
 
-                <p>
-                  No se encontraron
-                  notificaciones.
-                </p>
-
-                <button
-                  type="button"
-                  onClick={
-                    clearFilters
-                  }
-                >
-                  Limpiar filtros
-                </button>
+                <button type="button" onClick={clearFilters}>Limpiar filtros</button>
 
               </div>
 
@@ -650,77 +514,35 @@ export default function NotificationBell() {
                 {filteredNotifications.map(
                   (notification) => {
 
-                    const unread =
-                      !notification.is_read;
-
+                    const unread = !notification.is_read;
                     return (
-                      <div
-                        key={
-                          notification.id
-                        }
-                        className={`notification-item ${
-                          unread
-                            ? "unread"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          handleNotificationClick(
-                            notification
-                          )
-                        }
-                      >
+                      <div key={notification.id} className={`notification-item ${unread ? "unread" : ""}`}
+                        onClick={() => handleNotificationClick(notification)}>
 
                         {/* ICONO */}
                         <div className="notification-item-icon">
-                          {getNotificationIcon(
-                            notification.entity_type
-                          )}
+                          {getNotificationIcon(notification.entity_type)}
                         </div>
 
                         {/* TEXTO */}
                         <div className="notification-text">
-
                           <div className="notification-item-header">
-
                             <span className="notification-type">
-                              {getNotificationType(
-                                notification.entity_type
-                              )}
+                              {getNotificationType(notification.entity_type)}
                             </span>
 
                             {unread && (
-                              <span className="notification-new">
-                                Nueva
-                              </span>
+                              <span className="notification-new">Nueva</span>
                             )}
 
                           </div>
 
-                          <strong>
-                            {
-                              notification.title
-                            }
-                          </strong>
-
-                          <p>
-                            {
-                              notification.message
-                            }
-                          </p>
+                          <strong>{notification.title}</strong>
+                          <p>{notification.message}</p>
 
                           {notification.created_at && (
                             <small>
-                              {new Date(
-                                notification.created_at
-                              ).toLocaleString(
-                                "es-CO",
-                                {
-                                  dateStyle:
-                                    "short",
-                                  timeStyle:
-                                    "short",
-                                }
-                              )}
+                              {new Date(notification.created_at).toLocaleString("es-CO", { dateStyle: "short", timeStyle: "short", })}
                             </small>
                           )}
 
@@ -731,37 +553,21 @@ export default function NotificationBell() {
                           <div className="notification-actions">
 
                             {unread && (
-                              <button
-                                type="button"
-                                className="read-btn"
-                                title="Marcar como leída"
-                                onClick={(
-                                  e
-                                ) => {
-                                  e.stopPropagation();
-
-                                  markAsRead(
-                                    notification.id
-                                  );
-                                }}
+                              <button type="button" className="read-btn" title="Marcar como leída" onClick={(
+                                e
+                              ) => {
+                                e.stopPropagation();
+                                markAsRead(notification.id);
+                              }}
                               >
                                 <MdCheck />
                               </button>
                             )}
 
-                            <button
-                              type="button"
-                              className="delete-btn"
-                              title="Eliminar notificación"
-                              onClick={(
-                                e
-                              ) => {
-                                e.stopPropagation();
-
-                                deleteNotification(
-                                  notification.id
-                                );
-                              }}
+                            <button type="button" className="delete-btn" title="Eliminar notificación" onClick={(e) => {
+                              e.stopPropagation();
+                              deleteNotification(notification.id);
+                            }}
                             >
                               <MdDelete />
                             </button>

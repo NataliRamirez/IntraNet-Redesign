@@ -91,10 +91,7 @@ export default function CalendarComponent() {
    * @param {Date} date Fecha seleccionada en el calendario.
    */
   const handleSelectDay = (date) => {
-    const dayEvents = events.filter((ev) =>
-      isSameDay(ev.start, date)
-    );
-
+    const dayEvents = events.filter((ev) => isSameDay(ev.start, date));
     setEventsOfTheDay(dayEvents);
   };
 
@@ -108,9 +105,7 @@ export default function CalendarComponent() {
    * @returns {JSX.Element}
    */
   const CustomDateCell = ({ date }) => {
-    const hasEvent = events.some((ev) =>
-      isSameDay(ev.start, date)
-    );
+    const hasEvent = events.some((ev) => isSameDay(ev.start, date));
 
     return (
       <div
@@ -120,13 +115,9 @@ export default function CalendarComponent() {
           cursor: hasEvent ? "pointer" : "default",
         }}
       >
-        <span className="number-day">
-          {date.getDate()}
-        </span>
+        <span className="number-day">{date.getDate()}</span>
 
-        {hasEvent && (
-          <span className="marker-event">📍</span>
-        )}
+        {hasEvent && (<span className="marker-event">📍</span>)}
       </div>
     );
   };
@@ -175,9 +166,7 @@ export default function CalendarComponent() {
           ) : eventsOfTheDay.length === 0 ? (
             <div className="without-events">
               <h3>Sin eventos</h3>
-              <p>
-                No hay eventos registrados para esta fecha.
-              </p>
+              <p>No hay eventos registrados para esta fecha.</p>
             </div>
           ) : (
             <>
@@ -199,10 +188,7 @@ export default function CalendarComponent() {
                   <h4>{ev.title}</h4>
 
                   {/* Lugar del evento */}
-                  <p>
-                    <strong>📍 Lugar:</strong>{" "}
-                    {ev.place || "Sin definir"}
-                  </p>
+                  <p><strong>📍 Lugar:</strong>{" "}{ev.place || "Sin definir"}</p>
 
                   {/* Fecha y hora del evento */}
                   <p>
@@ -220,24 +206,14 @@ export default function CalendarComponent() {
                   {ev.link && (
                     <p>
                       🔗{" "}
-                      <a
-                        href={ev.link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Registro de asistencia
-                      </a>
+                      <a href={ev.link} target="_blank" rel="noreferrer"> Registro de asistencia</a>
                     </p>
                   )}
                 </div>
               ))}
 
               {/* Botón para cerrar el panel de detalles */}
-              <button
-                onClick={() => setEventsOfTheDay(null)}
-              >
-                Cerrar
-              </button>
+              <button onClick={() => setEventsOfTheDay(null)}>Cerrar</button>
             </>
           )}
         </div>

@@ -179,6 +179,12 @@
   font-size: 0.95rem;
 }
 
+.notification-total {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding-left: 0.5rem;
+}
 
 /* ========================================= */
 /* BOTÓN MARCAR TODAS */
@@ -322,10 +328,16 @@
 /* ========================================= */
 /* SELECTORES DE FILTRO */
 /* ========================================= */
+.filtersContainer {
+  display: flex;
 
-.notification-filters select {
-  width: 100%;
+  justify-content: space-between;
 
+  gap: 0.5rem;
+}
+
+.notification-filter{
+  width: 48%;
   height: 36px;
 
   padding: 0 0.6rem;
@@ -349,7 +361,7 @@
   transition: var(--transition);
 }
 
-.notification-filters select:focus {
+.notification-filter:focus {
   border-color: var(--primary-color);
 
   box-shadow:

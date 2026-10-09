@@ -240,10 +240,7 @@ export default function Menu() {
         className={`menu-btn ${open ? "open" : ""}`}
         onClick={() => setOpen(!open)}
         aria-label={
-          open
-            ? "Cerrar menú"
-            : "Abrir menú"
-        }
+          open ? "Cerrar menú" : "Abrir menú"}
       >
         <span></span>
         <span></span>
@@ -254,34 +251,22 @@ export default function Menu() {
           CAPA OSCURA
       ============================================= */}
       {open && (
-        <div
-          className="overlay"
-          onClick={() => setOpen(false)}
-        ></div>
+        <div className="overlay" onClick={() => setOpen(false)}>
+        </div>
       )}
 
       {/* ============================================
           MENÚ LATERAL
       ============================================= */}
-      <nav
-        className={`menu-drawer ${
-          open ? "active" : ""
-        }`}
-      >
+      <nav className={`menu-drawer ${open ? "active" : ""}`}>
 
         {/* ==========================================
             ENCABEZADO DEL MENÚ
         =========================================== */}
         <div className="menu-header">
 
-          <img
-            src={logoColor}
-            alt="Logo Empresa"
-          />
-
-          <h1>
-            IntraNet EMCA
-          </h1>
+          <img src={logoColor} alt="Logo Empresa"/>
+          <h1>IntraNet EMCA</h1>
 
         </div>
 
@@ -290,18 +275,11 @@ export default function Menu() {
         =========================================== */}
         <ul>
 
-          {links.map((link) => (
-            <li key={link.name}>
+          {links.map((link) => (<li key={link.name}>
 
-              <Link
-                to={link.path}
-                onClick={() => setOpen(false)}
-              >
+              <Link to={link.path} onClick={() => setOpen(false)}>
 
-                <span className="icon">
-                  {link.icon}
-                </span>
-
+                <span className="icon">{link.icon}</span>
                 {link.name}
 
               </Link>

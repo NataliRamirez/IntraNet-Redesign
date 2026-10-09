@@ -25,25 +25,16 @@ export default function Home() {
       <div className="inline"></div>
 
       {/* Sección principal de bienvenida */}
-      <section
-        id="Home"
-        className="header-bottom"
-      >
+      <section id="Home" className="header-bottom">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="title-header-bottom">
-            INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P
-          </h2>
+          <h2 className="title-header-bottom">INTRANET - EMPRESAS PÚBLICAS DE CALARCÁ E.S.P</h2>
         </motion.div>
-        <p>
-          En este portal podrás acceder a información
-          relevante sobre noticias, eventos, herramientas
-          e información corporativa.
-        </p>
+        <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
       </section>
 
       <section id="Noticias">

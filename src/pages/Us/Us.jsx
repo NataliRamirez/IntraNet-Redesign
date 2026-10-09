@@ -31,20 +31,13 @@ export default function Us() {
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <ShieldCheck size={48} color="#3b82f6" />
           <h2>Misión</h2>
-          <p>
-            EMPRESAS PÚBLICAS DE CALARCÁ E.S.P. es una empresa industrial y comercial del estado,
-            de orden municipal, con autonomía administrativa y financiera, prestadora de los servicios públicos domiciliarios de acueducto, alcantarillado y aseo en el municipio de Calarcá.
-          </p>
+          <p>EMPRESAS PÚBLICAS DE CALARCÁ E.S.P. es una empresa industrial y comercial del estado, de orden municipal, con autonomía administrativa y financiera, prestadora de los servicios públicos domiciliarios de acueducto, alcantarillado y aseo en el municipio de Calarcá.</p>
         </motion.div>
 
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <Lightbulb size={48} color="#3b82f6" />
           <h2>Visión</h2>
-          <p>
-            Aspiramos siempre ser una empresa líder a nivel regional con innovación, eficacia y eficiencia,
-            logrando estándares de cantidad, calidad y continuidad en la prestación de nuestros servicios,
-            generando confianza en la comunidad y partes interesadas.
-          </p>
+          <p>Aspiramos siempre ser una empresa líder a nivel regional con innovación, eficacia y eficiencia, logrando estándares de cantidad, calidad y continuidad en la prestación de nuestros servicios, generando confianza en la comunidad y partes interesadas.</p>
         </motion.div>
       </section>
 
@@ -79,9 +72,7 @@ export default function Us() {
         >
           <Users size={48} color="#3b82f6" />
           <h2>Estructura Organizacional</h2>
-          <p>
-            Conozca la jerarquía y distribución de los cargos que conforman la estructura de EMCA E.S.P., asegurando una gestión eficiente y transparente.
-          </p>
+          <p>Conozca la jerarquía y distribución de los cargos que conforman la estructura de EMCA E.S.P., asegurando una gestión eficiente y transparente.</p>
 
           <motion.div
             className="organizational-chart-visual"
@@ -101,9 +92,7 @@ export default function Us() {
                 }}
               />
             </a>
-            <p style={{ marginTop: '10px', fontSize: '0.9em', color: '#666' }}>
-              * Haga click en la imagen para ver el organigrama completo (PDF). 📄
-            </p>
+            <p style={{ marginTop: '10px', fontSize: '0.9em', color: '#666' }}>* Haga click en la imagen para ver el organigrama completo (PDF). 📄</p>
           </motion.div>
         </motion.div>
       </section>

@@ -71,10 +71,7 @@ export default function Utils() {
           transition={{ duration: 0.6 }}
         >
           <h2>Utilidades</h2>
-          <p>
-            En esta sección encontrarás herramientas útiles para tu trabajo diario,
-            como convertir archivos PDF, imágenes y hojas de cálculo en diferentes formatos.
-          </p>
+          <p>En esta sección encontrarás herramientas útiles para tu trabajo diario, como convertir archivos PDF, imágenes y hojas de cálculo en diferentes formatos.</p>
         </motion.div>
       </div>
       <div className="utils-container" id="Herramientas">
@@ -83,20 +80,9 @@ export default function Utils() {
             <div className="left-card-utils">
               <h2 className="utils-title">{tool.title}</h2>
               <p className="utils-description">{tool.description}</p>
-              <a
-                href={tool.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="utils-btn"
-              >
-                Ir a la herramienta
-              </a>
+              <a href={tool.url} target="_blank" rel="noopener noreferrer" className="utils-btn">Ir a la herramienta</a>
             </div>
-            <img
-              src={tool.image}
-              alt={tool.title}
-              className="utils-image"
-            />
+            <img src={tool.image} alt={tool.title} className="utils-image"/>
 
           </div>
         ))}

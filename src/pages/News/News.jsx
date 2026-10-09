@@ -29,11 +29,9 @@ export default function News() {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news`;
         const res = await fetch(API_URL);
-
         console.log("Estado /news:", res.status);
 
         const data = await res.json();
-
         console.log("Respuesta /news:", data);
 
         if (!Array.isArray(data)) {
@@ -104,11 +102,7 @@ export default function News() {
           transition={{ duration: 0.6 }}
         >
           <h2>Noticias</h2>
-
-          <p>
-            Mantente informado sobre las últimas novedades,
-            comunicados, actividades y eventos de EMCA E.S.P.
-          </p>
+          <p>Mantente informado sobre las últimas novedades, comunicados, actividades y eventos de EMCA E.S.P.</p>
         </motion.div>
       </div>
 
@@ -131,15 +125,9 @@ export default function News() {
             </button>
 
             {/* CARRUSEL */}
-            <div
-              className="news-carousel"
-              ref={carouselRef}
-            >
+            <div className="news-carousel" ref={carouselRef}>
               {news.map((n) => (
-                <article
-                  className="news-card"
-                  key={n.id}
-                >
+                <article className="news-card" key={n.id}>
 
                   {/* IMAGEN */}
                   <div className="news-image-container">
@@ -169,17 +157,8 @@ export default function News() {
                         year: "numeric",
                       })}
                     </p>
-
-                    <p className="news-description">
-                      {n.short_desc}
-                    </p>
-
-                    <Link
-                      to={`/news/${n.id}`}
-                      className="see-more-news-btn"
-                    >
-                      Leer más →
-                    </Link>
+                    <p className="news-description">{n.short_desc}</p>
+                    <Link to={`/news/${n.id}`} className="see-more-news-btn">Leer más →</Link>
 
                   </div>
 
@@ -188,11 +167,7 @@ export default function News() {
             </div>
 
             {/* FLECHA DERECHA */}
-            <button
-              className="carousel-btn right"
-              onClick={() => scroll("right")}
-              aria-label="Siguiente noticia"
-            >
+            <button className="carousel-btn right" onClick={() => scroll("right")} aria-label="Siguiente noticia">
               ❯
             </button>
 

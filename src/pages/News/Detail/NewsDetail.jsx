@@ -45,10 +45,7 @@ export default function NewsDetail() {
     <div className="detail-header">
       <div className="hero-content">
         <h2>Noticias</h2>
-        <p>
-          Mantente informado sobre las últimas novedades,
-          actividades y comunicados de EMCA E.S.P.
-        </p>
+        <p>Mantente informado sobre las últimas novedades, actividades y comunicados de EMCA E.S.P.</p>
       </div>
     </div>
     <div className="detail-page">
@@ -76,9 +73,7 @@ export default function NewsDetail() {
               __html: news.content || "",
             }} />
 
-          <Link to="/news" className="return-btn">
-            ← Volver a noticias
-          </Link>
+          <Link to="/news" className="return-btn">← Volver a noticias</Link>
         </div>
       </div></>
   );

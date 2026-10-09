@@ -71,7 +71,6 @@ export default function BirthdayModal() {
           <img src={logoColor} alt="logo emca" />
         </div>
 
-
         <div className="body-text">
           <h3>¡¡Feliz Cumpleaños!!</h3>
           <p>{messages[currentMessage]}</p>
@@ -89,11 +88,8 @@ export default function BirthdayModal() {
 
         <div className="body-text">
           <h3>Feliz Cumpleaños</h3>
-          <p>
-            En este día especial queremos reconocer y celebrar a nuestros colaboradores que cumplen un año más de vida. Agradecemos su dedicación, compromiso y valioso aporte a nuestra organización. Les deseamos salud, bienestar, éxito y muchos momentos de felicidad junto a sus familiares y amigos.
-          </p>
-          <p>Recibe nuestros más sinceros deseos de parte de toda la organización. Esperamos que disfrutes esta fecha especial rodeado de bienestar y alegría, y que el nuevo año que comienzas esté lleno de logros, crecimiento personal y profesional, así como de nuevas oportunidades para alcanzar tus objetivos. Te deseamos un feliz cumpleaños y un año colmado de éxitos, prosperidad y momentos significativos.
-          </p>
+          <p>En este día especial queremos reconocer y celebrar a nuestros colaboradores que cumplen un año más de vida. Agradecemos su dedicación, compromiso y valioso aporte a nuestra organización. Les deseamos salud, bienestar, éxito y muchos momentos de felicidad junto a sus familiares y amigos.</p>
+          <p>Recibe nuestros más sinceros deseos de parte de toda la organización. Esperamos que disfrutes esta fecha especial rodeado de bienestar y alegría, y que el nuevo año que comienzas esté lleno de logros, crecimiento personal y profesional, así como de nuevas oportunidades para alcanzar tus objetivos. Te deseamos un feliz cumpleaños y un año colmado de éxitos, prosperidad y momentos significativos.</p>
         </div>
 
         <div className="body-img">
@@ -101,10 +97,6 @@ export default function BirthdayModal() {
         </div>
 
       </div>
-
-
-
-
     </section>
   );
 }

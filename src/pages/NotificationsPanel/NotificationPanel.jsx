@@ -166,8 +166,7 @@ export default function Notifications() {
   const unreadCount =
     notifications.filter(
       (notification) =>
-        !notification.is_read &&
-        !notification.read
+        !notification.is_read && !notification.read
     ).length;
 
   const getNotificationIcon = (entityType) => {
@@ -211,10 +210,7 @@ export default function Notifications() {
             </span>
           )}
           {unreadCount > 0 && (
-            <button
-              className="mark-all-btn"
-              onClick={markAllAsRead}
-            >
+            <button className="mark-all-btn" onClick={markAllAsRead}>
               <MdDoneAll />
               Marcar todas como leídas
             </button>
@@ -230,9 +226,7 @@ export default function Notifications() {
 
             <MdNotifications />
 
-            <p>
-              Cargando notificaciones...
-            </p>
+            <p>Cargando notificaciones...</p>
 
           </div>
 
@@ -272,32 +266,24 @@ export default function Notifications() {
                   <div
                     className="notification-card-content"
                     onClick={() =>
-                      handleNotificationClick(
-                        notification
-                      )
+                      handleNotificationClick(notification)
                     }
                   >
 
                     <div className="notification-card-top">
-
                       <span className="notification-type">
 
-                        {getNotificationType(
-                          notification.entity_type
-                        )}
+                        {getNotificationType(notification.entity_type)}
 
                       </span>
 
                       {unread && (
-                        <span className="new-label">
-                          Nueva
-                        </span>
+                        <span className="new-label">Nueva</span>
                       )}
 
                     </div>
 
                     <h2>{notification.title}</h2>
-
                     <p>{notification.message}</p>
 
                     {notification.created_at && (
@@ -325,9 +311,7 @@ export default function Notifications() {
                         className="read-btn"
                         title="Marcar como leída"
                         onClick={() =>
-                          markAsRead(
-                            notification.id
-                          )
+                          markAsRead(notification.id)
                         }
                       >
                         <MdCheck />
@@ -337,9 +321,7 @@ export default function Notifications() {
                       className="delete-btn"
                       title="Eliminar notificación"
                       onClick={() =>
-                        deleteNotification(
-                          notification.id
-                        )
+                        deleteNotification(notification.id)
                       }
                     >
                       <MdDelete />

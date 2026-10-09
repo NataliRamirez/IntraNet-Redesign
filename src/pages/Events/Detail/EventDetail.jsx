@@ -36,10 +36,7 @@ export default function EventDetail() {
     return (
       <div className="event-detail-message">
         <p>Evento no encontrado.</p>
-
-        <Link to="/events" className="volver-btn">
-          ← Volver a Eventos
-        </Link>
+        <Link to="/events" className="volver-btn">← Volver a Eventos</Link>
       </div>
     );
   }
@@ -99,19 +96,12 @@ export default function EventDetail() {
                 }} />
 
               {event.link && (
-                <a
-                  href={event.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="event-detail-btn"
-                >
+                <a href={event.link} target="_blank" rel="noopener noreferrer" className="event-detail-btn">
                   Inscribirse
                 </a>
               )}
 
-              <Link to="/events" className="volver-btn">
-                ← Volver a Eventos
-              </Link>
+              <Link to="/events" className="volver-btn">← Volver a Eventos</Link>
             </div>
           </article>
         </main>

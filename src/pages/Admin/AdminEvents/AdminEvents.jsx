@@ -55,17 +55,10 @@ export default function AdminEvents() {
   // =========================
   const handleImage = (e) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
-
     setImageFile(file);
-
     const url = URL.createObjectURL(file);
-
-    setForm((f) => ({
-      ...f,
-      image: url,
-    }));
+    setForm((f) => ({ ...f, image: url, }));
   };
 
   // =========================
@@ -74,11 +67,7 @@ export default function AdminEvents() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !form.title.trim() ||
-      !form.description.trim() ||
-      !form.dateTime
-    ) {
+    if (!form.title.trim() || !form.description.trim() || !form.dateTime) {
       Swal.fire({
         icon: "warning",
         title: "Campos Incompletos",
@@ -94,10 +83,7 @@ export default function AdminEvents() {
       fd.append("nombre", form.title);
       fd.append("descripcion", form.description);
 
-      fd.append(
-        "fechaHora",
-        new Date(form.dateTime).toISOString()
-      );
+      fd.append("fechaHora", new Date(form.dateTime).toISOString());
 
       if (form.place) {
         fd.append("lugar", form.place);
@@ -148,7 +134,6 @@ export default function AdminEvents() {
       });
 
       await fetchEvents();
-
       resetForm();
 
     } catch (err) {
@@ -185,22 +170,14 @@ export default function AdminEvents() {
   const handleEdit = (ev) => {
     setForm({
       id: ev.id,
-
       title: ev.name || "",
-
       description: ev.description || "",
-
       dateTime: ev.dateTime
         ? new Date(ev.dateTime).toISOString().slice(0, 16)
         : "",
-
       place: ev.place || "",
-
       link: ev.link || "",
-
-      image: ev.image
-        ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`
-        : "",
+      image: ev.image ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}` : "",
     });
 
     // No seleccionamos una nueva imagen
@@ -232,7 +209,6 @@ export default function AdminEvents() {
 
     try {
       await axios.delete(`${API_URL}/${id}`);
-
       await fetchEvents();
 
       Swal.fire({
@@ -268,9 +244,7 @@ export default function AdminEvents() {
       ev.place?.toLowerCase().includes(searchText);
 
     // Filtrar por fecha
-    const matchesDate =
-      !dateFilter ||
-      ev.dateTime?.startsWith(dateFilter);
+    const matchesDate = !dateFilter || ev.dateTime?.startsWith(dateFilter);
 
     return matchesSearch && matchesDate;
   });
@@ -279,29 +253,18 @@ export default function AdminEvents() {
   // LIMPIAR FILTROS
   // =========================
   const clearFilters = () => {
-    setSearch("");
+    setSearch(""); 
     setDateFilter("");
   };
 
   return (
     <div className="admin-events">
 
-      {/* =====================================================
-          FORMULARIO
-      ===================================================== */}
-
       <div className="section-form">
 
-        <h2>
-          {form.id
-            ? "Editar evento:"
-            : "Formulario para crear un nuevo evento:"}
-        </h2>
+        <h2>{form.id ? "Editar evento:" : "Formulario para crear un nuevo evento:"}</h2>
 
-        <form
-          onSubmit={handleSubmit}
-          className="event-form"
-        >
+        <form onSubmit={handleSubmit} className="event-form">
 
           {/* TÍTULO */}
           <input
@@ -357,10 +320,7 @@ export default function AdminEvents() {
           />
 
           {/* LINK */}
-          <input
-            type="url"
-            placeholder="Link (opcional)"
-            value={form.link}
+          <input type="url" placeholder="Link (opcional)" value={form.link}
             onChange={(e) =>
               setForm({
                 ...form,
@@ -378,9 +338,7 @@ export default function AdminEvents() {
 
           {/* PREVISUALIZACIÓN */}
           {form.image && (
-            <img
-              src={form.image}
-              alt="Previsualización"
+            <img src={form.image} alt="Previsualización"
               style={{
                 width: 150,
                 borderRadius: 8,
@@ -398,17 +356,10 @@ export default function AdminEvents() {
             }}
           >
 
-            <button type="submit">
-              {form.id ? "Actualizar" : "Crear"} Evento
-            </button>
+            <button type="submit">{form.id ? "Actualizar" : "Crear"} Evento</button>
 
             {form.id && (
-              <button
-                type="button"
-                onClick={resetForm}
-              >
-                Cancelar edición
-              </button>
+              <button type="button" onClick={resetForm}>Cancelar edición</button>
             )}
 
           </div>
@@ -422,22 +373,13 @@ export default function AdminEvents() {
       ===================================================== */}
 
       <div className="section-events">
-
         <h2>Eventos registrados:</h2>
-
-        {/* =================================================
-            BÚSQUEDA Y FILTROS
-        ================================================= */}
 
         <div className="search-filters">
 
-          {/* BÚSQUEDA */}
           <div className="search-box">
 
-            <input
-              type="text"
-              placeholder="🔍 Buscar evento..."
-              value={search}
+            <input type="text" placeholder="🔍 Buscar evento..." value={search}
               onChange={(e) =>
                 setSearch(e.target.value)
               }
@@ -448,9 +390,7 @@ export default function AdminEvents() {
           {/* FILTRO POR FECHA */}
           <div className="filter-box">
 
-            <input
-              type="date"
-              value={dateFilter}
+            <input type="date" value={dateFilter}
               onChange={(e) =>
                 setDateFilter(e.target.value)
               }
@@ -460,54 +400,33 @@ export default function AdminEvents() {
 
           {/* LIMPIAR FILTROS */}
           {(search || dateFilter) && (
-            <button
-              type="button"
-              className="clear-filters"
-              onClick={clearFilters}
-            >
-              Limpiar filtros
-            </button>
+            <button type="button" className="clear-filters" onClick={clearFilters}>Limpiar filtros</button>
           )}
 
         </div>
-
-        {/* =================================================
-            RESULTADOS
-        ================================================= */}
 
         <div className="events-list">
 
           {/* NO HAY EVENTOS */}
           {events.length === 0 ? (
 
-            <p>
-              No hay eventos registrados aún.
-            </p>
+            <p>No hay eventos registrados aún.</p>
 
           ) : filteredEvents.length === 0 ? (
 
             /* NO HAY RESULTADOS */
-            <p>
-              No se encontraron eventos con los filtros
-              seleccionados.
-            </p>
+            <p>No se encontraron eventos con los filtros seleccionados.</p>
 
           ) : (
 
             /* EVENTOS FILTRADOS */
             filteredEvents.map((ev) => (
 
-              <div
-                key={ev.id}
-                className="event-card"
-              >
+              <div key={ev.id} className="event-card">
 
                 {/* IMAGEN */}
                 {ev.image && (
-                  <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
-                    alt={ev.name}
-                  />
+                  <img src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`} alt={ev.name}/>
                 )}
 
                 <div className="event-card-content">
@@ -518,76 +437,41 @@ export default function AdminEvents() {
                   {/* FECHA */}
                   <div className="date">
 
-                    {ev.dateTime
-                      ? new Date(
-                          ev.dateTime
-                        ).toLocaleString("es-CO", {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })
+                    {ev.dateTime ? new Date(ev.dateTime).toLocaleString("es-CO", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })
                       : "Sin fecha"}
 
                   </div>
 
-                  {/* DESCRIPCIÓN */}
-                  <p>
-                    {ev.description}
-                  </p>
+                  <p>{ev.description}</p>
 
-                  {/* LUGAR */}
                   {ev.place && (
-                    <p>
-                      <b>Lugar:</b>{" "}
-                      {ev.place}
-                    </p>
+                    <p><b>Lugar:</b>{" "}{ev.place}</p>
                   )}
 
                   {/* ENLACE */}
                   {ev.link && (
                     <p>
-                      <a
-                        href={ev.link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Enlace al evento
-                      </a>
+                      <a href={ev.link} target="_blank" rel="noreferrer">Enlace al evento</a>
                     </p>
                   )}
 
                   {/* ACCIONES */}
                   <div className="actions">
 
-                    <button
-                      onClick={() =>
-                        handleEdit(ev)
-                      }
-                    >
-                      Editar
-                    </button>
+                    <button onClick={() =>handleEdit(ev)}>Editar</button>
 
-                    <button
-                      onClick={() =>
-                        handleDelete(ev.id)
-                      }
-                    >
-                      Eliminar
-                    </button>
+                    <button onClick={() =>handleDelete(ev.id)}>Eliminar</button>
 
                   </div>
-
                 </div>
-
               </div>
-
             ))
-
           )}
-
         </div>
-
       </div>
-
     </div>
   );
 }

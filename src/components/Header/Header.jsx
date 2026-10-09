@@ -80,9 +80,7 @@ export default function Header() {
             return (
                 <>
                     <nav className="nav-links">
-                        <Link to="/">
-                            Inicio
-                        </Link>
+                        <Link to="/">Inicio</Link>
                         <a href="#Utilidades">Utilidades</a>
                         <a href="#Herramientas">Herramientas</a>
                     </nav>
@@ -97,9 +95,7 @@ export default function Header() {
             return (
                 <>
                     <nav className="nav-links">
-                        <Link to="/">
-                            Inicio
-                        </Link>
+                        <Link to="/">Inicio</Link>
                         <a href="#Nosotros">Sobre Nosotros</a>
                         <a href="#MisionVision">Misión y Visión</a>
                         <a href="#Organigrama">Organigrama</a>
@@ -115,9 +111,7 @@ export default function Header() {
             return (
                 <>
                     <nav className="nav-links">
-                        <Link to="/">
-                            Inicio
-                        </Link>
+                        <Link to="/">Inicio</Link>
                         <a href="#Noticias">Noticias</a>
                         <a href="#Recientes">Noticias Recientes</a>
                         <a href="#Antiguos">Noticias Antiguas</a>
@@ -133,9 +127,7 @@ export default function Header() {
             return (
                 <>
                     <nav className="nav-links">
-                        <Link to="/">
-                            Inicio
-                        </Link>
+                        <Link to="/">Inicio</Link>
                         <a href="#Eventos">Eventos</a>
                         <a href="#Recientes">Eventos Recientes</a>
                         <a href="#Antiguos">Eventos Antiguos</a>
@@ -151,9 +143,7 @@ export default function Header() {
             return (
                 <>
                     <nav className="nav-links">
-                        <Link to="/">
-                            Inicio
-                        </Link>
+                        <Link to="/">Inicio</Link>
                         <a href="#Cumpleaños">Cumpleaños</a>
                         <a href="#Agradecimientos">Agradecimientos</a>
                     </nav>
@@ -179,9 +169,6 @@ export default function Header() {
     return (
         <header className="header">
 
-            {/* =========================
-                BARRA SUPERIOR
-            ========================= */}
             <section className="header-top">
 
                 {/* Logo institucional */}
@@ -192,57 +179,25 @@ export default function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <img
-                            className="logoBlancoEmca"
-                            src={logoBlanco}
-                            alt="Logo Principal"
-                        />
+                        <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal"/>
                     </a>
-
-                    <Link
-                        to="/"
-                        className="title-link"
-                    >
-                        <h1 className="title-header">
-                            INTRANET
-                        </h1>
-                    </Link>
-
+                    <Link to="/" className="title-link"><h1 className="title-header">INTRANET</h1></Link>
                 </div>
 
-                {/* =========================
-                    MENÚ
-                ========================= */}
-                <nav className="nav-links">
-                    {getNavigation()}
-                </nav>
-
-                {/* =========================
-                    ACCIONES DE USUARIO
-                ========================= */}
+                <nav className="nav-links">{getNavigation()}</nav>
                 <div className="header-right">
 
                     <NotificationBell />
-
                     {user ? (
-
                         <div className="user-actions">
 
                             {/* Perfil / Dashboard */}
-                            <button
-                                className="user-button"
-                                onClick={goToDashboard}
-                                title="Mi panel"
-                            >
+                            <button className="user-button" onClick={goToDashboard} title="Mi panel">
                                 <FiUser size={24} />
                             </button>
 
                             {/* Cerrar sesión */}
-                            <button
-                                className="logout-button"
-                                onClick={handleLogout}
-                                title="Cerrar sesión"
-                            >
+                            <button className="logout-button" onClick={handleLogout} title="Cerrar sesión">
                                 <FiLogOut size={24} />
                             </button>
 
@@ -250,53 +205,29 @@ export default function Header() {
 
                     ) : (
 
-                        /* Iniciar sesión */
-                        <button
-                            className="login-button"
-                            onClick={() => setShowLogin(true)}
-                        >
-                            INGRESAR
-                        </button>
-
-                    )}
-
+                        <button className="login-button"  onClick={() => setShowLogin(true)}>INGRESAR</button>
+                    )} 
                 </div>
-
             </section>
 
             {/* =========================
                 MODAL LOGIN
             ========================= */}
             {showLogin && !user && (
-
                 <div className="login-modal">
-
                     {/* Fondo */}
-                    <div
-                        className="login-modal-overlay"
-                        onClick={() => setShowLogin(false)}
-                    />
+                    <div className="login-modal-overlay" onClick={() => setShowLogin(false)}/>
 
                     {/* Contenido */}
                     <div className="login-modal-content">
 
                         {/* Cerrar */}
-                        <button
-                            className="login-close"
-                            onClick={() => setShowLogin(false)}
-                        >
-                            ✕
-                        </button>
-
-                        <Login
-                            onClose={() => setShowLogin(false)}
-                        />
+                        <button className="login-close" onClick={() => setShowLogin(false)}>✕</button>
+                        <Login onClose={() => setShowLogin(false)}/>
 
                     </div>
-
                 </div>
             )}
-
         </header>
     );
 }

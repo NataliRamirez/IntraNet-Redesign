@@ -40,11 +40,7 @@ export default function Login({ onClose }) {
      * Validamos que los campos no estén vacíos.
      */
     if (!email || !password) {
-
-      setError(
-        "Ingresa tu correo y contraseña"
-      );
-
+      setError("Ingresa tu correo y contraseña");
       return;
     }
 
@@ -55,23 +51,15 @@ export default function Login({ onClose }) {
       /*
        * URL del backend.
        */
-      const API_URL =
-        import.meta.env.VITE_API_URL;
+      const API_URL = import.meta.env.VITE_API_URL;
 
-      console.log(
-        "API_URL:",
-        import.meta.env.VITE_API_URL
-      );
+      console.log("API_URL:", import.meta.env.VITE_API_URL);
 
       /*
        * Enviamos las credenciales al backend.
        */
       const response = await axios.post(
-        `${API_URL}/auth/login`,
-        {
-          email,
-          password,
-        }
+        `${API_URL}/auth/login`, {email, password,}
       );
 
       /*
@@ -88,9 +76,7 @@ export default function Login({ onClose }) {
       /*
        * Obtenemos el JWT.
        */
-      const token =
-        data.access_token ||
-        data.data?.access_token;
+      const token = data.access_token || data.data?.access_token;
 
       /*
        * Si el backend no devuelve el token,
@@ -156,14 +142,7 @@ export default function Login({ onClose }) {
 
       } else if (error.response?.data?.message) {
         setError(
-          Array.isArray(
-            error.response.data.message
-          )
-            ? error.response.data.message.join(
-              ", "
-            )
-            : error.response.data.message
-        );
+          Array.isArray(error.response.data.message) ? error.response.data.message.join(", "): error.response.data.message);
       } else {
 
         setError(
@@ -191,79 +170,49 @@ export default function Login({ onClose }) {
         {/* Logo institucional */}
         <div className="emca-logo">
 
-          <img
-            className="logoEmca"
-            src={logoEmca}
-            alt="Logo EMCA"
-          />
+          <img className="logoEmca" src={logoEmca} alt="Logo EMCA"/>
 
         </div>
 
-
         {/* Título */}
-        <h2 className="login-title">
-          INICIAR SESIÓN
-        </h2>
+        <h2 className="login-title">INICIAR SESIÓN</h2>
 
 
         {/* Correo electrónico */}
         <div className="input-group">
 
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
+          <input type="email" placeholder="Correo electrónico" value={email}
+            onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
           />
 
         </div>
 
-
         {/* Contraseña */}
         <div className="input-group">
 
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
+          <input type="password" placeholder="Contraseña" value={password}
+            onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
           />
 
         </div>
 
-
         {/* Mensaje de error */}
         {error && (
 
-          <p className="login-error">
-            {error}
-          </p>
+          <p className="login-error">{error}</p>
 
         )}
 
 
         {/* Botón */}
-        <button
-          className="loginForm-button"
-          type="submit"
-          disabled={loading}
-        >
+        <button className="loginForm-button" type="submit" disabled={loading}>
 
-          {loading
-            ? "INGRESANDO..."
-            : "INGRESAR"
-          }
+          {loading ? "INGRESANDO..." : "INGRESAR"}
 
         </button>
-
       </form>
-
     </div>
   );
 }

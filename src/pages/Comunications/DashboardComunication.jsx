@@ -31,24 +31,14 @@ export default function ComunitactionDashboard() {
         <div className="action-card">
           <h2>Noticias</h2>
           <p>Crea, edita y elimina las noticias de la empresa.</p>
-          <button
-            className="action-btn"
-            onClick={() => navigate("/admin/news")}
-          >
-            Gestionar Noticias
-          </button>
+          <button className="action-btn" onClick={() => navigate("/admin/news")}>Gestionar Noticias</button>
         </div>
 
         {/* Eventos */}
         <div className="action-card">
           <h2>Eventos</h2>
           <p>Administra los eventos de la organización.</p>
-          <button
-            className="action-btn"
-            onClick={() => navigate("/admin/events")}
-          >
-            Gestionar Eventos
-          </button>
+          <button className="action-btn" onClick={() => navigate("/admin/events")}>Gestionar Eventos</button>
         </div>
       </section>
     </div>

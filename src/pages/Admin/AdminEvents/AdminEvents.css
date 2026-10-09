@@ -1,12 +1,34 @@
-/* =========================
-   FORMULARIO
-========================= */
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+===================================================== */
 
-.section-form {
-  padding-top: 20vh;
+.admin-events {
+   width: 100%;
+  padding-top: 15vh;
+  max-width: 1500px;
+  margin: 1rem auto;
+  padding: 2rem 5%;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  font-family: "Inter", system-ui, sans-serif;
+  color: #333;
+}
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+.admin-events .section-form {
+  width: 100%;
+  margin: 15vh auto 3rem;
+  padding: 5vh 2rem 3rem;
+  box-sizing: border-box;
   background: #c2e6fd;
   border-radius: 20px;
-  margin-bottom: 3rem;
   box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
   display: flex;
   align-items: center;
@@ -14,93 +36,110 @@
   justify-content: center;
 }
 
-.event-form {
+.admin-events .section-form h2 {
+  margin: 0 0 1.5rem;
+  color: #1e3a5f;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Formulario */
+
+.admin-events .event-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
 }
 
-/* Inputs */
+/* Campos de texto */
 
-.event-form input,
-.event-form textarea {
-  width: 70vw;
+.admin-events .event-form input,
+.admin-events .event-form textarea {
+  width: 100%;
   padding: 1rem 1.2rem;
+  box-sizing: border-box;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   background: #ffffff;
+  font-family: inherit;
   font-size: 0.95rem;
   color: #2c3e50;
-  transition: 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-form textarea {
+.admin-events .event-form textarea {
   min-height: 130px;
   resize: vertical;
 }
 
-.event-form input:focus,
-.event-form textarea:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+.admin-events .event-form input:focus,
+.admin-events .event-form textarea:focus {
+  border-color: #32a7d9;
+  box-shadow: 0 0 0 4px rgba(50, 167, 217, 0.15);
   outline: none;
 }
 
-/* Input File */
+/* Campo para seleccionar imagen */
 
-.event-form input[type="file"] {
+.admin-events .event-form input[type="file"] {
   background: #f8fafc;
   border: 2px dashed #3498db;
   padding: 1rem;
   cursor: pointer;
 }
 
-.event-form input[type="file"]:hover {
+.admin-events .event-form input[type="file"]:hover {
   background: #eef7ff;
 }
 
-/* Imagen Preview */
+/* Previsualización de imagen */
 
-.event-form img {
-  width: 220px;
+.admin-events .event-form img {
+  width: 220px !important;
   height: 140px;
+  max-width: 100%;
   object-fit: cover;
   border-radius: 14px;
   border: 3px solid #ffffff;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Contenedor Botones */
+/* Contenedor de botones */
 
-.form-buttons {
+.admin-events .divButton {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 0.5rem;
 }
 
-/* Botón principal */
+/* Botón crear o actualizar */
 
-.event-form button[type="submit"] {
-  background: linear-gradient(135deg,
-      #3498db,
-      #2563eb);
-  color: white;
+.admin-events .event-form button[type="submit"] {
+  background: linear-gradient(135deg, #286ca3, #32a7d9);
+  color: #ffffff;
   border: none;
   padding: 0.9rem 1.5rem;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-form button[type="submit"]:hover {
+.admin-events .event-form button[type="submit"]:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
-/* Botón cancelar */
+/* Botón cancelar edición */
 
-.cancel-btn {
+.admin-events .event-form button[type="button"] {
   background: #e2e8f0;
   color: #334155;
   border: none;
@@ -108,110 +147,402 @@
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.cancel-btn:hover {
+.admin-events .event-form button[type="button"]:hover {
   background: #cbd5e1;
+  transform: translateY(-2px);
 }
 
-/* Título */
+/* =====================================================
+   LISTADO DE EVENTOS
+===================================================== */
 
-.section-form h2 {
-  margin-bottom: 1.5rem;
-  color: #1e3a5f;
-  font-size: 1.6rem;
-}
-
-.divButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.section-events {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.section-form h2,
-h2 {
-  font-size: 2.4rem;
-  font-weight: 300;
-}
-
-.search-filters {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding-bottom: 2rem;
-}
-
-.search-box {
-  width: 70vw;
-}
-
-.search-box input,
-.filter-box input {
+.admin-events .section-events {
   width: 100%;
-  height: 3rem;
-  padding: 0 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #ffffff;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.admin-events .section-events > h2 {
+  width: 100%;
+  margin: 0 0 2rem;
+  color: #1e3a5f;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =====================================================
+   BÚSQUEDA Y FILTROS
+===================================================== */
+
+.admin-events .search-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 2rem;
   box-sizing: border-box;
 }
 
+.admin-events .search-box {
+  flex: 1;
+  min-width: 200px;
+}
 
-.search-box input:focus,
-.filter-box input:focus {
+.admin-events .search-box input,
+.admin-events .filter-box input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  color: #334155;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-events .search-box input:focus,
+.admin-events .filter-box input:focus {
   outline: none;
   border-color: #32a7d9;
-  box-shadow: 0 0 0 2px rgba(50, 167, 217, 0.15);
+  box-shadow: 0 0 0 3px rgba(50, 167, 217, 0.15);
 }
 
-.filter-box {
-  width: 180px;
+.admin-events .filter-box {
+  width: 190px;
+  flex-shrink: 0;
 }
 
-.clear-filters {
-  height: 42px;
+/* Botón limpiar filtros */
+
+.admin-events .clear-filters {
+  height: 3rem;
   padding: 0 18px;
+  flex-shrink: 0;
   border: none;
   border-radius: 8px;
   background: #6c757d;
   color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.clear-filters:hover {
+.admin-events .clear-filters:hover {
   background: #545b62;
 }
 
-.clear-filters:active {
+.admin-events .clear-filters:active {
   transform: scale(0.98);
 }
 
-@media (max-width: 768px) {
-  .search-filters {
+/* =====================================================
+   CUADRÍCULA DE TARJETAS
+===================================================== */
+
+.admin-events .events-list {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 320px), 1fr)
+  );
+
+  align-items: stretch;
+  gap: 2rem;
+}
+
+/* Mensajes cuando no hay resultados */
+
+.admin-events .events-list > p {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  color: #64748b;
+  font-size: 1rem;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+/* =====================================================
+   TARJETAS DE EVENTOS
+===================================================== */
+
+.admin-events .event-card {
+  min-width: 0;
+  width: 24.1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(44, 62, 80, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-events .event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(44, 62, 80, 0.15);
+}
+
+/* Imagen de cada tarjeta */
+
+.admin-events .event-card > img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: center;
+  background: #dbeafe;
+}
+
+/* =====================================================
+   CONTENIDO DE LAS TARJETAS
+===================================================== */
+
+.admin-events .event-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1.4rem;
+  box-sizing: border-box;
+  gap: 0.8rem;
+}
+
+/* Título */
+
+.admin-events .event-card-content h4 {
+  margin: 0;
+  color: #1e3a5f;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* Fecha */
+
+.admin-events .event-card-content .date {
+  color: #3288b8;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Descripción y lugar */
+
+.admin-events .event-card-content p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+/* Enlace al evento */
+
+.admin-events .event-card-content a {
+  color: #2188c7;
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.admin-events .event-card-content a:hover {
+  color: #1e3a5f;
+  text-decoration: underline;
+}
+
+/* =====================================================
+   BOTONES DE ACCIONES
+===================================================== */
+
+.admin-events .event-card .actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+/* Estilos generales */
+
+.admin-events .event-card .actions button {
+  flex: 1;
+  min-width: 90px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-events .event-card .actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón editar */
+
+.admin-events .event-card .actions button:first-child {
+  background: #f0ad4e;
+}
+
+.admin-events .event-card .actions button:first-child:hover {
+  background: #df982e;
+}
+
+/* Botón eliminar */
+
+.admin-events .event-card .actions button:last-child {
+  background: #dc3545;
+}
+
+.admin-events .event-card .actions button:last-child:hover {
+  background: #bb2d3b;
+}
+
+/* =====================================================
+   RESPONSIVE: TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+  .admin-events {
+    padding: 1rem;
+  }
+
+  .admin-events .section-form {
+    margin-top: 10vh;
+    padding: 4vh 1.5rem 2.5rem;
+  }
+
+  .admin-events .events-list {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1.5rem;
+  }
+
+  .admin-events .event-card > img {
+    height: 240px;
+  }
+
+  .admin-events .search-filters {
+    flex-wrap: wrap;
+  }
+
+  .admin-events .search-box {
+    flex-basis: 100%;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE: MÓVILES
+===================================================== */
+
+@media (max-width: 600px) {
+  .admin-events {
+    padding: 0.75rem;
+  }
+
+  .admin-events .section-form {
+    margin-top: 8vh;
+    padding: 2rem 1rem;
+    border-radius: 14px;
+  }
+
+  .admin-events .section-form h2 {
+    font-size: 1.45rem;
+  }
+
+  .admin-events .event-form {
+    gap: 1rem;
+  }
+
+  .admin-events .event-form input,
+  .admin-events .event-form textarea {
+    padding: 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .admin-events .event-form img {
+    width: 180px !important;
+    height: 120px;
+  }
+
+  .admin-events .divButton {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .admin-events .divButton button {
+    width: 100%;
+  }
+
+  .admin-events .section-events > h2 {
+    font-size: 1.6rem;
+  }
+
+  .admin-events .search-filters {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.75rem;
   }
 
-  .search-box {
+  .admin-events .search-box,
+  .admin-events .filter-box {
     width: 100%;
-    min-width: unset;
+    min-width: 0;
   }
 
-  .filter-box {
+  .admin-events .clear-filters {
     width: 100%;
   }
 
-  .clear-filters {
-    width: 100%;
+  .admin-events .events-list {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .admin-events .event-card > img {
+    height: 220px;
+  }
+
+  .admin-events .event-card-content {
+    padding: 1rem;
+  }
+
+  .admin-events .event-card-content h4 {
+    font-size: 1.15rem;
+  }
+
+  .admin-events .event-card .actions {
+    gap: 0.5rem;
+  }
+
+  .admin-events .event-card .actions button {
+    padding: 0.7rem 0.5rem;
   }
 }

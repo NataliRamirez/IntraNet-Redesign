@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +8,6 @@ export default function GridNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔎 Filtros
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
@@ -15,21 +15,19 @@ export default function GridNews() {
     const fetchNews = async () => {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news`;
+        const response = await fetch(API_URL);
 
-        const res = await fetch(API_URL);
-
-        console.log("Estado /news:", res.status);
-
-        const data = await res.json();
-
-        console.log("Respuesta /news:", data);
-
-        if (!Array.isArray(data)) {
-          console.error("La API no devolvió un arreglo:", data);
-          return;
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
         }
 
-        setNews(data);
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setNews(data);
+        } else {
+          console.error("La API no devolvió un arreglo:", data);
+        }
       } catch (error) {
         console.error("Error al obtener noticias:", error);
       } finally {
@@ -40,7 +38,7 @@ export default function GridNews() {
     fetchNews();
   }, []);
 
-  // 🔎 Filtrar noticias
+  // Filtrar noticias
   const filteredNews = news.filter((n) => {
     const searchText = search.toLowerCase().trim();
 
@@ -51,13 +49,12 @@ export default function GridNews() {
       n.content?.toLowerCase().includes(searchText);
 
     const matchesDate =
-      !dateFilter ||
-      n.publication_date?.startsWith(dateFilter);
+      !dateFilter || n.publication_date?.startsWith(dateFilter);
 
     return matchesSearch && matchesDate;
   });
 
-  // 🧹 Limpiar filtros
+  // Limpiar filtros
   const clearFilters = () => {
     setSearch("");
     setDateFilter("");
@@ -69,56 +66,49 @@ export default function GridNews() {
 
   return (
     <div className="grid-news-page">
+      {/* HERO */}
+      <header className="grid-news-header">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2>Todas las Noticias</h2>
+          <p>
+            Consulta las noticias, comunicados y novedades publicadas
+            por EMCA E.S.P.
+          </p>
+        </motion.div>
+      </header>
 
-      {/* ================= HERO ================= */}
-      <div className="grid-news-header">
-        <div className="hero-content">
-          <motion.div
-            className="hero-content"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2>Todas las Noticias</h2>
-
-            <p>
-              Consulta las noticias, comunicados y novedades publicadas
-              por EMCA E.S.P.
-            </p>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ================= CONTENIDO ================= */}
-      <div className="news-grid-container">
-
+      {/* CONTENIDO */}
+      <main className="news-grid-container">
         <h3 className="subtitle">
           Aquí encontrarás todas las noticias registradas en el sistema.
         </h3>
 
-        {/* ================= FILTROS ================= */}
+        {/* FILTROS */}
         <div className="news-filters">
-
-          {/* 🔎 Buscar */}
           <div className="news-search">
             <input
               type="text"
               placeholder="🔍 Buscar noticia..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              aria-label="Buscar noticias"
             />
           </div>
 
-          {/* 📅 Fecha */}
           <div className="news-date-filter">
             <input
               type="date"
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
+              aria-label="Filtrar noticias por fecha"
             />
           </div>
 
-          {/* 🧹 Limpiar */}
           {(search || dateFilter) && (
             <button
               type="button"
@@ -130,7 +120,7 @@ export default function GridNews() {
           )}
         </div>
 
-        {/* ================= RESULTADOS ================= */}
+        {/* RESULTADOS */}
         {news.length === 0 ? (
           <p className="no-news">
             No hay noticias registradas en este momento.
@@ -141,53 +131,45 @@ export default function GridNews() {
           </p>
         ) : (
           <div className="news-grid">
-
             {filteredNews.map((n) => (
-              <div className="grid-card" key={n.id}>
-
-                {/* 🖼️ Imagen */}
+              <article className="grid-card" key={n.id}>
+                {/* IMAGEN */}
                 {n.image && (
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
-                    alt={n.title}
+                    alt={n.title || "Imagen de la noticia"}
+                    loading="lazy"
                   />
                 )}
 
+                {/* INFORMACIÓN */}
                 <div className="grid-info">
-
-                  {/* 📰 Título */}
                   <h2>{n.title}</h2>
 
-                  {/* 📅 Fecha */}
                   <p className="fecha">
-                    {new Date(n.publication_date).toLocaleDateString(
-                      "es-CO",
-                      {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      }
-                    )}
+                    {n.publication_date
+                      ? new Date(n.publication_date).toLocaleDateString(
+                          "es-CO",
+                          {
+                            day: "2-digit",
+                            month: "long",
+                            year: "numeric",
+                          }
+                        )
+                      : "Sin fecha de publicación"}
                   </p>
 
-                  {/* 📝 Descripción */}
-                  <p>{n.short_desc}</p>
+                  {n.short_desc && <p>{n.short_desc}</p>}
 
-                  {/* 🔗 Detalle */}
-                  <Link
-                    to={`/news/${n.id}`}
-                    className="btn"
-                  >
+                  <Link to={`/news/${n.id}`} className="btn">
                     Leer más →
                   </Link>
-
                 </div>
-              </div>
+              </article>
             ))}
-
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

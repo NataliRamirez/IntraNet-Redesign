@@ -84,16 +84,10 @@ export default function AdminNews() {
     const fd = new FormData();
 
     fd.append("titulo", form.title);
-    fd.append(
-      "shortDesc",
-      form.short_desc || form.content.slice(0, 120)
-    );
+    fd.append("shortDesc", form.short_desc || form.content.slice(0, 120));
     fd.append("contenido", form.content);
 
-    fd.append(
-      "fechaPublicacion",
-      form.publication_date || new Date().toISOString()
-    );
+    fd.append("fechaPublicacion", form.publication_date || new Date().toISOString());
 
     if (imagenFile) {
       fd.append("imagen", imagenFile);
@@ -163,14 +157,11 @@ export default function AdminNews() {
   // =========================
   const handleEdit = (n) => {
     setForm({
+
       id: n.id,
-
       title: n.title || "",
-
       short_desc: n.short_desc || "",
-
       content: n.content || "",
-
       publication_date: n.publication_date
         ? new Date(n.publication_date).toISOString().slice(0, 16)
         : "",
@@ -260,227 +251,222 @@ export default function AdminNews() {
   };
 
   return (
-    <div className="adminNews">
+  <div className="adminNews">
 
-      {/* =====================================================
-          FORMULARIO
-      ===================================================== */}
+    {/* =====================================================
+        FORMULARIO
+    ===================================================== */}
 
-      <div className="section-form">
-        <h2>{form.id ? "Editar Noticia:" : "Crear Noticias:"} </h2>
-        <form onSubmit={handleSubmit} className="news-form">
+    <div className="section-form">
+      <h2>{form.id ? "Editar Noticia:" : "Crear Noticias:"}</h2>
 
-          {/* TÍTULO */}
-          <input
-            type="text"
-            placeholder="Título"
-            value={form.title}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                title: e.target.value,
-              })
-            }
-            required
-          />
+      <form onSubmit={handleSubmit} className="news-form">
 
-          {/* DESCRIPCIÓN */}
-          <input
-            type="text"
-            placeholder="Descripción corta"
-            value={form.short_desc}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                short_desc: e.target.value,
-              })
-            }
-          />
+        {/* TÍTULO */}
+        <input
+          type="text"
+          placeholder="Título"
+          value={form.title}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              title: e.target.value,
+            })
+          }
+          required
+        />
 
-          {/* CONTENIDO */}
-          <textarea
-            placeholder="Contenido de la noticia"
-            rows={6}
-            value={form.content}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                content: e.target.value,
-              })
-            }
-            required
-          />
+        {/* DESCRIPCIÓN */}
+        <input
+          type="text"
+          placeholder="Descripción corta"
+          value={form.short_desc}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              short_desc: e.target.value,
+            })
+          }
+        />
 
-          {/* IMAGEN */}
-          <input type="file" accept="image/*" onChange={handleImage} />
+        {/* CONTENIDO */}
+        <textarea
+          placeholder="Contenido de la noticia"
+          rows={6}
+          value={form.content}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              content: e.target.value,
+            })
+          }
+          required
+        />
 
-          {/* PREVISUALIZACIÓN */}
-          {form.image && (
-            <img src={form.image} alt="Previsualización" style={
-              {
-                width: 150,
-                borderRadius: 8,
-                marginTop: 8,
-              }}
-            />
-          )}
+        {/* IMAGEN */}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImage}
+        />
 
-          {/* FECHA */}
-          <input
-            type="datetime-local"
-            value={form.publication_date}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                publication_date: e.target.value,
-              })
-            }
-          />
-
-          {/* BOTONES */}
-          <div
+        {/* PREVISUALIZACIÓN */}
+        {form.image && (
+          <img
+            src={form.image}
+            alt="Previsualización"
             style={{
-              display: "flex",
-              gap: "0.5rem",
+              width: 150,
+              borderRadius: 8,
+              marginTop: 8,
             }}
-          >
+          />
+        )}
 
-            <button type="submit">
-              {form.id ? "Actualizar" : "Crear"} Noticia
-            </button>
+        {/* FECHA */}
+        <input
+          type="datetime-local"
+          value={form.publication_date}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              publication_date: e.target.value,
+            })
+          }
+        />
 
-            {form.id && (
-              <button type="button" onClick={resetForm}>
-                Cancelar edición
-              </button>)}
-          </div>
-        </form>
-      </div>
+        {/* BOTONES */}
+        <div
+          style={{
+            display: "flex",
+            gap: "0.5rem",
+          }}
+        >
+          <button type="submit">
+            {form.id ? "Actualizar" : "Crear"} Noticia
+          </button>
 
-      {/* =====================================================
-          LISTADO DE NOTICIAS
-      ===================================================== */}
-
-      <div className="section-news">
-        <h2>Noticias registradas</h2>
-
-        {/* =================================================
-            BÚSQUEDA Y FILTROS
-        ================================================= */}
-
-        <div className="search-filters">
-
-          {/* BÚSQUEDA */}
-          <div className="search-box">
-
-            <input
-              type="text"
-              placeholder="🔍 Buscar noticia..."
-              value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
-            />
-
-          </div>
-
-          {/* FILTRO POR FECHA */}
-          <div className="filter-box">
-
-            <input
-              type="date"
-              value={dateFilter}
-              onChange={(e) =>
-                setDateFilter(e.target.value)
-              }
-            />
-
-          </div>
-
-          {/* LIMPIAR FILTROS */}
-          {(search || dateFilter) && (
-            <button type="button" className="clear-filters" onClick={clearFilters}>
-              Limpiar filtros
+          {form.id && (
+            <button
+              type="button"
+              onClick={resetForm}
+            >
+              Cancelar edición
             </button>
           )}
+        </div>
+      </form>
+    </div>
 
+    {/* =====================================================
+        LISTADO DE NOTICIAS
+    ===================================================== */}
+
+    <div className="section-news">
+      <h2>Noticias registradas</h2>
+
+      {/* =================================================
+          BÚSQUEDA Y FILTROS
+      ================================================= */}
+
+      <div className="search-filters">
+
+        {/* BÚSQUEDA */}
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="🔍 Buscar noticia..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
-        {/* =================================================
-            RESULTADOS
-        ================================================= */}
+        {/* FILTRO POR FECHA */}
+        <div className="filter-box">
+          <input
+            type="date"
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.target.value)}
+          />
+        </div>
 
-        <div className="news-list">
+        {/* LIMPIAR FILTROS */}
+        {(search || dateFilter) && (
+          <button
+            type="button"
+            className="clear-filters"
+            onClick={clearFilters}
+          >
+            Limpiar filtros
+          </button>
+        )}
+      </div>
 
-          {/* NO HAY NOTICIAS */}
-          {news.length === 0 ? (
+      {/* =================================================
+          RESULTADOS
+      ================================================= */}
 
-            <p>No hay noticias aún.</p>
+      <div className="news-list">
 
-          ) : filteredNews.length === 0 ? (
+        {/* NO HAY NOTICIAS */}
+        {news.length === 0 ? (
+          <p>No hay noticias aún.</p>
+        ) : filteredNews.length === 0 ? (
 
-            /* NO HAY RESULTADOS CON FILTROS */
-            <p>
-              No se encontraron noticias con los filtros
-              seleccionados.
-            </p>
+          /* NO HAY RESULTADOS CON FILTROS */
+          <p>
+            No se encontraron noticias con los filtros seleccionados.
+          </p>
+        ) : (
 
-          ) : (
+          /* NOTICIAS FILTRADAS */
+          filteredNews.map((n) => (
+            <div key={n.id} className="news-card">
 
-            /* NOTICIAS FILTRADAS */
-            filteredNews.map((n) => (
+              {/* IMAGEN */}
+              {n.image && (
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
+                  alt={n.title}
+                />
+              )}
 
-              <div
-                key={n.id}
-                className="news-card"
-              >
+              <div className="news-card-content">
 
-                {/* IMAGEN */}
-                {n.image && (
-                  <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
-                    alt={n.title}
-                  />
-                )}
+                {/* TÍTULO */}
+                <h4>{n.title}</h4>
 
-                <div className="news-card-content">
-
-                  {/* TÍTULO */}
-                  <h4>{n.title}</h4>
-
-                  {/* FECHA */}
-                  <div className="date">
-
-                    {n.publication_date
-                      ? new Date(
+                {/* FECHA */}
+                <div className="date">
+                  {n.publication_date
+                    ? new Date(
                         n.publication_date
                       ).toLocaleString("es-CO", {
                         dateStyle: "medium",
                       })
-                      : "Sin fecha"}
-
-                  </div>
-
-                  {/* DESCRIPCIÓN */}
-                  <p>
-                    {n.short_desc}
-                  </p>
-
-                  {/* ACCIONES */}
-                  <div className="actions">
-                    <button onClick={() => handleEdit(n)}>
-                      Editar
-                    </button>
-                    <button onClick={() => handleDelete(n.id)}>
-                      Eliminar
-                    </button>
-                  </div>
+                    : "Sin fecha"}
                 </div>
+
+                {/* DESCRIPCIÓN */}
+                <p>{n.short_desc}</p>
+
+                {/* ACCIONES */}
+                <div className="actions">
+                  <button onClick={() => handleEdit(n)}>
+                    Editar
+                  </button>
+
+                  <button onClick={() => handleDelete(n.id)}>
+                    Eliminar
+                  </button>
+                </div>
+
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
-  );
+  </div>
+);
 }

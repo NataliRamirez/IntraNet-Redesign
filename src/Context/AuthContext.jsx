@@ -33,8 +33,7 @@ const decodeToken = (token) => {
 };
 
 /**
- * Normaliza los roles para que todo el frontend
- * trabaje únicamente con los nombres del backend.
+ * Normaliza los roles para que todo el frontend trabaje únicamente con los nombres del backend.
  */
 const normalizeRole = (role) => {
   if (!role) return null;
@@ -124,8 +123,7 @@ export function AuthProvider({ children }) {
   };
 
   /**
-   * Sincronizar cambios de localStorage
-   * entre diferentes pestañas.
+   * Sincronizar cambios de localStorage entre diferentes pestañas.
    */
   useEffect(() => {
     const handleStorage = () => {

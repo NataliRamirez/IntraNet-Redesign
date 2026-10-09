@@ -18,7 +18,6 @@ export default function AdminDashboard() {
         <p>Bienvenido, aquí puedes gestionar toda la intranet.</p>
       </section>
 
-
       <section className="admin-actions">
         {/* Noticias */}
         <div className="action-card">
@@ -35,22 +34,14 @@ export default function AdminDashboard() {
         <div className="action-card">
           <h2>Cumpleaños</h2>
           <p>Sube la imagen de los cumpleañeros del mes.</p>
-          <button
-            className="action-btn"
-            onClick={() => navigate("/admin/birthday")}
-          >
-            Gestionar Imagen
-          </button>
+          <button className="action-btn" onClick={() => navigate("/admin/birthday")}>Gestionar Imagen</button>
         </div>
-
-
 
         {/* Eventos */}
         <div className="action-card">
           <h2>Eventos</h2>
           <p>Administra los eventos de la organización.</p>
-          <button
-            className="action-btn"
+          <button className="action-btn"
             onClick={() => {
               console.log("click eventos");
               navigate("/admin/events");

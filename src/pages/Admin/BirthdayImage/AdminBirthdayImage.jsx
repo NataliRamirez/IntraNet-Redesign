@@ -66,8 +66,8 @@ export default function AdminBirthdayImage() {
 
   return (
     <div className="birthday-admin-container">
+      
       <h2>Imagen del Cumpleañero del Mes 🎂</h2>
-
       <p>Esta imagen será mostrada en el modal de cumpleaños.</p>
 
       {/* Imagen actual */}
@@ -90,9 +90,7 @@ export default function AdminBirthdayImage() {
 
       <input type="file" accept="image/*" onChange={handleSelectFile} />
 
-      <button className="save-btn" onClick={handleUpload}>
-        Guardar Imagen
-      </button>
+      <button className="save-btn" onClick={handleUpload}>Guardar Imagen</button>
     </div>
   );
 }

@@ -52,11 +52,7 @@ export default function Events() {
             transition={{ duration: 0.6 }}
           >
             <h2>Eventos</h2>
-
-            <p>
-              Conoce los próximos eventos, actividades y espacios de
-              participación organizados por EMCA E.S.P.
-            </p>
+            <p>Conoce los próximos eventos, actividades y espacios de participación organizados por EMCA E.S.P.</p>
           </motion.div>
         </div>
       </div>
@@ -69,44 +65,25 @@ export default function Events() {
 
           {/* 🔎 Buscar */}
           <div className="events-search">
-            <input
-              type="text"
-              placeholder="🔍 Buscar evento..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <input type="text" placeholder="🔍 Buscar evento..." value={search} onChange={(e) => setSearch(e.target.value)}/>
           </div>
 
           {/* 📅 Fecha */}
           <div className="events-date-filter">
-            <input
-              type="date"
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
-            />
+            <input type="date" value={dateFilter} onChange={(e) => setDateFilter(e.target.value)}/>
           </div>
 
           {/* 🧹 Limpiar */}
           {(search || dateFilter) && (
-            <button
-              type="button"
-              className="events-clear-filters"
-              onClick={clearFilters}
-            >
-              Limpiar filtros
-            </button>
+            <button type="button" className="events-clear-filters" onClick={clearFilters}>Limpiar filtros</button>
           )}
         </div>
 
         {/* ================= RESULTADOS ================= */}
         {events.length === 0 ? (
-          <p className="no-events">
-            No hay eventos programados en este momento.
-          </p>
+          <p className="no-events">No hay eventos programados en este momento.</p>
         ) : filteredEvents.length === 0 ? (
-          <p className="no-events">
-            No se encontraron eventos con los filtros seleccionados.
-          </p>
+          <p className="no-events">No se encontraron eventos con los filtros seleccionados.</p>
         ) : (
           <div className="events-grid">
             {filteredEvents.map((ev) => (
@@ -124,9 +101,7 @@ export default function Events() {
                 <div className="event-body">
 
                   {/* 📝 Nombre */}
-                  <h2 className="event-title">
-                    {ev.name}
-                  </h2>
+                  <h2 className="event-title">{ev.name}</h2>
 
                   {/* 📅 Fecha y hora */}
                   <p className="event-date">
@@ -154,26 +129,15 @@ export default function Events() {
 
                   {/* 📍 Lugar */}
                   {ev.place && (
-                    <p className="event-place">
-                      📍 {ev.place}
-                    </p>
+                    <p className="event-place">📍 {ev.place}</p>
                   )}
 
                   {/* 📄 Descripción */}
-                  <p className="event-description">
-                    {ev.description}
-                  </p>
+                  <p className="event-description">{ev.description}</p>
 
                   {/* 🔗 Inscripción */}
                   {ev.link && (
-                    <a
-                      href={ev.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="event-btn"
-                    >
-                      Inscribirse
-                    </a>
+                    <a href={ev.link} target="_blank" rel="noopener noreferrer" className="event-btn">Inscribirse</a>
                   )}
                 </div>
               </article>
