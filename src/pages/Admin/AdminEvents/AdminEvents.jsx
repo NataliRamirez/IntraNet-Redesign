@@ -7,6 +7,58 @@ import "./AdminEvents.css";
 // URL base del backend desde .env
 const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
+const getAuthHeaders = () => {
+  let token = null;
+
+  // Buscar el token guardado directamente
+  token =
+    localStorage.getItem("token") ||
+    localStorage.getItem("accessToken") ||
+    localStorage.getItem("access_token");
+
+  // Si no está directamente, buscarlo dentro del usuario
+  if (!token) {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+
+        token =
+          user.token ||
+          user.accessToken ||
+          user.access_token ||
+          null;
+
+        // Compatibilidad con el formato anterior del proyecto
+        if (
+          !token &&
+          typeof user.username === "string" &&
+          user.username.split(".").length === 3
+        ) {
+          token = user.username;
+        }
+      } catch (error) {
+        console.error(
+          "No se pudo leer el usuario guardado:",
+          error
+        );
+      }
+    }
+  }
+
+  if (!token) {
+    throw new Error(
+      "No se encontró el token de autenticación. Inicia sesión nuevamente."
+    );
+  }
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+
 export default function AdminEvents() {
   const [events, setEvents] = useState([]);
 
@@ -38,7 +90,12 @@ export default function AdminEvents() {
   const fetchEvents = async () => {
     try {
       const res = await axios.get(API_URL);
-      setEvents(res.data);
+
+      console.log("Respuesta del backend:", res.data);
+
+      setEvents(
+        Array.isArray(res.data) ? res.data : []
+      );
     } catch (err) {
       console.error("Error al obtener eventos:", err);
 
@@ -55,10 +112,17 @@ export default function AdminEvents() {
   // =========================
   const handleImage = (e) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
+
     setImageFile(file);
+
     const url = URL.createObjectURL(file);
-    setForm((f) => ({ ...f, image: url, }));
+
+    setForm((f) => ({
+      ...f,
+      image: url,
+    }));
   };
 
   // =========================
@@ -67,10 +131,14 @@ export default function AdminEvents() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.title.trim() || !form.description.trim() || !form.dateTime) {
+    if (
+      !form.title.trim() ||
+      !form.description.trim() ||
+      !form.dateTime
+    ) {
       Swal.fire({
         icon: "warning",
-        title: "Campos Incompletos",
+        title: "Campos incompletos",
         text: "Debes completar el título, la descripción y la fecha/hora del evento.",
       });
 
@@ -80,50 +148,47 @@ export default function AdminEvents() {
     try {
       const fd = new FormData();
 
-      fd.append("nombre", form.title);
-      fd.append("descripcion", form.description);
+      fd.append("name", form.title.trim());
+      fd.append("description", form.description.trim());
+      fd.append(
+        "date_time",
+        new Date(form.dateTime).toISOString()
+      );
 
-      fd.append("fechaHora", new Date(form.dateTime).toISOString());
-
-      if (form.place) {
-        fd.append("lugar", form.place);
+      if (form.place.trim()) {
+        fd.append("place", form.place.trim());
       }
 
-      if (form.link) {
-        fd.append("link", form.link);
+      if (form.link.trim()) {
+        fd.append("link", form.link.trim());
       }
 
       if (imageFile) {
-        fd.append("imagen", imageFile);
+        fd.append("image", imageFile);
       }
+
+      // Obtener el token de autenticación
+      const authHeaders = getAuthHeaders();
 
       let actionTitle = "";
 
-      // =========================
-      // ACTUALIZAR
-      // =========================
+      // ACTUALIZAR EVENTO
       if (form.id) {
-        await axios.put(`${API_URL}/${form.id}`, fd, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+        await axios.patch(`${API_URL}/${form.id}`, fd, {
+          headers: getAuthHeaders(),
         });
 
-        actionTitle = "¡Evento Actualizado!";
-      }
-
-      // =========================
-      // CREAR
-      // =========================
-      else {
+        actionTitle = "¡Evento actualizado!";
+      } else {
         await axios.post(API_URL, fd, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: getAuthHeaders(),
         });
 
-        actionTitle = "¡Evento Creado!";
+        actionTitle = "¡Evento creado!";
       }
+
+      await fetchEvents();
+      resetForm();
 
       Swal.fire({
         icon: "success",
@@ -132,17 +197,30 @@ export default function AdminEvents() {
         showConfirmButton: false,
         timer: 1800,
       });
-
-      await fetchEvents();
-      resetForm();
-
     } catch (err) {
       console.error("Error guardando evento:", err);
 
+      const status = err.response?.status;
+
+      let message =
+        "Ocurrió un error al guardar el evento. Revisa la consola.";
+
+      if (status === 401) {
+        message =
+          "Tu sesión no es válida o ha expirado. Cierra sesión e inicia sesión nuevamente.";
+      } else if (status === 403) {
+        message =
+          "Tu usuario no tiene permisos para realizar esta operación.";
+      } else if (
+        err.message?.includes("token de autenticación")
+      ) {
+        message = err.message;
+      }
+
       Swal.fire({
         icon: "error",
-        title: "Error al Guardar",
-        text: "Ocurrió un error al guardar el evento. Revisa la consola.",
+        title: "Error al guardar",
+        text: message,
       });
     }
   };
@@ -177,13 +255,13 @@ export default function AdminEvents() {
         : "",
       place: ev.place || "",
       link: ev.link || "",
-      image: ev.image ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}` : "",
+      image: ev.image
+        ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`
+        : "",
     });
 
-    // No seleccionamos una nueva imagen
     setImageFile(null);
 
-    // Llevar al formulario
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -208,7 +286,10 @@ export default function AdminEvents() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await axios.delete(`${API_URL}/${id}`, {
+        headers: getAuthHeaders(),
+      });
+
       await fetchEvents();
 
       Swal.fire({
@@ -218,14 +299,27 @@ export default function AdminEvents() {
         showConfirmButton: false,
         timer: 1500,
       });
-
     } catch (err) {
       console.error("Error eliminando evento:", err);
+
+      const status = err.response?.status;
+
+      let message = "No se pudo eliminar el evento.";
+
+      if (status === 401) {
+        message =
+          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+      } else if (status === 403) {
+        message =
+          "Tu usuario no tiene permisos para eliminar eventos.";
+      } else if (err.message?.includes("token de autenticación")) {
+        message = err.message;
+      }
 
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "No se pudo eliminar el evento.",
+        text: message,
       });
     }
   };
@@ -236,15 +330,14 @@ export default function AdminEvents() {
   const filteredEvents = events.filter((ev) => {
     const searchText = search.toLowerCase().trim();
 
-    // Buscar por nombre, descripción o lugar
     const matchesSearch =
       !searchText ||
       ev.name?.toLowerCase().includes(searchText) ||
       ev.description?.toLowerCase().includes(searchText) ||
       ev.place?.toLowerCase().includes(searchText);
 
-    // Filtrar por fecha
-    const matchesDate = !dateFilter || ev.dateTime?.startsWith(dateFilter);
+    const matchesDate =
+      !dateFilter || ev.dateTime?.startsWith(dateFilter);
 
     return matchesSearch && matchesDate;
   });
@@ -253,19 +346,24 @@ export default function AdminEvents() {
   // LIMPIAR FILTROS
   // =========================
   const clearFilters = () => {
-    setSearch(""); 
+    setSearch("");
     setDateFilter("");
   };
 
   return (
     <div className="admin-events">
-
+      {/* FORMULARIO */}
       <div className="section-form">
+        <h2>
+          {form.id
+            ? "Editar evento:"
+            : "Formulario para crear un nuevo evento:"}
+        </h2>
 
-        <h2>{form.id ? "Editar evento:" : "Formulario para crear un nuevo evento:"}</h2>
-
-        <form onSubmit={handleSubmit} className="event-form">
-
+        <form
+          onSubmit={handleSubmit}
+          className="event-form"
+        >
           {/* TÍTULO */}
           <input
             type="text"
@@ -319,8 +417,11 @@ export default function AdminEvents() {
             }
           />
 
-          {/* LINK */}
-          <input type="url" placeholder="Link (opcional)" value={form.link}
+          {/* ENLACE */}
+          <input
+            type="url"
+            placeholder="Link (opcional)"
+            value={form.link}
             onChange={(e) =>
               setForm({
                 ...form,
@@ -338,7 +439,9 @@ export default function AdminEvents() {
 
           {/* PREVISUALIZACIÓN */}
           {form.image && (
-            <img src={form.image} alt="Previsualización"
+            <img
+              src={form.image}
+              alt="Previsualización"
               style={{
                 width: 150,
                 borderRadius: 8,
@@ -355,116 +458,133 @@ export default function AdminEvents() {
               gap: "0.5rem",
             }}
           >
-
-            <button type="submit">{form.id ? "Actualizar" : "Crear"} Evento</button>
+            <button type="submit">
+              {form.id ? "Actualizar" : "Crear"} Evento
+            </button>
 
             {form.id && (
-              <button type="button" onClick={resetForm}>Cancelar edición</button>
+              <button
+                type="button"
+                onClick={resetForm}
+              >
+                Cancelar edición
+              </button>
             )}
-
           </div>
-
         </form>
-
       </div>
 
-      {/* =====================================================
-          LISTA DE EVENTOS
-      ===================================================== */}
-
+      {/* LISTADO DE EVENTOS */}
       <div className="section-events">
         <h2>Eventos registrados:</h2>
 
+        {/* BÚSQUEDA Y FILTROS */}
         <div className="search-filters">
-
           <div className="search-box">
-
-            <input type="text" placeholder="🔍 Buscar evento..." value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
+            <input
+              type="text"
+              placeholder="🔍 Buscar evento..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-
           </div>
 
-          {/* FILTRO POR FECHA */}
           <div className="filter-box">
-
-            <input type="date" value={dateFilter}
-              onChange={(e) =>
-                setDateFilter(e.target.value)
-              }
+            <input
+              type="date"
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value)}
             />
-
           </div>
 
-          {/* LIMPIAR FILTROS */}
           {(search || dateFilter) && (
-            <button type="button" className="clear-filters" onClick={clearFilters}>Limpiar filtros</button>
+            <button
+              type="button"
+              className="clear-filters"
+              onClick={clearFilters}
+            >
+              Limpiar filtros
+            </button>
           )}
-
         </div>
 
+        {/* RESULTADOS */}
         <div className="events-list">
-
-          {/* NO HAY EVENTOS */}
           {events.length === 0 ? (
-
             <p>No hay eventos registrados aún.</p>
-
           ) : filteredEvents.length === 0 ? (
-
-            /* NO HAY RESULTADOS */
-            <p>No se encontraron eventos con los filtros seleccionados.</p>
-
+            <p>
+              No se encontraron eventos con los filtros seleccionados.
+            </p>
           ) : (
-
-            /* EVENTOS FILTRADOS */
             filteredEvents.map((ev) => (
-
-              <div key={ev.id} className="event-card">
-
+              <div
+                key={ev.id}
+                className="event-card"
+              >
                 {/* IMAGEN */}
                 {ev.image && (
-                  <img src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`} alt={ev.name}/>
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
+                    alt={ev.name}
+                  />
                 )}
 
                 <div className="event-card-content">
-
                   {/* NOMBRE */}
                   <h4>{ev.name}</h4>
 
                   {/* FECHA */}
                   <div className="date">
-
-                    {ev.dateTime ? new Date(ev.dateTime).toLocaleString("es-CO", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })
+                    {ev.dateTime
+                      ? new Date(ev.dateTime).toLocaleString(
+                        "es-CO",
+                        {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        }
+                      )
                       : "Sin fecha"}
-
                   </div>
 
+                  {/* DESCRIPCIÓN */}
                   <p>{ev.description}</p>
 
+                  {/* LUGAR */}
                   {ev.place && (
-                    <p><b>Lugar:</b>{" "}{ev.place}</p>
+                    <p>
+                      <b>Lugar:</b> {ev.place}
+                    </p>
                   )}
 
                   {/* ENLACE */}
                   {ev.link && (
                     <p>
-                      <a href={ev.link} target="_blank" rel="noreferrer">Enlace al evento</a>
+                      <a
+                        href={ev.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Enlace al evento
+                      </a>
                     </p>
                   )}
 
                   {/* ACCIONES */}
                   <div className="actions">
+                    <button
+                      type="button"
+                      onClick={() => handleEdit(ev)}
+                    >
+                      Editar
+                    </button>
 
-                    <button onClick={() =>handleEdit(ev)}>Editar</button>
-
-                    <button onClick={() =>handleDelete(ev.id)}>Eliminar</button>
-
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(ev.id)}
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </div>
               </div>
