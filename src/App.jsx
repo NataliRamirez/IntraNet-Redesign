@@ -13,6 +13,8 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import DashboardComunication from "./pages/Comunications/DashboardComunication";
 import AdminNews from "./pages/Admin/AdminNews/AdminNews";
 import AdminEvents from "./pages/Admin/AdminEvents/AdminEvents";
+import AdminUsers from "./pages/Admin/AdminUsers/AdminUsers";
+import AdminEmployees from "./pages/Admin/AdminEmployees/AdminEmployees";
 import PrivateRoute from "./components/Routes/PrivateRoutes";
 import Footer from "./components/Footer/Footer";
 import GridNews from "./pages/News/GridNews/GridNews";
@@ -24,48 +26,59 @@ import UseTerms from "./pages/UseTerms/Terms";
 import "./App.css";
 
 export default function App() {
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    return (
-        <>
-          <Header />
-          <Menu />
-          <ScrollToTop />
-          <Routes>
+  return (
+    <>
+      <Header />
+      <Menu />
+      <ScrollToTop />
+      <Routes>
 
-              <Route path="/" element={<Home />} />
-              <Route path="/us" element={<Us />} />
-              <Route path="/utils" element={<Utils />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<EventDetail />} />
-              <Route path="/news" element={<GridNews />} />
-              <Route path="/news/:id" element={<NewsDetail />} />
-              <Route path="/birthdaymodal" element={<BirthdayModal />} />
-              <Route path="/useTerms" element={<UseTerms />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/us" element={<Us />} />
+        <Route path="/utils" element={<Utils />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetail />} />
+        <Route path="/news" element={<GridNews />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
+        <Route path="/birthdaymodal" element={<BirthdayModal />} />
+        <Route path="/useTerms" element={<UseTerms />} />
 
-              <Route path="/admin" element={ <PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-                <AdminDashboard />
-              </PrivateRoute>} />
+        <Route path="/admin" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminDashboard />
+        </PrivateRoute>} />
 
-              <Route path="/admin/news" element={ <PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-                <AdminNews />
-              </PrivateRoute>} />
+        <Route path="/admin/news" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminNews />
+        </PrivateRoute>} />
 
-              <Route path="/admin/events" element={ <PrivateRoute allowedRoles={["ADMINISTRADOR"]}> 
-                <AdminEvents />
-              </PrivateRoute>} />
+        <Route path="/admin/events" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminEvents />
+        </PrivateRoute>} />
 
-              <Route path="/admin/birthday" element={ <PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-                <AdminBirthdayImage />
-              </PrivateRoute>} />
+        <Route path="/admin/users" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminUsers />
+        </PrivateRoute>} />
 
-              <Route path="/comunications" element={ <PrivateRoute allowedRoles={["COMUNICACIONES"]}>
-                <DashboardComunication />
-              </PrivateRoute>} />
+        <Route
+          path="/admin/employees" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+              <AdminEmployees />
+            </PrivateRoute>
+          }
+        />
 
-            </Routes>
+        <Route path="/admin/birthday" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminBirthdayImage />
+        </PrivateRoute>} />
 
-            <Footer />
-        </>
-    );
+        <Route path="/comunications" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+          <DashboardComunication />
+        </PrivateRoute>} />
+
+      </Routes>
+
+      <Footer />
+    </>
+  );
 }

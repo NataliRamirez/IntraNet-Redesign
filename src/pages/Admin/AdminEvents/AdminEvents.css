@@ -3,7 +3,7 @@
 ===================================================== */
 
 .admin-events {
-   width: 100%;
+  width: 100%;
   padding-top: 15vh;
   max-width: 1500px;
   margin: 1rem auto;
@@ -27,7 +27,7 @@
   margin: 15vh auto 3rem;
   padding: 5vh 2rem 3rem;
   box-sizing: border-box;
-  background: #c2e6fd;
+  background: linear-gradient(to bottom, #9cbbcf, #b5c3cc);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
   display: flex;
@@ -38,10 +38,11 @@
 
 .admin-events .section-form h2 {
   margin: 0 0 1.5rem;
-  color: #1e3a5f;
-  font-size: 1.8rem;
+  color: #ffffff;
+  font-size: 2rem;
   font-weight: 600;
   text-align: center;
+  padding-bottom: 1rem;
 }
 
 /* Formulario */
@@ -63,7 +64,7 @@
   padding: 1rem 1.2rem;
   box-sizing: border-box;
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 25px;
   background: #ffffff;
   font-family: inherit;
   font-size: 0.95rem;
@@ -168,7 +169,7 @@
   margin: 0 auto;
 }
 
-.admin-events .section-events > h2 {
+.admin-events .section-events>h2 {
   width: 100%;
   margin: 0 0 2rem;
   color: #1e3a5f;
@@ -256,10 +257,8 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, 320px), 1fr)
-  );
+  grid-template-columns: repeat(auto-fit,
+      minmax(min(100%, 320px), 1fr));
 
   align-items: stretch;
   gap: 2rem;
@@ -267,7 +266,7 @@
 
 /* Mensajes cuando no hay resultados */
 
-.admin-events .events-list > p {
+.admin-events .events-list>p {
   grid-column: 1 / -1;
   width: 100%;
   padding: 2rem;
@@ -304,7 +303,7 @@
 
 /* Imagen de cada tarjeta */
 
-.admin-events .event-card > img {
+.admin-events .event-card>img {
   display: block;
   width: 100%;
   height: 260px;
@@ -445,7 +444,7 @@
     gap: 1.5rem;
   }
 
-  .admin-events .event-card > img {
+  .admin-events .event-card>img {
     height: 240px;
   }
 
@@ -501,7 +500,7 @@
     width: 100%;
   }
 
-  .admin-events .section-events > h2 {
+  .admin-events .section-events>h2 {
     font-size: 1.6rem;
   }
 
@@ -526,7 +525,7 @@
     gap: 1.25rem;
   }
 
-  .admin-events .event-card > img {
+  .admin-events .event-card>img {
     height: 220px;
   }
 

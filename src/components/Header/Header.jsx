@@ -54,10 +54,6 @@ export default function Header() {
                         Eventos
                     </Link>
 
-                    <Link to="/admin/employees">
-                        Empleados
-                    </Link>
-
                     <Link to="/admin/notifications">
                         Notificaciones
                     </Link>

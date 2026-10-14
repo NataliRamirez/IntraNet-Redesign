@@ -1,0 +1,602 @@
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+===================================================== */
+
+.admin-users {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 1500px;
+  margin: 1rem auto;
+  padding: 2rem 5%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", system-ui, sans-serif;
+  color: #333;
+}
+
+.admin-users * {
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   SECCIONES
+===================================================== */
+
+.admin-users .users-section-form,
+.admin-users .users-section-list {
+  width: 100%;
+  margin: 0 auto 3rem;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+.admin-users .users-section-form {
+  margin-top: 15vh;
+  padding: 5vh 2rem 3rem;
+  background: linear-gradient(to bottom, #9cbbcf, #b5c3cc);
+  box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
+}
+
+.admin-users .users-section-form h2 {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Estructura */
+
+.admin-users .users-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.admin-users .users-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem;
+  width: 100%;
+}
+
+.admin-users .users-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.admin-users .users-field label {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Campos de texto y selección */
+
+.admin-users .users-field input,
+.admin-users .users-field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 25px;
+  background: #ffffff;
+  color: #2c3e50;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-users .users-field input:focus,
+.admin-users .users-field select:focus {
+  border-color: #32a7d9;
+  box-shadow: 0 0 0 4px rgba(50, 167, 217, 0.15);
+  outline: none;
+}
+
+/* Nota informativa */
+
+.admin-users .users-form-note {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* =====================================================
+   BOTONES DEL FORMULARIO
+===================================================== */
+
+.admin-users .users-form-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.admin-users .users-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.admin-users .users-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+/* Crear y actualizar */
+
+.admin-users .users-btn-primary {
+  background: linear-gradient(135deg, #286ca3, #32a7d9);
+  color: #ffffff;
+}
+
+.admin-users .users-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Cancelar edición */
+
+.admin-users .users-btn-secondary {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.admin-users .users-btn-secondary:hover:not(:disabled) {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   LISTADO DE USUARIOS
+===================================================== */
+
+.admin-users .users-section-list {
+  padding: 1rem 0 2rem;
+  background: #ffffff;
+}
+
+/* Encabezado */
+
+.admin-users .users-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-users .users-list-heading h2 {
+  margin: 0;
+  color: #1e3a5f;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Contador */
+
+.admin-users .users-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  background: #e0f2fe;
+  color: #075985;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* =====================================================
+   BÚSQUEDA Y FILTROS
+===================================================== */
+
+.admin-users .users-search-filters {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 220px auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Búsqueda y selector de roles */
+
+.admin-users .users-search-filters input,
+.admin-users .users-search-filters select {
+  width: 100%;
+  min-width: 0;
+  height: 3rem;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-users .users-search-filters input:focus,
+.admin-users .users-search-filters select:focus {
+  border-color: #32a7d9;
+  box-shadow: 0 0 0 3px rgba(50, 167, 217, 0.15);
+}
+
+/* Botón limpiar filtros */
+
+.admin-users .users-search-filters .users-btn-secondary {
+  min-height: 3rem;
+  padding: 0 18px;
+  border-radius: 8px;
+  background: #6c757d;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.admin-users .users-search-filters .users-btn-secondary:hover:not(:disabled) {
+  background: #545b62;
+}
+
+/* =====================================================
+   TABLA DE USUARIOS
+===================================================== */
+
+.admin-users .users-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(44, 62, 80, 0.06);
+}
+
+.admin-users .users-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  text-align: left;
+}
+
+/* Encabezado con degradado de EMCA */
+
+.admin-users .users-table thead {
+  background: linear-gradient(135deg, #286ca3, #32a7d9);
+  color: #ffffff;
+}
+
+.admin-users .users-table th {
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Celdas */
+
+.admin-users .users-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 0.91rem;
+  line-height: 1.6;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.admin-users .users-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.admin-users .users-table tbody tr:hover {
+  background: #f0f9ff;
+}
+
+.admin-users .users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================================================
+   ETIQUETAS DE ROLES
+===================================================== */
+
+.admin-users .users-role {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.4rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* Administrador */
+
+.admin-users .users-role-admin {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* Comunicaciones */
+
+.admin-users .users-role-comms {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* =====================================================
+   BOTONES DE ACCIONES
+===================================================== */
+
+.admin-users .users-actions {
+  min-width: 175px;
+  white-space: nowrap;
+}
+
+.admin-users .users-btn-edit,
+.admin-users .users-btn-delete {
+  margin: 3px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-users .users-btn-edit:hover,
+.admin-users .users-btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Editar */
+
+.admin-users .users-btn-edit {
+  background: #f0ad4e;
+}
+
+.admin-users .users-btn-edit:hover {
+  background: #df982e;
+}
+
+/* Eliminar */
+
+.admin-users .users-btn-delete {
+  background: #dc3545;
+}
+
+.admin-users .users-btn-delete:hover {
+  background: #bb2d3b;
+}
+
+/* =====================================================
+   ESTADOS VACÍOS Y CARGA
+===================================================== */
+
+.admin-users .users-empty {
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* =====================================================
+   RESPONSIVE: TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+  .admin-users {
+    padding: 1.5rem 3%;
+  }
+
+  .admin-users .users-section-form {
+    margin-top: 10vh;
+    padding: 4vh 1.5rem 2.5rem;
+  }
+
+  .admin-users .users-search-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr);
+  }
+
+  .admin-users .users-search-filters .users-btn-secondary {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .admin-users .users-table th,
+  .admin-users .users-table td {
+    padding: 0.85rem 0.7rem;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE: MÓVILES
+===================================================== */
+
+@media (max-width: 650px) {
+  .admin-users {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .admin-users .users-section-form {
+    margin-top: 8vh;
+    padding: 2rem 1rem;
+    border-radius: 14px;
+  }
+
+  .admin-users .users-section-form h2 {
+    font-size: 1.45rem;
+  }
+
+  .admin-users .users-form {
+    gap: 1rem;
+  }
+
+  .admin-users .users-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .admin-users .users-field input,
+  .admin-users .users-field select {
+    min-height: 45px;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .admin-users .users-form-buttons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .admin-users .users-form-buttons .users-btn {
+    width: 100%;
+  }
+
+  .admin-users .users-section-list {
+    padding: 1rem 0;
+  }
+
+  .admin-users .users-list-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+
+  .admin-users .users-list-heading h2 {
+    font-size: 1.6rem;
+  }
+
+  .admin-users .users-search-filters {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .admin-users .users-search-filters .users-btn-secondary {
+    grid-column: auto;
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  /* Tabla convertida en tarjetas */
+
+  .admin-users .users-table-container {
+    overflow: visible;
+    border: none;
+    box-shadow: none;
+  }
+
+  .admin-users .users-table,
+  .admin-users .users-table tbody,
+  .admin-users .users-table tr,
+  .admin-users .users-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-users .users-table thead {
+    display: none;
+  }
+
+  .admin-users .users-table tbody tr {
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 5px 18px rgba(44, 62, 80, 0.08);
+  }
+
+  .admin-users .users-table tbody tr:hover {
+    background: #f8fbff;
+  }
+
+  .admin-users .users-table td {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-users .users-table tbody tr:last-child td {
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .admin-users .users-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    max-width: 40%;
+    color: #1e3a5f;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .admin-users .users-table td.users-actions {
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    white-space: normal;
+  }
+
+  .admin-users .users-table td.users-actions::before {
+    margin-right: auto;
+  }
+
+  .admin-users .users-btn-edit,
+  .admin-users .users-btn-delete {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .admin-users .users-empty {
+    padding: 1.5rem 1rem;
+    font-size: 0.92rem;
+  }
+}
