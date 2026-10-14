@@ -20,20 +20,18 @@ export default function Header() {
         navigate("/");
     };
 
-    const goToDashboard = () => {
-        console.log("Usuario actual:", user);
-        console.log("Rol:", user?.role);
+    
+const goToDashboard = () => {
+    if (!user) return;
 
-        if (!user) return;
+    if (
+        user.role === "ADMINISTRADOR" ||
+        user.role === "COMUNICACIONES"
+    ) {
+        navigate("/profile");
+    }
+};
 
-        if (user.role === "ADMINISTRADOR") {
-            navigate("/admin");
-        } else if (user.role === "COMUNICACIONES") {
-            navigate("/comunications");
-        } else {
-            console.log("Rol no reconocido:", user.role);
-        }
-    };
 
 
     const getNavigation = () => {
@@ -147,6 +145,16 @@ export default function Header() {
             );
         }
 
+        if (location.pathname.startsWith("/profile")) {
+            return (
+                <>
+                    <nav className="nav-links">
+                        <Link to="/">Inicio</Link>
+                    </nav>
+                </>
+            );
+        }
+
         // =========================
         // HOME
         // =========================
@@ -175,7 +183,7 @@ export default function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal"/>
+                        <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal" />
                     </a>
                     <Link to="/" className="title-link"><h1 className="title-header">INTRANET</h1></Link>
                 </div>
@@ -201,8 +209,8 @@ export default function Header() {
 
                     ) : (
 
-                        <button className="login-button"  onClick={() => setShowLogin(true)}>INGRESAR</button>
-                    )} 
+                        <button className="login-button" onClick={() => setShowLogin(true)}>INGRESAR</button>
+                    )}
                 </div>
             </section>
 
@@ -212,14 +220,14 @@ export default function Header() {
             {showLogin && !user && (
                 <div className="login-modal">
                     {/* Fondo */}
-                    <div className="login-modal-overlay" onClick={() => setShowLogin(false)}/>
+                    <div className="login-modal-overlay" onClick={() => setShowLogin(false)} />
 
                     {/* Contenido */}
                     <div className="login-modal-content">
 
                         {/* Cerrar */}
                         <button className="login-close" onClick={() => setShowLogin(false)}>✕</button>
-                        <Login onClose={() => setShowLogin(false)}/>
+                        <Login onClose={() => setShowLogin(false)} />
 
                     </div>
                 </div>

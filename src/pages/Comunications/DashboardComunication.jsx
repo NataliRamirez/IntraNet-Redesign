@@ -1,13 +1,14 @@
+
 import { motion } from "framer-motion";
-import "./DashboardComunication.css";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import "./DashboardComunication.css";
 
-export default function ComunitactionDashboard() {
+export default function DashboardComunication() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Solo Comunicaciones debería ver este panel
+  // Solo Comunicaciones puede acceder a este panel.
   if (!user || user.role !== "COMUNICACIONES") {
     return <Navigate to="/" replace />;
   }
@@ -22,24 +23,57 @@ export default function ComunitactionDashboard() {
           transition={{ duration: 0.6 }}
         >
           <h1>Panel de Comunicaciones</h1>
-          <p>Bienvenido, aquí puedes gestionar Noticias y Eventos de la Intranet.</p>
+          <p>
+            Bienvenido, aquí puedes gestionar las noticias, los eventos
+            y consultar los cumpleaños de la Intranet.
+          </p>
         </motion.div>
       </header>
 
       <section className="comunication-actions">
         {/* Noticias */}
-        <div className="action-card">
+        <motion.div
+          className="action-card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <h2>Noticias</h2>
-          <p>Crea, edita y elimina las noticias de la empresa.</p>
-          <button className="action-btn" onClick={() => navigate("/admin/news")}>Gestionar Noticias</button>
-        </div>
+          <p>
+            Crea, consulta, edita y elimina las noticias de la empresa.
+          </p>
+
+          <button
+            type="button"
+            className="action-btn"
+            onClick={() => navigate("/comunications/news")}
+          >
+            Gestionar noticias
+          </button>
+        </motion.div>
 
         {/* Eventos */}
-        <div className="action-card">
+        <motion.div
+          className="action-card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
           <h2>Eventos</h2>
-          <p>Administra los eventos de la organización.</p>
-          <button className="action-btn" onClick={() => navigate("/admin/events")}>Gestionar Eventos</button>
-        </div>
+          <p>
+            Crea, consulta, edita y elimina los eventos de la organización.
+          </p>
+
+          <button
+            type="button"
+            className="action-btn"
+            onClick={() => navigate("/comunications/events")}
+          >
+            Gestionar eventos
+          </button>
+        </motion.div>
+
+        
       </section>
     </div>
   );

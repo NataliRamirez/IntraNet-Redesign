@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./BirthdayModal.css";
@@ -6,12 +7,16 @@ import logoColor from "../../assets/images/logo-color.png";
 export default function BirthdayModal() {
   const BACKEND_URL = import.meta.env.VITE_API_URL;
   const backendConfigURL = `${BACKEND_URL}/birthday-image`;
+  const employeesURL = `${BACKEND_URL}/public/employees/birthdays/today`;
 
   const fallbackImage =
     "https://placehold.co/1500x900/ffe0f1/000000?text=Cumpleañeros+del+Mes";
 
   const [backgroundImage, setBackgroundImage] = useState(fallbackImage);
+  const [birthdayEmployees, setBirthdayEmployees] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState(0);
 
+  // Se conservan los ocho mensajes originales.
   const messages = [
     "En este día tan especial, EMCA desea expresar sus más sinceras felicitaciones por un año más de vida. Agradecemos profundamente su compromiso, dedicación y valiosa contribución al crecimiento de nuestra organización. Su esfuerzo diario, profesionalismo y actitud positiva son fundamentales para el cumplimiento de nuestros objetivos y para fortalecer el ambiente de trabajo que construimos juntos. Esperamos que disfrute esta fecha rodeado de sus seres queridos, recibiendo el cariño y reconocimiento que merece. Que este nuevo año esté lleno de salud, felicidad, prosperidad y grandes oportunidades tanto en el ámbito personal como profesional. ¡Le deseamos un muy feliz cumpleaños! 🎁",
 
@@ -30,18 +35,72 @@ export default function BirthdayModal() {
     "Los cumpleaños representan una oportunidad para celebrar los logros alcanzados y mirar con entusiasmo hacia los nuevos desafíos que están por venir. Por ello, queremos enviarle un mensaje de reconocimiento y gratitud por su dedicación, esfuerzo y contribución a nuestra organización. Deseamos que este día esté lleno de alegría, gratitud y momentos inolvidables. Que la salud, el éxito y la felicidad sean constantes en esta nueva etapa de su vida, y que cada meta que se proponga se convierta en una realidad. ¡Muchas felicidades en su cumpleaños y los mejores deseos para el año que comienza! 🎉"
   ];
 
-
-  const [currentMessage, setCurrentMessage] = useState(0);
-
+  // Consulta los empleados que cumplen años hoy.
   useEffect(() => {
-    fetch(backendConfigURL)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.image) {
-          setBackgroundImage(`${BACKEND_URL}/uploads/birthdays/${data.image}`);
+    const fetchBirthdayEmployees = async () => {
+      try {
+        const response = await fetch(employeesURL);
+        const contentType = response.headers.get("content-type") || "";
+
+        if (!response.ok) {
+          throw new Error(
+            `Error al consultar los cumpleañeros: HTTP ${response.status}`
+          );
         }
-      })
-      .catch(() => setBackgroundImage(fallbackImage));
+
+        if (!contentType.includes("application/json")) {
+          const responseText = await response.text();
+
+          console.error(
+            "La API no devolvió JSON. Respuesta recibida:",
+            responseText.slice(0, 300)
+          );
+
+          throw new Error(
+            "La ruta de cumpleañeros no devolvió JSON. Verifica la URL y el controlador de NestJS."
+          );
+        }
+
+        const data = await response.json();
+
+        setBirthdayEmployees(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error al obtener los cumpleañeros:", error);
+        setBirthdayEmployees([]);
+      }
+    };
+
+    fetchBirthdayEmployees();
+  }, [employeesURL]);
+
+  // Obtiene la imagen y cambia el mensaje cada ocho segundos.
+  useEffect(() => {
+    const fetchBirthdayImage = async () => {
+      try {
+        const response = await fetch(backendConfigURL);
+
+        if (!response.ok) {
+          throw new Error(
+            `Error al obtener la imagen: HTTP ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        if (data?.image) {
+          setBackgroundImage(
+            `${BACKEND_URL}/uploads/birthdays/${data.image}`
+          );
+        } else {
+          setBackgroundImage(fallbackImage);
+        }
+      } catch (error) {
+        console.error("Error al obtener la imagen de cumpleaños:", error);
+        setBackgroundImage(fallbackImage);
+      }
+    };
+
+    fetchBirthdayImage();
 
     const interval = setInterval(() => {
       setCurrentMessage((prev) => (prev + 1) % messages.length);
@@ -50,9 +109,58 @@ export default function BirthdayModal() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section className="birthday-page"  id="Cumpleaños">
+  // El empleado cambia al mismo tiempo que el mensaje.
+  const currentEmployee =
+    birthdayEmployees.length > 0
+      ? birthdayEmployees[currentMessage % birthdayEmployees.length]
+      : null;
 
+  // Contenido que se muestra en ambos body-img.
+  const renderBirthdayEmployee = () => {
+    if (!currentEmployee) {
+      return (
+        <div className="birthday-employee-empty">
+          <img src={logoColor} alt="Logo EMCA" />
+          <h3>EMCA te desea un feliz día</h3>
+          <p>
+            Aquí celebramos a nuestros colaboradores y sus momentos
+            especiales.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="birthday-employee-card">
+        <img src={logoColor} alt="Logo EMCA" />
+
+        <span className="birthday-employee-label">
+          🎂 CUMPLEAÑERO DEL DÍA 🎂
+        </span>
+
+        <h3>{currentEmployee.name || "Nombre no disponible"}</h3>
+
+        <p>
+          <strong>Cargo:</strong>{" "}
+          {currentEmployee.job_position || "No especificado"}
+        </p>
+
+        <p>
+          <strong>Área:</strong>{" "}
+          {currentEmployee.area || "No especificada"}
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    <section
+      className="birthday-page"
+      id="Cumpleaños"
+      style={{
+        "--birthday-background": `url("${backgroundImage}")`,
+      }}
+    >
       <div className="head-bd">
         <motion.div
           className="hero-content"
@@ -61,21 +169,19 @@ export default function BirthdayModal() {
           transition={{ duration: 0.6 }}
         >
           <h3 className="title-bd">Cumpleañeros del Mes</h3>
-          <p>En esta sección podrás encontrar a nuestros cumpleañeros del mes</p>
+          <p>
+            En esta sección podrás encontrar a nuestros cumpleañeros del mes
+          </p>
         </motion.div>
       </div>
 
       <div className="body-bd">
-
-        <div className="body-img">
-          <img src={logoColor} alt="logo emca" />
-        </div>
+        <div className="body-img">{renderBirthdayEmployee()}</div>
 
         <div className="body-text">
           <h3>¡¡Feliz Cumpleaños!!</h3>
           <p>{messages[currentMessage]}</p>
         </div>
-
       </div>
 
       <div className="head-bd" id="Agradecimientos">
@@ -83,19 +189,28 @@ export default function BirthdayModal() {
         <p>...</p>
       </div>
 
-
       <div className="body-bd">
-
         <div className="body-text">
           <h3>Feliz Cumpleaños</h3>
-          <p>En este día especial queremos reconocer y celebrar a nuestros colaboradores que cumplen un año más de vida. Agradecemos su dedicación, compromiso y valioso aporte a nuestra organización. Les deseamos salud, bienestar, éxito y muchos momentos de felicidad junto a sus familiares y amigos.</p>
-          <p>Recibe nuestros más sinceros deseos de parte de toda la organización. Esperamos que disfrutes esta fecha especial rodeado de bienestar y alegría, y que el nuevo año que comienzas esté lleno de logros, crecimiento personal y profesional, así como de nuevas oportunidades para alcanzar tus objetivos. Te deseamos un feliz cumpleaños y un año colmado de éxitos, prosperidad y momentos significativos.</p>
+          <p>
+            En este día especial queremos reconocer y celebrar a nuestros
+            colaboradores que cumplen un año más de vida. Agradecemos su
+            dedicación, compromiso y valioso aporte a nuestra organización.
+            Les deseamos salud, bienestar, éxito y muchos momentos de
+            felicidad junto a sus familiares y amigos.
+          </p>
+          <p>
+            Recibe nuestros más sinceros deseos de parte de toda la
+            organización. Esperamos que disfrutes esta fecha especial rodeado
+            de bienestar y alegría, y que el nuevo año que comienzas esté
+            lleno de logros, crecimiento personal y profesional, así como de
+            nuevas oportunidades para alcanzar tus objetivos. Te deseamos un
+            feliz cumpleaños y un año colmado de éxitos, prosperidad y
+            momentos significativos.
+          </p>
         </div>
 
-        <div className="body-img">
-          <img src={logoColor} alt="logo emca" />
-        </div>
-
+        <div className="body-img">{renderBirthdayEmployee()}</div>
       </div>
     </section>
   );

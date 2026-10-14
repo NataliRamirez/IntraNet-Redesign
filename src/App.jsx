@@ -22,6 +22,7 @@ import EventDetail from "./pages/Events/Detail/EventDetail";
 import BirthdayModal from "./pages/BirthdayModal/BirthdayModal";
 import AdminBirthdayImage from "./pages/Admin/BirthdayImage/AdminBirthdayImage";
 import UseTerms from "./pages/UseTerms/Terms";
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 import "./App.css";
 
@@ -53,6 +54,10 @@ export default function App() {
           <AdminNews />
         </PrivateRoute>} />
 
+        <Route path="/profile" element={<PrivateRoute allowedRoles={["ADMINISTRADOR", "COMUNICACIONES"]}>
+          <UserProfile />
+        </PrivateRoute>} />
+
         <Route path="/admin/events" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
           <AdminEvents />
         </PrivateRoute>} />
@@ -63,8 +68,8 @@ export default function App() {
 
         <Route
           path="/admin/employees" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-              <AdminEmployees />
-            </PrivateRoute>
+            <AdminEmployees />
+          </PrivateRoute>
           }
         />
 
@@ -76,6 +81,22 @@ export default function App() {
           <DashboardComunication />
         </PrivateRoute>} />
 
+        <Route
+          path="/comunications/news" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+            <AdminNews />
+          </PrivateRoute>} />
+
+        <Route path="/comunications/events" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+          <AdminEvents />
+        </PrivateRoute>} />
+
+        <Route path="/comunications/birthday" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+          <BirthdayModal />
+        </PrivateRoute>} />
+
+        <Route path="/comunications/tools" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+          <Utils />
+        </PrivateRoute>} />
       </Routes>
 
       <Footer />

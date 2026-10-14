@@ -128,6 +128,57 @@
   max-width: 400px;
 }
 
+.birthday-employee-card,
+.birthday-employee-empty {
+  width: 100%;
+  min-height: 240px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffffff, #ffe8f3);
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.12);
+}
+
+.birthday-employee-card > img,
+.birthday-employee-empty > img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+}
+
+.birthday-employee-label {
+  color: #286ca3;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.birthday-employee-card h3,
+.birthday-employee-empty h3 {
+  margin: 4px 0;
+  color: #1e3a8a;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+}
+
+.birthday-employee-card p,
+.birthday-employee-empty p {
+  margin: 0;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.birthday-employee-card strong {
+  color: #1e3a8a;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

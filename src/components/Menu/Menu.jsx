@@ -42,7 +42,6 @@ import logoColor from "../../assets/images/logo-color.png";
  * COMUNICACIONES:
  * - Inicio
  * - Herramientas
- * - Empleados
  * - Noticias
  * - Eventos
  * - Cumpleañeros
@@ -186,11 +185,6 @@ export default function Menu() {
       name: "Herramientas",
       path: "/comunications/tools",
       icon: <FaTools />,
-    },
-    {
-      name: "Empleados",
-      path: "/comunications/employees",
-      icon: <FaUserTie />,
     },
     {
       name: "Noticias",
