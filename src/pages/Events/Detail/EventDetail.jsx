@@ -62,11 +62,11 @@ export default function EventDetail() {
             <div className="event-detail-content">
               <h2>{event.name}</h2>
 
-              {event.dateTime && (
+              {event.date_time && (
                 <div className="event-detail-info">
                   <p>
                     📅{" "}
-                    {new Date(event.dateTime).toLocaleDateString("es-CO", {
+                    {new Date(event.date_time).toLocaleDateString("es-CO", {
                       day: "2-digit",
                       month: "long",
                       year: "numeric",
@@ -75,7 +75,7 @@ export default function EventDetail() {
 
                   <p>
                     🕒{" "}
-                    {new Date(event.dateTime).toLocaleTimeString("es-CO", {
+                    {new Date(event.date_time).toLocaleTimeString("es-CO", {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}

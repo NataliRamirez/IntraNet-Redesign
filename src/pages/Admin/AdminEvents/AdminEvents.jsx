@@ -4,19 +4,16 @@ import Swal from "sweetalert2";
 
 import "./AdminEvents.css";
 
-// URL base del backend desde .env
 const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
 const getAuthHeaders = () => {
   let token = null;
 
-  // Buscar el token guardado directamente
   token =
     localStorage.getItem("token") ||
     localStorage.getItem("accessToken") ||
     localStorage.getItem("access_token");
 
-  // Si no está directamente, buscarlo dentro del usuario
   if (!token) {
     const storedUser = localStorage.getItem("user");
 
@@ -30,7 +27,6 @@ const getAuthHeaders = () => {
           user.access_token ||
           null;
 
-        // Compatibilidad con el formato anterior del proyecto
         if (
           !token &&
           typeof user.username === "string" &&
@@ -66,7 +62,7 @@ export default function AdminEvents() {
     id: null,
     title: "",
     description: "",
-    dateTime: "",
+    date_time: "",
     place: "",
     link: "",
     image: "",
@@ -74,15 +70,9 @@ export default function AdminEvents() {
 
   const [imageFile, setImageFile] = useState(null);
 
-  // =========================
-  // BÚSQUEDA Y FILTROS
-  // =========================
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  // =========================
-  // OBTENER EVENTOS
-  // =========================
   useEffect(() => {
     fetchEvents();
   }, []);
@@ -134,7 +124,7 @@ export default function AdminEvents() {
     if (
       !form.title.trim() ||
       !form.description.trim() ||
-      !form.dateTime
+      !form.date_time
     ) {
       Swal.fire({
         icon: "warning",
@@ -152,7 +142,7 @@ export default function AdminEvents() {
       fd.append("description", form.description.trim());
       fd.append(
         "date_time",
-        new Date(form.dateTime).toISOString()
+        new Date(form.date_time).toISOString()
       );
 
       if (form.place.trim()) {
@@ -167,12 +157,10 @@ export default function AdminEvents() {
         fd.append("image", imageFile);
       }
 
-      // Obtener el token de autenticación
       const authHeaders = getAuthHeaders();
 
       let actionTitle = "";
 
-      // ACTUALIZAR EVENTO
       if (form.id) {
         await axios.patch(`${API_URL}/${form.id}`, fd, {
           headers: getAuthHeaders(),
@@ -225,15 +213,12 @@ export default function AdminEvents() {
     }
   };
 
-  // =========================
-  // LIMPIAR FORMULARIO
-  // =========================
   const resetForm = () => {
     setForm({
       id: null,
       title: "",
       description: "",
-      dateTime: "",
+      date_time: "",
       place: "",
       link: "",
       image: "",
@@ -242,16 +227,13 @@ export default function AdminEvents() {
     setImageFile(null);
   };
 
-  // =========================
-  // EDITAR EVENTO
-  // =========================
   const handleEdit = (ev) => {
     setForm({
       id: ev.id,
       title: ev.name || "",
       description: ev.description || "",
-      dateTime: ev.dateTime
-        ? new Date(ev.dateTime).toISOString().slice(0, 16)
+      date_time: ev.date_time
+        ? new Date(ev.date_time).toISOString().slice(0, 16)
         : "",
       place: ev.place || "",
       link: ev.link || "",
@@ -268,9 +250,7 @@ export default function AdminEvents() {
     });
   };
 
-  // =========================
-  // ELIMINAR EVENTO
-  // =========================
+
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Estás seguro?",
@@ -324,10 +304,10 @@ export default function AdminEvents() {
     }
   };
 
-  // =========================
-  // FILTRAR EVENTOS
-  // =========================
-  const filteredEvents = events.filter((ev) => {
+  
+  
+const filteredEvents = events
+  .filter((ev) => {
     const searchText = search.toLowerCase().trim();
 
     const matchesSearch =
@@ -337,10 +317,29 @@ export default function AdminEvents() {
       ev.place?.toLowerCase().includes(searchText);
 
     const matchesDate =
-      !dateFilter || ev.dateTime?.startsWith(dateFilter);
+      !dateFilter || ev.date_time?.startsWith(dateFilter);
 
     return matchesSearch && matchesDate;
+  })
+  .sort((a, b) => {
+    const now = new Date().getTime();
+    const dateA = a.date_time ? new Date(a.date_time).getTime() : 0;
+    const dateB = b.date_time ? new Date(b.date_time).getTime() : 0;
+
+    const isUpcomingA = dateA >= now;
+    const isUpcomingB = dateB >= now;
+
+    // Primero los próximos; entre ellos, el más cercano.
+    if (isUpcomingA && isUpcomingB) return dateA - dateB;
+
+    // Los próximos siempre van antes que los que ya pasaron.
+    if (isUpcomingA) return -1;
+    if (isUpcomingB) return 1;
+
+    // Después, los pasados más recientes y al final los antiguos.
+    return dateB - dateA;
   });
+
 
   // =========================
   // LIMPIAR FILTROS
@@ -394,11 +393,11 @@ export default function AdminEvents() {
           {/* FECHA Y HORA */}
           <input
             type="datetime-local"
-            value={form.dateTime}
+            value={form.date_time}
             onChange={(e) =>
               setForm({
                 ...form,
-                dateTime: e.target.value,
+                date_time: e.target.value,
               })
             }
             required
@@ -536,8 +535,8 @@ export default function AdminEvents() {
 
                   {/* FECHA */}
                   <div className="date">
-                    {ev.dateTime
-                      ? new Date(ev.dateTime).toLocaleString(
+                    {ev.date_time
+                      ? new Date(ev.date_time).toLocaleString(
                         "es-CO",
                         {
                           dateStyle: "medium",
