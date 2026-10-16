@@ -358,7 +358,7 @@ export default function AdminNews() {
   };
 
   return (
-    <div className="adminNews">
+    <div className="adminNews" id="FormNews">
       {/* FORMULARIO */}
       <div className="section-form">
         <h2>{form.id ? "Editar noticia:" : "Crear noticias:"}</h2>
@@ -462,7 +462,7 @@ export default function AdminNews() {
       </div>
 
       {/* LISTADO DE NOTICIAS */}
-      <div className="section-news">
+      <div className="section-news" id="News">
         <h2>Noticias registradas</h2>
 
         {/* BÚSQUEDA Y FILTROS */}
@@ -555,6 +555,7 @@ export default function AdminNews() {
           )}
         </div>
       </div>
+      <div className="endsNews" id="olderNews"></div>
     </div>
   );
 }

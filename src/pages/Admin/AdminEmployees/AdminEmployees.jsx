@@ -442,10 +442,7 @@ export default function AdminEmployee() {
   // VISTA
   // =========================
   return (
-    <div className="admin-employee">
-      {/* =========================
-          FORMULARIO
-      ========================= */}
+    <div className="admin-employee" id="FormEmployees">
       <section className="employee-section-form">
         <h2>
           {form.id
@@ -578,10 +575,7 @@ export default function AdminEmployee() {
         </form>
       </section>
 
-      {/* =========================
-          LISTADO DE EMPLEADOS
-      ========================= */}
-      <section className="employee-section-list">
+      <section className="employee-section-list" id="Employees">
         <div className="employee-list-heading">
           <h2>Empleados registrados</h2>
 

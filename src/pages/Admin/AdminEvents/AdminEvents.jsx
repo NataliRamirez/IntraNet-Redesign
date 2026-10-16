@@ -350,7 +350,7 @@ const filteredEvents = events
   };
 
   return (
-    <div className="admin-events">
+    <div className="admin-events" id="FormEvents">
       {/* FORMULARIO */}
       <div className="section-form">
         <h2>
@@ -474,7 +474,7 @@ const filteredEvents = events
       </div>
 
       {/* LISTADO DE EVENTOS */}
-      <div className="section-events">
+      <div className="section-events" id="Events">
         <h2>Eventos registrados:</h2>
 
         {/* BÚSQUEDA Y FILTROS */}
@@ -591,6 +591,7 @@ const filteredEvents = events
           )}
         </div>
       </div>
+      <div className="olderEvents" id="olderEvents"></div>
     </div>
   );
 }

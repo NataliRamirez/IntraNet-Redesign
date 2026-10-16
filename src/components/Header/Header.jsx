@@ -20,21 +20,60 @@ export default function Header() {
         navigate("/");
     };
 
-    
-const goToDashboard = () => {
-    if (!user) return;
+    const goToDashboard = () => {
+        if (!user) return;
 
-    if (
-        user.role === "ADMINISTRADOR" ||
-        user.role === "COMUNICACIONES"
-    ) {
-        navigate("/profile");
-    }
-};
-
-
+        if (
+            user.role === "ADMINISTRADOR" ||
+            user.role === "COMUNICACIONES"
+        ) {
+            navigate("/profile");
+        }
+    };
 
     const getNavigation = () => {
+
+        if (location.pathname === "/admin/users") {
+            return (
+                <>
+                    <Link to="/admin">Inicio</Link>
+                    <a href="#FormUsers">Formulario</a>
+                    <a href="#Users">Usuarios registrados</a>
+                </>
+            );
+        }
+
+        if (location.pathname === "/admin/news") {
+            return (
+                <>
+                    <Link to="/admin">Inicio</Link>
+                    <a href="#FormNews">Formulario</a>
+                    <a href="#News">Noticias Registradas</a>
+                    <a href="#olderNews">Noticias Antiguas</a>
+                </>
+            );
+        }
+
+        if (location.pathname === "/admin/events") {
+            return (
+                <>
+                    <Link to="/admin">Inicio</Link>
+                    <a href="#FormEvents">Formulario</a>
+                    <a href="#Events">Eventos Registrados</a>
+                    <a href="#olderEvents">Eventos Antiguos</a>
+                </>
+            );
+        }
+
+        if (location.pathname === "/admin/employees") {
+            return (
+                <>
+                    <Link to="/admin">Inicio</Link>
+                    <a href="#FormEmployees">Formulario</a>
+                    <a href="#Employees">Empleados Registrados</a>
+                </>
+            );
+        }
 
         // =========================
         // ADMINISTRACIÓN
@@ -55,10 +94,17 @@ const goToDashboard = () => {
                     <Link to="/admin/notifications">
                         Notificaciones
                     </Link>
+
+                    <Link to="/admin/users">
+                        Usuarios
+                    </Link>
                 </>
             );
         }
 
+        // =========================
+        // COMUNICACIONES
+        // =========================
         if (location.pathname.startsWith("/comunications")) {
             return (
                 <>
@@ -73,11 +119,9 @@ const goToDashboard = () => {
         if (location.pathname.startsWith("/utils")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                        <a href="#Utilidades">Utilidades</a>
-                        <a href="#Herramientas">Herramientas</a>
-                    </nav>
+                    <Link to="/">Inicio</Link>
+                    <a href="#Utilidades">Utilidades</a>
+                    <a href="#Herramientas">Herramientas</a>
                 </>
             );
         }
@@ -88,12 +132,10 @@ const goToDashboard = () => {
         if (location.pathname.startsWith("/us")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                        <a href="#Nosotros">Sobre Nosotros</a>
-                        <a href="#MisionVision">Misión y Visión</a>
-                        <a href="#Organigrama">Organigrama</a>
-                    </nav>
+                    <Link to="/">Inicio</Link>
+                    <a href="#Nosotros">Sobre Nosotros</a>
+                    <a href="#MisionVision">Misión y Visión</a>
+                    <a href="#Organigrama">Organigrama</a>
                 </>
             );
         }
@@ -104,12 +146,10 @@ const goToDashboard = () => {
         if (location.pathname.startsWith("/news")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                        <a href="#Noticias">Noticias</a>
-                        <a href="#Recientes">Noticias Recientes</a>
-                        <a href="#Antiguos">Noticias Antiguas</a>
-                    </nav>
+                    <Link to="/">Inicio</Link>
+                    <a href="#News">Noticias</a>
+                    <a href="#RecentNews">Noticias Recientes</a>
+                    <a href="#OlderNews">Noticias Antiguas</a>
                 </>
             );
         }
@@ -120,12 +160,10 @@ const goToDashboard = () => {
         if (location.pathname.startsWith("/events")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                        <a href="#Eventos">Eventos</a>
-                        <a href="#Recientes">Eventos Recientes</a>
-                        <a href="#Antiguos">Eventos Antiguos</a>
-                    </nav>
+                    <Link to="/">Inicio</Link>
+                    <a href="#Events">Eventos</a>
+                    <a href="#RecentEvents">Eventos Recientes</a>
+                    <a href="#OlderEvents">Eventos Antiguos</a>
                 </>
             );
         }
@@ -136,21 +174,20 @@ const goToDashboard = () => {
         if (location.pathname.startsWith("/birthdaymodal")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                        <a href="#Cumpleaños">Cumpleaños</a>
-                        <a href="#Agradecimientos">Agradecimientos</a>
-                    </nav>
+                    <Link to="/">Inicio</Link>
+                    <a href="#Cumpleaños">Cumpleaños</a>
+                    <a href="#Agradecimientos">Agradecimientos</a>
                 </>
             );
         }
 
+        // =========================
+        // PERFIL
+        // =========================
         if (location.pathname.startsWith("/profile")) {
             return (
                 <>
-                    <nav className="nav-links">
-                        <Link to="/">Inicio</Link>
-                    </nav>
+                    <Link to="/">Inicio</Link>
                 </>
             );
         }
@@ -160,56 +197,74 @@ const goToDashboard = () => {
         // =========================
         return (
             <>
-                <nav className="nav-links">
-                    <a href="#Home">Inicio</a>
-                    <a href="#Noticias">Noticias</a>
-                    <a href="#Eventos">Eventos</a>
-                    <a href="#Nosotros">Nosotros</a>
-                </nav>
+                <a href="#Home">Inicio</a>
+                <a href="#Noticias">Noticias</a>
+                <a href="#Eventos">Eventos</a>
+                <a href="#Nosotros">Nosotros</a>
             </>
         );
     };
 
     return (
         <header className="header">
-
             <section className="header-top">
 
                 {/* Logo institucional */}
                 <div className="logo-container">
-
                     <a
                         href="https://emca-calarca-quindio.micolombiadigital.gov.co/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <img className="logoBlancoEmca" src={logoBlanco} alt="Logo Principal" />
+                        <img
+                            className="logoBlancoEmca"
+                            src={logoBlanco}
+                            alt="Logo Principal"
+                        />
                     </a>
-                    <Link to="/" className="title-link"><h1 className="title-header">INTRANET</h1></Link>
+
+                    <Link to="/" className="title-link">
+                        <h1 className="title-header">INTRANET</h1>
+                    </Link>
                 </div>
 
                 <nav className="nav-links">{getNavigation()}</nav>
-                <div className="header-right">
 
+                <div className="header-right">
                     <NotificationBell />
+
                     {user ? (
                         <div className="user-actions">
 
-                            {/* Perfil / Dashboard */}
-                            <button className="user-button" onClick={goToDashboard} title="Mi panel">
+                            {/* Perfil */}
+                            <button
+                                className="user-button"
+                                onClick={goToDashboard}
+                                title="Mi panel"
+                                type="button"
+                            >
                                 <FiUser size={24} />
                             </button>
 
                             {/* Cerrar sesión */}
-                            <button className="logout-button" onClick={handleLogout} title="Cerrar sesión">
+                            <button
+                                className="logout-button"
+                                onClick={handleLogout}
+                                title="Cerrar sesión"
+                                type="button"
+                            >
                                 <FiLogOut size={24} />
                             </button>
 
                         </div>
-
                     ) : (
-
-                        <button className="login-button" onClick={() => setShowLogin(true)}>INGRESAR</button>
+                        <button
+                            className="login-button"
+                            onClick={() => setShowLogin(true)}
+                            type="button"
+                        >
+                            INGRESAR
+                        </button>
                     )}
                 </div>
             </section>
@@ -219,6 +274,7 @@ const goToDashboard = () => {
             ========================= */}
             {showLogin && !user && (
                 <div className="login-modal">
+
                     {/* Fondo */}
                     <div className="login-modal-overlay" onClick={() => setShowLogin(false)} />
 
@@ -226,9 +282,15 @@ const goToDashboard = () => {
                     <div className="login-modal-content">
 
                         {/* Cerrar */}
-                        <button className="login-close" onClick={() => setShowLogin(false)}>✕</button>
-                        <Login onClose={() => setShowLogin(false)} />
+                        <button
+                            className="login-close"
+                            onClick={() => setShowLogin(false)}
+                            type="button"
+                        >
+                            ✕
+                        </button>
 
+                        <Login onClose={() => setShowLogin(false)} />
                     </div>
                 </div>
             )}

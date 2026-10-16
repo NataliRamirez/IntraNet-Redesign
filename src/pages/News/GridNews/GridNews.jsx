@@ -65,7 +65,7 @@ export default function GridNews() {
   }
 
   return (
-    <div className="grid-news-page">
+    <div className="grid-news-page" id="News">
       {/* HERO */}
       <header className="grid-news-header">
         <motion.div
@@ -83,7 +83,7 @@ export default function GridNews() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="news-grid-container">
+      <main className="news-grid-container" id="RecentNews">
         <h3 className="subtitle">
           Aquí encontrarás todas las noticias registradas en el sistema.
         </h3>
@@ -149,13 +149,13 @@ export default function GridNews() {
                   <p className="fecha">
                     {n.publication_date
                       ? new Date(n.publication_date).toLocaleDateString(
-                          "es-CO",
-                          {
-                            day: "2-digit",
-                            month: "long",
-                            year: "numeric",
-                          }
-                        )
+                        "es-CO",
+                        {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )
                       : "Sin fecha de publicación"}
                   </p>
 
@@ -170,6 +170,7 @@ export default function GridNews() {
           </div>
         )}
       </main>
+      <div className="olderNews" id="OlderNews"></div>
     </div>
   );
 }

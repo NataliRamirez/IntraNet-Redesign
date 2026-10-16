@@ -419,7 +419,7 @@ export default function AdminUsers() {
   // RENDERIZADO
   // =========================
   return (
-    <div className="admin-users">
+    <div className="admin-users" id="FormUsers">
       {/* FORMULARIO */}
       <section className="users-section-form">
         <h2>
@@ -428,15 +428,10 @@ export default function AdminUsers() {
             : "Formulario para crear un usuario"}
         </h2>
 
-        <form
-          onSubmit={handleSubmit}
-          className="users-form"
-        >
+        <form onSubmit={handleSubmit} className="users-form">
           <div className="users-form-grid">
             <div className="users-field">
-              <label htmlFor="id_card">
-                Número de documento *
-              </label>
+              <label htmlFor="id_card"> Número de documento * </label>
 
               <input
                 id="id_card"
@@ -466,9 +461,7 @@ export default function AdminUsers() {
             </div>
 
             <div className="users-field">
-              <label htmlFor="email">
-                Correo electrónico *
-              </label>
+              <label htmlFor="email"> Correo electrónico *</label>
 
               <input
                 id="email"
@@ -507,9 +500,7 @@ export default function AdminUsers() {
                 onChange={handleChange}
                 required
               >
-                <option value="">
-                  Selecciona un rol
-                </option>
+                <option value="">Selecciona un rol</option>
 
                 {roles.map((role) => (
                   <option
@@ -548,8 +539,7 @@ export default function AdminUsers() {
           </div>
 
           <p className="users-form-note">
-            * Campos obligatorios. Las contraseñas deben
-            procesarse y almacenarse con hash en el backend.
+            * Campos obligatorios. 
           </p>
 
           <div className="users-form-buttons">
@@ -574,7 +564,7 @@ export default function AdminUsers() {
       </section>
 
       {/* LISTADO */}
-      <section className="users-section-list">
+      <section className="users-section-list" id="Users">
         <div className="users-list-heading">
           <h2>Usuarios registrados</h2>
 

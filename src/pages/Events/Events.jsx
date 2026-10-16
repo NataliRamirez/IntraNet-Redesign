@@ -79,7 +79,7 @@ export default function Events() {
   };
 
   return (
-    <div className="events-page">
+    <div className="events-page" id="Events">
       {/* HERO */}
       <div className="events-header">
         <div className="hero-content">
@@ -99,7 +99,7 @@ export default function Events() {
       </div>
 
       {/* EVENTOS */}
-      <section id="Events" className="events-container">
+      <section id="Events" className="events-container" id="RecentEvents">
         {/* FILTROS */}
         <div className="events-filters">
           <div className="events-search">
@@ -203,6 +203,7 @@ export default function Events() {
           </div>
         )}
       </section>
+      <div className="olderEvents" id="OlderEvents"></div>
     </div>
   );
 }
