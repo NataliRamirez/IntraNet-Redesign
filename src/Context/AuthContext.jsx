@@ -40,28 +40,19 @@ const normalizeRole = (role) => {
 
   const normalizedRole = role.toString().toUpperCase();
 
-  if (
-    normalizedRole === "ADMINISTRADOR"
-  ) {
+  if (normalizedRole === "ADMINISTRADOR") {
     return "ADMINISTRADOR";
   }
 
-  if (
-    normalizedRole === "COMUNICACIONES"
-  ) {
+  if (normalizedRole === "COMUNICACIONES") {
     return "COMUNICACIONES";
   }
 
   return null;
 };
 
-/**
- * Proveedor del contexto de autenticación.
- */
 export function AuthProvider({ children }) {
-  /**
-   * Recuperar usuario almacenado.
-   */
+
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -80,8 +71,6 @@ export function AuthProvider({ children }) {
 
   /**
    * Inicio de sesión.
-   *
-   * Recibe el JWT que devuelve el backend.
    */
   const login = (token) => {
     const decodedToken = decodeToken(token);
@@ -109,7 +98,7 @@ export function AuthProvider({ children }) {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
 
-    console.log("Usuario autenticado:", userData);
+    console.log("Usuario autenticado");
 
     return true;
   };
@@ -150,21 +139,12 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={{user,login,logout,}}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-/**
- * Hook personalizado para acceder al contexto.
- */
 export function useAuth() {
   return useContext(AuthContext);
 }

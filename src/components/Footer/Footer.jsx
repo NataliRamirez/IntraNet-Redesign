@@ -1,10 +1,7 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
-
-/*import logo from "../../assets/images/LogoEmcaGris.png";*/
 import { Link } from "react-router-dom";
 import logoBlanco from "../../assets/images/logo-blanco.png";
-
 import "./Footer.css";
 
 export default function Footer() {
@@ -35,8 +32,6 @@ export default function Footer() {
                         <h3>Contáctanos</h3>
                         <ul className="links">
                             <li><a href="#">Soporte</a></li>
-                            <li><a href="#">Reportar un problema</a></li>
-                            <li><a href="#">Preguntas frecuentes</a></li>
                             <li>Línea de atención: +57 (606) 7421114</li>
                             <li><a href="https://emca-calarca-quindio.micolombiadigital.gov.co/">Página oficial</a></li>
                         </ul>
@@ -44,12 +39,8 @@ export default function Footer() {
                     <div className="footer-section">
                         <h3>Legal</h3>
                         <ul className="links">
-                            <li><Link to="/useTerms">
-                                Política de privacidad
-                            </Link></li>
-                            <li><Link to="/useTerms">
-                                Términos de servicio
-                            </Link></li>
+                            <li><Link to="/useTerms">Política de privacidad</Link></li>
+                            <li><Link to="/useTerms">Términos de servicio</Link></li>
                         </ul>
                     </div>
                 </div>

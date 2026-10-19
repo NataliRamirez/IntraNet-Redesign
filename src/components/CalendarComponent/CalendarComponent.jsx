@@ -2,19 +2,14 @@ import { useEffect, useState } from "react";
 import { Calendar as BigCalendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay, isSameDay } from "date-fns";
 import { es } from "date-fns/locale";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./CalendarComponent.css";
 
 /**
- * Componente encargado de visualizar el calendario de eventos
- * institucionales. Permite consultar los eventos registrados
- * por fecha y visualizar sus detalles.
+ * Componente encargado de visualizar el calendario de eventos institucionales.
  */
 
-const locales = {
-  es,
-};
+const locales = {es,};
 
 /**
  * Configuración del localizador utilizado por react-big-calendar.
@@ -28,9 +23,6 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-/**
- * URL base de la API obtenida desde las variables de entorno.
- */
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CalendarComponent() {
@@ -40,9 +32,7 @@ export default function CalendarComponent() {
   const [actualDate, setActualDate] = useState(new Date());
 
   /**
-   * Obtiene los eventos registrados desde la API al cargar
-   * el componente y transforma la información al formato
-   * requerido por react-big-calendar.
+   * Obtiene los eventos registrados.
    */
   useEffect(() => {
     fetch(`${API_URL}/events`)

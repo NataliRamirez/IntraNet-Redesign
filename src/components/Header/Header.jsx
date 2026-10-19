@@ -23,10 +23,7 @@ export default function Header() {
     const goToDashboard = () => {
         if (!user) return;
 
-        if (
-            user.role === "ADMINISTRADOR" ||
-            user.role === "COMUNICACIONES"
-        ) {
+        if (user.role === "ADMINISTRADOR" || user.role === "COMUNICACIONES") {
             navigate("/profile");
         }
     };
@@ -82,22 +79,10 @@ export default function Header() {
             return (
                 <>
                     <Link to="/admin">Inicio</Link>
-
-                    <Link to="/admin/news">
-                        Noticias
-                    </Link>
-
-                    <Link to="/admin/events">
-                        Eventos
-                    </Link>
-
-                    <Link to="/admin/notifications">
-                        Notificaciones
-                    </Link>
-
-                    <Link to="/admin/users">
-                        Usuarios
-                    </Link>
+                    <Link to="/admin/news">Noticias</Link>
+                    <Link to="/admin/events">Eventos</Link>
+                    <Link to="/admin/notifications">Notificaciones</Link>
+                    <Link to="/admin/users">Usuarios</Link>
                 </>
             );
         }
@@ -258,13 +243,7 @@ export default function Header() {
 
                         </div>
                     ) : (
-                        <button
-                            className="login-button"
-                            onClick={() => setShowLogin(true)}
-                            type="button"
-                        >
-                            INGRESAR
-                        </button>
+                        <button className="login-button" onClick={() => setShowLogin(true)} type="button">INGRESAR</button>
                     )}
                 </div>
             </section>
@@ -282,13 +261,7 @@ export default function Header() {
                     <div className="login-modal-content">
 
                         {/* Cerrar */}
-                        <button
-                            className="login-close"
-                            onClick={() => setShowLogin(false)}
-                            type="button"
-                        >
-                            ✕
-                        </button>
+                        <button className="login-close" onClick={() => setShowLogin(false)} type="button">✕</button>
 
                         <Login onClose={() => setShowLogin(false)} />
                     </div>

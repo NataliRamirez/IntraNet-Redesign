@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  MdNotifications,
-  MdDelete,
-  MdCheck,
-  MdDoneAll,
-  MdSearch,
-  MdClose,
-  MdEvent,
-  MdArticle,
-} from "react-icons/md";
+import { MdNotifications, MdDelete, MdCheck, MdDoneAll, MdSearch, MdClose, MdEvent, MdArticle,} from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext";
 import "./NotificationBell.css";
 
@@ -17,28 +8,16 @@ export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
-  // ================================
-  // FILTROS
-  // ================================
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("ALL");
   const [readFilter, setReadFilter] = useState("ALL");
 
   const navigate = useNavigate();
-
   const { user } = useAuth();
-
   const API_URL = import.meta.env.VITE_API_URL;
 
-  /**
-   * ============================================
-   * HEADERS DE AUTENTICACIÓN
-   * ============================================
-   */
   const getAuthHeaders = () => {
-    const headers = {
-      "Content-Type": "application/json",
-    };
+    const headers = {"Content-Type": "application/json",};
 
     if (user?.token) {
       headers.Authorization = `Bearer ${user.token}`;
@@ -51,36 +30,24 @@ export default function NotificationBell() {
    * ============================================
    * OBTENER NOTIFICACIONES
    * ============================================
-   *
-   * Esta función NO requiere autenticación.
    */
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
         `${API_URL}/notifications`,
-        {
-          method: "GET",
-          headers: getAuthHeaders(),
-        }
+        {method: "GET", headers: getAuthHeaders(),}
       );
 
       if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status}`
-        );
+        throw new Error(`Error HTTP: ${response.status}`);
       }
 
       const data = await response.json();
 
-      setNotifications(
-        Array.isArray(data) ? data : []
-      );
+      setNotifications(Array.isArray(data) ? data : []);
 
     } catch (error) {
-      console.error(
-        "Error obteniendo notificaciones:",
-        error
-      );
+      console.error("Error obteniendo notificaciones:", error);
     }
   };
 
@@ -106,9 +73,7 @@ export default function NotificationBell() {
       );
 
       if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status}`
-        );
+        throw new Error(`Error HTTP: ${response.status}`);
       }
 
       setNotifications((current) =>
@@ -121,10 +86,7 @@ export default function NotificationBell() {
       );
 
     } catch (error) {
-      console.error(
-        "Error marcando como leída:",
-        error
-      );
+      console.error("Error marcando como leída:",error);
     }
   };
 
@@ -148,9 +110,7 @@ export default function NotificationBell() {
       );
 
       if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status}`
-        );
+        throw new Error(`Error HTTP: ${response.status}`);
       }
 
       setNotifications((current) =>
@@ -161,10 +121,7 @@ export default function NotificationBell() {
       );
 
     } catch (error) {
-      console.error(
-        "Error marcando todas como leídas:",
-        error
-      );
+      console.error("Error marcando todas como leídas:",error);
     }
   };
 
@@ -188,18 +145,13 @@ export default function NotificationBell() {
       );
 
       if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status}`
-        );
+        throw new Error(`Error HTTP: ${response.status}`);
       }
 
       setNotifications((current) => current.filter((notification) => notification.id !== id));
 
     } catch (error) {
-      console.error(
-        "Error eliminando notificación:",
-        error
-      );
+      console.error("Error eliminando notificación:",error);
     }
   };
 
@@ -207,17 +159,10 @@ export default function NotificationBell() {
    * ============================================
    * CARGA INICIAL
    * ============================================
-   *
-   * Se ejecuta tanto con usuario autenticado
-   * como sin usuario.
    */
   useEffect(() => {
     fetchNotifications();
-
-    const interval = setInterval(
-      fetchNotifications,
-      15000
-    );
+    const interval = setInterval(fetchNotifications,15000);
 
     return () => clearInterval(interval);
   }, [user?.token]);
