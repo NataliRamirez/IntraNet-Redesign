@@ -3,13 +3,6 @@ import { useAuth } from "../../Context/AuthContext";
 
 /**
  * Componente encargado de proteger rutas privadas de la aplicación.
- *
- * Valida si existe un usuario autenticado y si su rol tiene
- * permisos para acceder a la ruta solicitada.
- *
- * Si no hay sesión activa, redirige al inicio.
- * Si el usuario no tiene el rol permitido, también es redirigido.
- *
  * @param {Object} props Propiedades del componente.
  * @param {React.ReactNode} props.children Componentes hijos que se renderizarán si el acceso es válido.
  * @param {string[]} props.allowedRoles Lista de roles autorizados para acceder a la ruta.
@@ -28,8 +21,7 @@ export default function PrivateRoute({ children, allowedRoles }) {
   }
 
   /**
-    * Renderiza el contenido protegido cuando
-    * el usuario está autenticado y autorizado.
+    * Renderiza el contenido protegido cuando el usuario está autenticado y autorizado.
     */
   return children;
 }

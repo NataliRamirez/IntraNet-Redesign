@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 import "./AdminNews.css";
 
-// =========================
-// CONFIGURACIÓN
-// =========================
 const API_URL = `${import.meta.env.VITE_API_URL}/news`;
 const BACKEND_URL = import.meta.env.VITE_API_URL;
-
-// =========================
-// OBTENER TOKEN JWT
-// =========================
 const getAuthHeaders = () => {
   const storedUser = localStorage.getItem("user");
 
@@ -31,9 +23,7 @@ const getAuthHeaders = () => {
   const token = user?.token;
 
   if (!token || token.split(".").length !== 3) {
-    throw new Error(
-      "No se encontró un token JWT válido. Inicia sesión nuevamente."
-    );
+    throw new Error("No se encontró un token JWT válido. Inicia sesión nuevamente.");
   }
 
   return {
@@ -43,7 +33,6 @@ const getAuthHeaders = () => {
 
 export default function AdminNews() {
   const [news, setNews] = useState([]);
-
   const [form, setForm] = useState({
     id: null,
     title: "",
@@ -53,18 +42,11 @@ export default function AdminNews() {
     publication_date: "",
     image: "",
   });
-
   const [imagenFile, setImagenFile] = useState(null);
-
-  // =========================
-  // BÚSQUEDA Y FILTROS
-  // =========================
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  // =========================
   // OBTENER NOTICIAS
-  // =========================
   useEffect(() => {
     fetchNews();
   }, []);
@@ -75,7 +57,6 @@ export default function AdminNews() {
       setNews(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Error al obtener noticias:", err);
-
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -84,12 +65,8 @@ export default function AdminNews() {
     }
   };
 
-  // =========================
-  // SELECCIONAR IMAGEN
-  // =========================
   const handleImage = (e) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
     setImagenFile(file);
@@ -132,23 +109,16 @@ export default function AdminNews() {
       return;
     }
 
-    const shortDescription =
-      form.short_desc.trim() || form.content.trim().slice(0, 120);
-
-    const description =
-      form.description.trim() || form.content.trim();
-
+    const shortDescription = form.short_desc.trim() || form.content.trim().slice(0, 120);
+    const description = form.description.trim() || form.content.trim();
     const fd = new FormData();
 
-    // Nombres que corresponden al DTO y a la entidad News.
     fd.append("title", form.title.trim());
     fd.append("short_desc", shortDescription);
     fd.append("content", form.content.trim());
     fd.append("description", description);
 
-    fd.append(
-      "publication_date",
-      form.publication_date
+    fd.append("publication_date", form.publication_date
         ? new Date(form.publication_date).toISOString()
         : new Date().toISOString()
     );
@@ -162,16 +132,10 @@ export default function AdminNews() {
       let actionTitle;
 
       if (form.id) {
-        await axios.patch(`${API_URL}/${form.id}`, fd, {
-          headers,
-        });
-
+        await axios.patch(`${API_URL}/${form.id}`, fd, {headers,});
         actionTitle = "Noticia actualizada";
       } else {
-        await axios.post(API_URL, fd, {
-          headers,
-        });
-
+        await axios.post(API_URL, fd, {headers,});
         actionTitle = "Noticia publicada";
       }
 
@@ -212,16 +176,12 @@ export default function AdminNews() {
           title: "Error de publicación",
           text: Array.isArray(errorMessage)
             ? errorMessage.join(", ")
-            : errorMessage ||
-              "No se pudo guardar la noticia. Revisa la terminal del backend.",
+            : errorMessage || "No se pudo guardar la noticia. Revisa la terminal del backend.",
         });
       }
     }
   };
 
-  // =========================
-  // LIMPIAR FORMULARIO
-  // =========================
   const resetForm = () => {
     setForm({
       id: null,
@@ -246,12 +206,8 @@ export default function AdminNews() {
       short_desc: n.short_desc || "",
       content: n.content || "",
       description: n.description || "",
-      publication_date: n.publication_date
-        ? new Date(n.publication_date).toISOString().slice(0, 16)
-        : "",
-      image: n.image
-        ? `${BACKEND_URL}/uploads/news/${n.image}`
-        : "",
+      publication_date: n.publication_date ? new Date(n.publication_date).toISOString().slice(0, 16) : "",
+      image: n.image ? `${BACKEND_URL}/uploads/news/${n.image}` : "",
     });
 
     // No reemplazar la imagen existente si no se elige otra.
@@ -263,9 +219,6 @@ export default function AdminNews() {
     });
   };
 
-  // =========================
-  // ELIMINAR NOTICIA
-  // =========================
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Eliminar noticia?",
@@ -283,12 +236,8 @@ export default function AdminNews() {
     try {
       const headers = getAuthHeaders();
 
-      await axios.delete(`${API_URL}/${id}`, {
-        headers,
-      });
-
+      await axios.delete(`${API_URL}/${id}`, {headers,});
       await fetchNews();
-
       await Swal.fire({
         icon: "success",
         title: "¡Borrado!",
@@ -334,7 +283,6 @@ export default function AdminNews() {
   // =========================
   const filteredNews = news.filter((n) => {
     const searchText = search.toLowerCase().trim();
-
     const matchesSearch =
       !searchText ||
       n.title?.toLowerCase().includes(searchText) ||
@@ -349,9 +297,7 @@ export default function AdminNews() {
     return matchesSearch && matchesDate;
   });
 
-  // =========================
   // LIMPIAR FILTROS
-  // =========================
   const clearFilters = () => {
     setSearch("");
     setDateFilter("");
@@ -362,7 +308,6 @@ export default function AdminNews() {
       {/* FORMULARIO */}
       <div className="section-form">
         <h2>{form.id ? "Editar noticia:" : "Crear noticias:"}</h2>
-
         <form onSubmit={handleSubmit} className="news-form">
           {/* TÍTULO */}
           <input
@@ -439,23 +384,13 @@ export default function AdminNews() {
           />
 
           {/* BOTONES */}
-          <div
-            style={{
-              display: "flex",
-              gap: "0.5rem",
-            }}
-          >
+          <div style={{display: "flex",gap: "0.5rem",}}>
             <button type="submit">
               {form.id ? "Actualizar" : "Crear"} noticia
             </button>
 
             {form.id && (
-              <button
-                type="button"
-                onClick={resetForm}
-              >
-                Cancelar edición
-              </button>
+              <button type="button" onClick={resetForm}>Cancelar edición</button>
             )}
           </div>
         </form>
@@ -500,18 +435,13 @@ export default function AdminNews() {
           {news.length === 0 ? (
             <p>No hay noticias aún.</p>
           ) : filteredNews.length === 0 ? (
-            <p>
-              No se encontraron noticias con los filtros seleccionados.
-            </p>
+            <p>No se encontraron noticias con los filtros seleccionados.</p>
           ) : (
             filteredNews.map((n) => (
               <div key={n.id} className="news-card">
                 {/* IMAGEN */}
                 {n.image && (
-                  <img
-                    src={`${BACKEND_URL}/uploads/news/${n.image}`}
-                    alt={n.title}
-                  />
+                  <img src={`${BACKEND_URL}/uploads/news/${n.image}`}alt={n.title}/>
                 )}
 
                 <div className="news-card-content">
@@ -523,9 +453,7 @@ export default function AdminNews() {
                     {n.publication_date
                       ? new Date(n.publication_date).toLocaleString(
                           "es-CO",
-                          {
-                            dateStyle: "medium",
-                          }
+                          {dateStyle: "medium",}
                         )
                       : "Sin fecha"}
                   </div>
@@ -535,10 +463,7 @@ export default function AdminNews() {
 
                   {/* ACCIONES */}
                   <div className="actions">
-                    <button
-                      type="button"
-                      onClick={() => handleEdit(n)}
-                    >
+                    <button type="button" onClick={() => handleEdit(n)}>
                       Editar
                     </button>
 

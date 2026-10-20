@@ -99,6 +99,34 @@ export default function Header() {
         }
 
         // =========================
+        // TERMINOS DE SERVICIO
+        // =========================
+
+        if (location.pathname.startsWith("/termsofservice")) {
+            return (
+                <>
+                    <Link to="/">Inicio</Link>
+                    <a href="#termsofservice">Terminos de Servicio</a>
+                    <Link to="/privacypolicy">Politicas de privacidad</Link>
+                </>
+            );
+        }
+
+        // =========================
+        // POLITICAS DE PRIVACIDAD
+        // =========================
+
+        if (location.pathname.startsWith("/privacypolicy")) {
+            return (
+                <>
+                    <Link to="/">Inicio</Link>
+                    <a href="#privacypolicy">Politicas de privacidad</a>
+                    <Link to="/termsofservice">Terminos de Servicio</Link>
+                </>
+            );
+        }
+
+        // =========================
         // UTILIDADES
         // =========================
         if (location.pathname.startsWith("/utils")) {

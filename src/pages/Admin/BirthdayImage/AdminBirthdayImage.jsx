@@ -10,7 +10,6 @@ export default function AdminBirthdayImage() {
   const [file, setFile] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
 
-  // Obtener la imagen actual desde backend
   useEffect(() => {
     fetchCurrentImage();
   }, []);
@@ -49,7 +48,7 @@ export default function AdminBirthdayImage() {
 
       Swal.fire({
         icon: "success",
-        title: "Imagen Actualizada 🎉",
+        title: "Imagen Actualizada :D",
         text: "La imagen ahora aparecerá en el modal.",
         timer: 2000,
         showConfirmButton: false

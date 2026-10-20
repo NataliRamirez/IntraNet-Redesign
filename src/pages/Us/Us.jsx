@@ -19,10 +19,7 @@ export default function Us() {
           transition={{ duration: 0.6 }}
         >
           <h2>Sobre Nosotros</h2>
-          <p>
-            En <strong>EMCA E.S.P</strong> trabajamos con responsabilidad y compromiso
-            para garantizar servicios de calidad que contribuyan al bienestar de la comunidad.
-          </p>
+          <p>En <strong>EMCA E.S.P</strong> trabajamos con responsabilidad y compromiso para garantizar servicios de calidad que contribuyan al bienestar de la comunidad.</p>
         </motion.div>
       </section>
 

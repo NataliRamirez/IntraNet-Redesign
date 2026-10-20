@@ -1,22 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 import "./AdminEmployees.css";
 
-// =========================
-// CONFIGURACIÓN
-// =========================
 const API_URL = `${import.meta.env.VITE_API_URL}/employee`;
 
-// =========================
-// OBTENER TOKEN JWT
-// =========================
 const getAuthHeaders = () => {
-  let token =
-    localStorage.getItem("token") ||
-    localStorage.getItem("accessToken") ||
-    localStorage.getItem("access_token");
+  let token = localStorage.getItem("token") || localStorage.getItem("accessToken") || localStorage.getItem("access_token");
 
   if (!token) {
     const storedUser = localStorage.getItem("user");
@@ -25,33 +15,20 @@ const getAuthHeaders = () => {
       try {
         const user = JSON.parse(storedUser);
 
-        token =
-          user.token ||
-          user.accessToken ||
-          user.access_token ||
-          null;
+        token = user.token || user.accessToken || user.access_token || null;
 
         // Compatibilidad con el formato anterior del proyecto
-        if (
-          !token &&
-          typeof user.username === "string" &&
-          user.username.split(".").length === 3
-        ) {
+        if (!token && typeof user.username === "string" && user.username.split(".").length === 3) {
           token = user.username;
         }
       } catch (error) {
-        console.error(
-          "No se pudo leer el usuario guardado:",
-          error
-        );
+        console.error("No se pudo leer el usuario guardado:", error);
       }
     }
   }
 
   if (!token) {
-    throw new Error(
-      "No se encontró el token de autenticación. Inicia sesión nuevamente."
-    );
+    throw new Error("No se encontró el token de autenticación. Inicia sesión nuevamente.");
   }
 
   return {
@@ -59,9 +36,6 @@ const getAuthHeaders = () => {
   };
 };
 
-// =========================
-// FORMULARIO INICIAL
-// =========================
 const initialForm = {
   id: null,
   name: "",
@@ -77,11 +51,8 @@ const initialForm = {
 export default function AdminEmployee() {
   const [employees, setEmployees] = useState([]);
   const [form, setForm] = useState(initialForm);
-
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-
-  // Búsqueda y filtros
   const [search, setSearch] = useState("");
   const [areaFilter, setAreaFilter] = useState("");
 
@@ -100,41 +71,27 @@ export default function AdminEmployee() {
         headers: getAuthHeaders(),
       });
 
-      setEmployees(
-        Array.isArray(response.data)
-          ? response.data
-          : []
-      );
+      setEmployees(Array.isArray(response.data) ? response.data : []);
     } catch (err) {
-      console.error(
-        "Error al obtener empleados:",
-        err
-      );
+      console.error("Error al obtener empleados:", err);
 
       const status = err.response?.status;
 
       let message = "No se pudieron cargar los empleados.";
 
       if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "No tienes permisos para consultar los empleados.";
+        message = "No tienes permisos para consultar los empleados.";
       } else if (status === 404) {
-        message =
-          "No se encontró la ruta de empleados. Verifica el endpoint configurado.";
+        message = "No se encontró la ruta de empleados. Verificar el endpoint.";
       } else if (
         err.message?.includes("token de autenticación")
       ) {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: message,
-      });
+      Swal.fire({ icon: "error", title: "Error", text: message, });
     } finally {
       setLoading(false);
     }
@@ -158,13 +115,7 @@ export default function AdminEmployee() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !form.name.trim() ||
-      !form.id_card.trim() ||
-      !form.job_position.trim() ||
-      !form.area.trim() ||
-      !form.birthday
-    ) {
+    if (!form.name.trim() || !form.id_card.trim() || !form.job_position.trim() || !form.area.trim() || !form.birthday) {
       Swal.fire({
         icon: "warning",
         title: "Campos incompletos",
@@ -178,8 +129,7 @@ export default function AdminEmployee() {
       Swal.fire({
         icon: "warning",
         title: "Documento no válido",
-        text:
-          "El documento debe contener únicamente números y tener máximo 10 dígitos.",
+        text: "El documento debe contener únicamente números y tener máximo 10 dígitos.",
       });
 
       return;
@@ -216,20 +166,10 @@ export default function AdminEmployee() {
     try {
       const headers = getAuthHeaders();
 
-      if (form.id) {
-        // ACTUALIZAR
-        await axios.patch(
-          `${API_URL}/${form.id}`,
-          payload,
-          { headers }
-        );
-      } else {
-        // CREAR
-        await axios.post(
-          API_URL,
-          payload,
-          { headers }
-        );
+      if (form.id) { //Actualizar empleado
+        await axios.patch(`${API_URL}/${form.id}`, payload, { headers });
+      } else { // Crear empleado
+        await axios.post(API_URL, payload, { headers });
       }
 
       const wasEditing = Boolean(form.id);
@@ -239,20 +179,13 @@ export default function AdminEmployee() {
 
       await Swal.fire({
         icon: "success",
-        title: wasEditing
-          ? "¡Empleado actualizado!"
-          : "¡Empleado creado!",
-        text: wasEditing
-          ? "Los datos del empleado se actualizaron correctamente."
-          : "El empleado se registró correctamente.",
+        title: wasEditing ? "¡Empleado actualizado!" : "¡Empleado creado!",
+        text: wasEditing ? "Los datos del empleado se actualizaron correctamente." : "El empleado se registró correctamente.",
         showConfirmButton: false,
         timer: 1800,
       });
     } catch (err) {
-      console.error(
-        "Error guardando empleado:",
-        err
-      );
+      console.error("Error guardando empleado:", err);
 
       const status = err.response?.status;
       const backendMessage = err.response?.data?.message;
@@ -262,32 +195,20 @@ export default function AdminEmployee() {
       if (status === 400) {
         message = Array.isArray(backendMessage)
           ? backendMessage.join(". ")
-          : backendMessage ||
-            "Verifica los datos ingresados.";
+          : backendMessage || "Verifica los datos ingresados.";
       } else if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "No tienes permisos para crear o editar empleados.";
+        message = "No tienes permisos para crear o editar empleados.";
       } else if (status === 404) {
-        message =
-          "No se encontró el empleado o la ruta solicitada.";
+        message = "No se encontró el empleado o la ruta solicitada.";
       } else if (status === 409) {
-        message =
-          backendMessage ||
-          "El número de documento ya está registrado.";
-      } else if (
-        err.message?.includes("token de autenticación")
-      ) {
+        message = backendMessage || "El número de documento ya está registrado.";
+      } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error al guardar",
-        text: message,
-      });
+      Swal.fire({ icon: "error", title: "Error al guardar", text: message, });
     } finally {
       setSaving(false);
     }
@@ -296,9 +217,7 @@ export default function AdminEmployee() {
   // =========================
   // LIMPIAR FORMULARIO
   // =========================
-  const resetForm = () => {
-    setForm({ ...initialForm });
-  };
+  const resetForm = () => { setForm({ ...initialForm }); };
 
   // =========================
   // EDITAR EMPLEADO
@@ -310,15 +229,10 @@ export default function AdminEmployee() {
       id_card: employee.id_card || "",
       job_position: employee.job_position || "",
       area: employee.area || "",
-      birthday: employee.birthday
-        ? String(employee.birthday).slice(0, 10)
-        : "",
+      birthday: employee.birthday ? String(employee.birthday).slice(0, 10) : "",
     });
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth", });
   };
 
   // =========================
@@ -327,8 +241,7 @@ export default function AdminEmployee() {
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Eliminar empleado?",
-      text:
-        "Esta acción eliminará el registro del empleado y no se puede deshacer.",
+      text: "Esta acción eliminará el registro del empleado y no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#dc2626",
@@ -358,31 +271,22 @@ export default function AdminEmployee() {
         timer: 1600,
       });
     } catch (err) {
-      console.error(
-        "Error eliminando empleado:",
-        err
-      );
+      console.error("Error eliminando empleado:", err);
 
       const status = err.response?.status;
       let message = "No se pudo eliminar el empleado.";
 
       if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "No tienes permisos para eliminar empleados.";
+        message = "No tienes permisos para eliminar empleados.";
       } else if (status === 404) {
-        message =
-          "El empleado no existe o ya fue eliminado.";
+        message = "El empleado no existe o ya fue eliminado.";
       } else if (status === 409) {
-        message =
-          "No se puede eliminar el empleado porque tiene registros relacionados.";
+        message = "No se puede eliminar el empleado porque tiene registros relacionados.";
       } else if (
         err.message?.includes("token de autenticación")
-      ) {
-        message = err.message;
-      }
+      ) { message = err.message; }
 
       Swal.fire({
         icon: "error",
@@ -396,11 +300,7 @@ export default function AdminEmployee() {
   // FILTRAR EMPLEADOS
   // =========================
   const areas = [
-    ...new Set(
-      employees
-        .map((employee) => employee.area)
-        .filter(Boolean)
-    ),
+    ...new Set(employees.map((employee) => employee.area).filter(Boolean)),
   ].sort((a, b) => a.localeCompare(b, "es"));
 
   const filteredEmployees = employees.filter(
@@ -414,8 +314,7 @@ export default function AdminEmployee() {
         employee.job_position?.toLowerCase().includes(searchText) ||
         employee.area?.toLowerCase().includes(searchText);
 
-      const matchesArea =
-        !areaFilter || employee.area === areaFilter;
+      const matchesArea = !areaFilter || employee.area === areaFilter;
 
       return matchesSearch && matchesArea;
     }
@@ -444,22 +343,12 @@ export default function AdminEmployee() {
   return (
     <div className="admin-employee" id="FormEmployees">
       <section className="employee-section-form">
-        <h2>
-          {form.id
-            ? "Editar empleado"
-            : "Registrar nuevo empleado"}
-        </h2>
+        <h2>{form.id ? "Editar empleado" : "Registrar nuevo empleado"}</h2>
 
-        <form
-          className="employee-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="employee-form" onSubmit={handleSubmit}>
           <div className="employee-form-grid">
             <div className="employee-field">
-              <label htmlFor="employee-name">
-                Nombre completo *
-              </label>
-
+              <label htmlFor="employee-name">Nombre completo *</label>
               <input
                 id="employee-name"
                 type="text"
@@ -474,9 +363,7 @@ export default function AdminEmployee() {
             </div>
 
             <div className="employee-field">
-              <label htmlFor="employee-id-card">
-                Número de documento *
-              </label>
+              <label htmlFor="employee-id-card">Número de documento *</label>
 
               <input
                 id="employee-id-card"
@@ -494,9 +381,7 @@ export default function AdminEmployee() {
             </div>
 
             <div className="employee-field">
-              <label htmlFor="employee-job-position">
-                Cargo *
-              </label>
+              <label htmlFor="employee-job-position">Cargo *</label>
 
               <input
                 id="employee-job-position"
@@ -511,9 +396,7 @@ export default function AdminEmployee() {
             </div>
 
             <div className="employee-field">
-              <label htmlFor="employee-area">
-                Área *
-              </label>
+              <label htmlFor="employee-area">Área *</label>
 
               <input
                 id="employee-area"
@@ -528,9 +411,7 @@ export default function AdminEmployee() {
             </div>
 
             <div className="employee-field">
-              <label htmlFor="employee-birthday">
-                Fecha de nacimiento *
-              </label>
+              <label htmlFor="employee-birthday">Fecha de nacimiento *</label>
 
               <input
                 id="employee-birthday"
@@ -544,9 +425,7 @@ export default function AdminEmployee() {
             </div>
           </div>
 
-          <p className="employee-form-note">
-            * Todos los campos son obligatorios.
-          </p>
+          <p className="employee-form-note">* Todos los campos son obligatorios.</p>
 
           <div className="employee-form-buttons">
             <button
@@ -554,11 +433,7 @@ export default function AdminEmployee() {
               className="employee-btn employee-btn-primary"
               disabled={saving}
             >
-              {saving
-                ? "Guardando..."
-                : form.id
-                  ? "Actualizar empleado"
-                  : "Registrar empleado"}
+              {saving ? "Guardando..." : form.id ? "Actualizar empleado" : "Registrar empleado"}
             </button>
 
             {form.id && (
@@ -612,10 +487,7 @@ export default function AdminEmployee() {
             <button
               type="button"
               className="employee-btn employee-btn-secondary"
-              onClick={() => {
-                setSearch("");
-                setAreaFilter("");
-              }}
+              onClick={() => {setSearch("");setAreaFilter("");}}
             >
               Limpiar filtros
             </button>
@@ -623,18 +495,11 @@ export default function AdminEmployee() {
         </div>
 
         {/* RESULTADOS */}
-        {loading ? (
-          <p className="employee-empty">
-            Cargando empleados...
-          </p>
+        {loading ? (<p className="employee-empty">Cargando empleados...</p>
         ) : employees.length === 0 ? (
-          <p className="employee-empty">
-            No hay empleados registrados.
-          </p>
+          <p className="employee-empty">No hay empleados registrados.</p>
         ) : filteredEmployees.length === 0 ? (
-          <p className="employee-empty">
-            No se encontraron empleados con los filtros seleccionados.
-          </p>
+          <p className="employee-empty">No se encontraron empleados con los filtros seleccionados.</p>
         ) : (
           <div className="employee-table-container">
             <table className="employee-table">
@@ -652,32 +517,19 @@ export default function AdminEmployee() {
               <tbody>
                 {filteredEmployees.map((employee) => (
                   <tr key={employee.id}>
-                    <td data-label="Documento">
-                      {employee.id_card}
-                    </td>
+                    <td data-label="Documento">{employee.id_card}</td>
 
-                    <td data-label="Nombre">
-                      {employee.name}
-                    </td>
+                    <td data-label="Nombre">{employee.name}</td>
 
-                    <td data-label="Cargo">
-                      {employee.job_position}
-                    </td>
+                    <td data-label="Cargo">{employee.job_position}</td>
 
                     <td data-label="Área">
-                      <span className="employee-area-badge">
-                        {employee.area}
-                      </span>
+                      <span className="employee-area-badge">{employee.area}</span>
                     </td>
 
-                    <td data-label="Fecha de nacimiento">
-                      {formatBirthday(employee.birthday)}
-                    </td>
+                    <td data-label="Fecha de nacimiento">{formatBirthday(employee.birthday)}</td>
 
-                    <td
-                      data-label="Acciones"
-                      className="employee-actions"
-                    >
+                    <td data-label="Acciones" className="employee-actions">
                       <button
                         type="button"
                         className="employee-btn-edit"

@@ -84,16 +84,14 @@ export default function EventDetail() {
               )}
 
               {event.place && (
-                <p className="event-detail-place">
-                  📍 {event.place}
+                <p className="event-detail-place">📍 {event.place}
                 </p>
               )}
 
               <div
                 className="event-detail-description"
-                dangerouslySetInnerHTML={{
-                  __html: event.description || "",
-                }} />
+                dangerouslySetInnerHTML={{__html: event.description || "",}} 
+              />
 
               {event.link && (
                 <a href={event.link} target="_blank" rel="noopener noreferrer" className="event-detail-btn">

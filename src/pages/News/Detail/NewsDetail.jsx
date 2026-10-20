@@ -4,7 +4,6 @@ import "./NewsDetail.css";
 
 export default function NewsDetail() {
   const { id } = useParams();
-
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -12,13 +11,9 @@ export default function NewsDetail() {
     const fetchNews = async () => {
       try {
         const API_URL = `${import.meta.env.VITE_API_URL}/news/${id}`;
-
         const res = await fetch(API_URL);
-
         console.log("Estado /news/:id:", res.status);
-
         const data = await res.json();
-
         console.log("Respuesta /news/:id:", data);
 
         setNews(data);

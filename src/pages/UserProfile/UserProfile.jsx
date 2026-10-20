@@ -3,20 +3,7 @@ import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAuth } from "../../Context/AuthContext";
-
-import {
-  FaUserCircle,
-  FaEnvelope,
-  FaIdCard,
-  FaBriefcase,
-  FaShieldAlt,
-  FaEdit,
-  FaSave,
-  FaTimes,
-  FaKey,
-  FaSyncAlt,
-} from "react-icons/fa";
-
+import { FaUserCircle, FaEnvelope, FaIdCard, FaBriefcase, FaShieldAlt, FaEdit, FaSave, FaTimes, FaKey, FaSyncAlt,} from "react-icons/fa";
 import "./UserProfile.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -24,7 +11,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 export default function UserPerfil() {
   const { user } = useAuth();
   const token = user?.token;
-
   const [profile, setProfile] = useState({
     id: "",
     id_card: "",
@@ -50,7 +36,6 @@ export default function UserPerfil() {
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState(false);
   const [changingPassword, setChangingPassword] = useState(false);
-
   const getAuthHeaders = useCallback(
     () => ({
       headers: {
@@ -70,7 +55,6 @@ export default function UserPerfil() {
       );
 
       const data = response.data?.user ?? response.data;
-
       const profileData = {
         id: data.id ?? "",
         id_card: data.id_card ?? "",
@@ -84,7 +68,6 @@ export default function UserPerfil() {
       };
 
       setProfile(profileData);
-
       setForm({
         name: profileData.name,
         email: profileData.email,
@@ -93,11 +76,8 @@ export default function UserPerfil() {
     } catch (error) {
       console.error("Error al cargar el perfil:", error);
 
-      Swal.fire(
-        "No se pudo cargar el perfil",
-        error.response?.data?.message ||
-          "Verifica tu sesión e intenta nuevamente.",
-        "error"
+      Swal.fire("No se pudo cargar el perfil", error.response?.data?.message ||
+          "Verifica tu sesión e intenta nuevamente.","error"
       );
     } finally {
       setLoading(false);
@@ -201,11 +181,8 @@ export default function UserPerfil() {
 
       setEditing(false);
 
-      await Swal.fire(
-        "¡Perfil actualizado!",
-        response.data?.message ||
-          "Tus datos se actualizaron correctamente.",
-        "success"
+      await Swal.fire("¡Perfil actualizado!",response.data?.message ||
+          "Tus datos se actualizaron correctamente.","success"
       );
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
@@ -275,11 +252,8 @@ export default function UserPerfil() {
 
       setChangingPassword(false);
 
-      await Swal.fire(
-        "¡Contraseña actualizada!",
-        response.data?.message ||
-          "Tu contraseña se cambió correctamente.",
-        "success"
+      await Swal.fire("¡Contraseña actualizada!",response.data?.message ||
+          "Tu contraseña se cambió correctamente.","success"
       );
     } catch (error) {
       console.error("Error al cambiar la contraseña:", error);
@@ -385,9 +359,7 @@ export default function UserPerfil() {
             </div>
 
             <div className="profile-field">
-              <label htmlFor="profile-id-card">
-                Documento de identidad
-              </label>
+              <label htmlFor="profile-id-card">Documento de identidad</label>
               <input
                 id="profile-id-card"
                 value={profile.id_card || "No disponible"}
@@ -505,9 +477,7 @@ export default function UserPerfil() {
             onSubmit={handleChangePassword}
           >
             <div className="profile-field">
-              <label htmlFor="currentPassword">
-                Contraseña actual
-              </label>
+              <label htmlFor="currentPassword">Contraseña actual</label>
               <input
                 id="currentPassword"
                 name="currentPassword"
@@ -536,9 +506,7 @@ export default function UserPerfil() {
             </div>
 
             <div className="profile-field">
-              <label htmlFor="confirmPassword">
-                Confirmar nueva contraseña
-              </label>
+              <label htmlFor="confirmPassword">Confirmar nueva contraseña</label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"

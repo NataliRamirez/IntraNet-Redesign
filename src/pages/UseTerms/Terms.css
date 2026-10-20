@@ -5,14 +5,13 @@
 }
 
 .terms-header {
-  min-height: 35vh;
+  min-height: 41vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px 20px;
-
+  padding-top: 12vh;
   background: linear-gradient(
     135deg,
     #286ca3,
@@ -26,6 +25,7 @@
   margin: 0;
   font-size: 2.5rem;
   font-weight: 700;
+  width: 80%;
 }
 
 .terms-header p {
@@ -56,6 +56,11 @@
   font-size: 1.35rem;
 }
 
+.p {
+  font-size: 13px;
+  font-weight: 300;
+}
+
 .terms-card p {
   color: #4b5563;
   line-height: 1.8;
@@ -78,3 +83,4 @@
   padding: 20px;
   font-size: 0.9rem;
 }
+

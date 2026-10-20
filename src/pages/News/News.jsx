@@ -7,7 +7,6 @@ export default function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const carouselRef = useRef(null);
-
   const scroll = (direction) => {
     const carousel = carouselRef.current;
     if (!carousel) return;
@@ -30,7 +29,6 @@ export default function News() {
         const API_URL = `${import.meta.env.VITE_API_URL}/news`;
         const res = await fetch(API_URL);
         console.log("Estado /news:", res.status);
-
         const data = await res.json();
         console.log("Respuesta /news:", data);
 
@@ -50,25 +48,18 @@ export default function News() {
     fetchNews();
   }, []);
 
-  // Carrusel automático
   useEffect(() => {
     if (news.length <= 1) return;
 
     const interval = setInterval(() => {
       const carousel = carouselRef.current;
-
       if (!carousel) return;
-
       const card = carousel.querySelector(".news-card");
-
       if (!card) return;
-
       const cardWidth = card.offsetWidth;
       const gap = 24;
       const move = cardWidth + gap;
-
-      const maxScroll =
-        carousel.scrollWidth - carousel.clientWidth;
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
       if (carousel.scrollLeft >= maxScroll - 5) {
         carousel.scrollTo({
@@ -147,7 +138,6 @@ export default function News() {
                   <div className="news-content">
 
                     <h2>{n.title}</h2>
-
                     <p className="date">
                       {new Date(
                         n.publication_date
@@ -161,7 +151,6 @@ export default function News() {
                     <Link to={`/news/${n.id}`} className="see-more-news-btn">Leer más →</Link>
 
                   </div>
-
                 </article>
               ))}
             </div>

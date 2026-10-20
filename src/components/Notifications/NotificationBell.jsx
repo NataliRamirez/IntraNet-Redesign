@@ -55,8 +55,6 @@ export default function NotificationBell() {
    * ============================================
    * MARCAR UNA COMO LEÍDA
    * ============================================
-   *
-   * Solamente usuarios autenticados.
    */
   const markAsRead = async (id) => {
     if (!user?.token) {
@@ -177,21 +175,15 @@ export default function NotificationBell() {
       const searchText =
         search.toLowerCase().trim();
 
-      // -------------------------------
-      // BÚSQUEDA
-      // -------------------------------
+      // BÚSQUEDA 
       const matchesSearch = !searchText ||
         notification.title?.toLowerCase()
           .includes(searchText) || notification.message?.toLowerCase().includes(searchText);
 
-      // -------------------------------
       // TIPO
-      // -------------------------------
       const matchesType = typeFilter === "ALL" || notification.entity_type === typeFilter;
 
-      // -------------------------------
       // ESTADO
-      // -------------------------------
       const matchesRead = readFilter === "ALL" ||
         (readFilter === "UNREAD" && !notification.is_read) ||
         (readFilter === "READ" && notification.is_read);
@@ -201,51 +193,25 @@ export default function NotificationBell() {
       );
     });
 
-  /**
-   * ============================================
-   * LIMPIAR FILTROS
-   * ============================================
-   */
   const clearFilters = () => {
     setSearch("");
     setTypeFilter("ALL");
     setReadFilter("ALL");
   };
 
-  /**
-   * ============================================
-   * CANTIDAD SIN LEER
-   * ============================================
-   */
-  const unreadCount = notifications.filter(
-    (notification) => !notification.is_read
-  ).length;
 
-  /**
-   * ============================================
-   * CLIC EN NOTIFICACIÓN
-   * ============================================
-   */
-  const handleNotificationClick = async (
-    notification
-  ) => {
+  // CANTIDAD SIN LEER
+  const unreadCount = notifications.filter((notification) => !notification.is_read).length;
+
+  // CLIC EN NOTIFICACIÓN
+  const handleNotificationClick = async (notification) => {
     try {
-      /*
-       * Si está autenticado, marcar como leída.
-       */
-      if (
-        user?.token && !notification.is_read
-      ) {
+      if (user?.token && !notification.is_read) {
         await markAsRead(notification.id);
       }
 
-      /*
-       * Si el contenido fue eliminado,
-       * no intentamos abrirlo.
-       */
-      if (
-        notification.action === "DELETED"
-      ) {
+      // Validación, si el contenido fue borrado no se intenta abrir
+      if (notification.action === "DELETED") {
         setOpen(false);
         return;
       }
@@ -253,40 +219,26 @@ export default function NotificationBell() {
       /*
        * NOTICIA
        */
-      if (
-        notification.entity_type === "NEWS" && notification.reference_id
-      ) {
+      if (notification.entity_type === "NEWS" && notification.reference_id) {
         setOpen(false);
-
         navigate(`/news/${notification.reference_id}`);
-
         return;
       }
 
       /*
        * EVENTO
        */
-      if (
-        notification.entity_type === "EVENT" && notification.reference_id
-      ) {
+      if (notification.entity_type === "EVENT" && notification.reference_id) {
         setOpen(false);
-
         navigate(`/events/${notification.reference_id}`);
         return;
       }
 
-      console.warn(
-        "Notificación sin referencia válida:",
-        notification
-      );
-
+      console.warn("Notificación sin referencia válida:",notification);
       setOpen(false);
 
     } catch (error) {
-      console.error(
-        "Error procesando la notificación:",
-        error
-      );
+      console.error("Error procesando la notificación:",error);
     }
   };
 
@@ -312,9 +264,7 @@ export default function NotificationBell() {
    * TEXTO DEL TIPO
    * ============================================
    */
-  const getNotificationType = (
-    entityType
-  ) => {
+  const getNotificationType = (entityType) => {
     if (entityType === "NEWS") {
       return "Noticia";
     }
@@ -328,12 +278,7 @@ export default function NotificationBell() {
 
   return (
     <>
-      {open && (
-        <div
-          className="overlay-notifications"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      {open && (<div className="overlay-notifications" onClick={() => setOpen(false)}/>)}
 
       <div className="notification-wrapper">
 
@@ -347,20 +292,11 @@ export default function NotificationBell() {
         >
           <MdNotifications className="bell" />
 
-          {unreadCount > 0 && (
-            <span className="badge">
-              {unreadCount}
-            </span>
-          )}
+          {unreadCount > 0 && (<span className="badge">{unreadCount}</span>)}
         </button>
 
         {open && (
-          <div
-            className="notification-dropdown"
-            onClick={(e) =>
-              e.stopPropagation()
-            }
-          >
+          <div className="notification-dropdown" onClick={(e) => e.stopPropagation()}>
 
             {/* ================================= */}
             {/* HEADER */}
@@ -369,13 +305,8 @@ export default function NotificationBell() {
             <div className="dropdown-header">
 
               <div>
-                <strong>
-                  Notificaciones
-                </strong>
-
-                <span className="notification-total">
-                  {notifications.length}
-                </span>
+                <strong>Notificaciones</strong>
+                <span className="notification-total">{notifications.length}</span>
               </div>
 
               {user?.token &&
@@ -402,31 +333,19 @@ export default function NotificationBell() {
               </div>
               <div className="filtersContainer">
                 <select className="notification-filter" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-                  <option value="ALL">
-                    Todas
-                  </option>
+                  
+                  <option value="ALL">Todas</option>
+                  <option value="NEWS">Noticias</option>
+                  <option value="EVENT">Eventos</option>
 
-                  <option value="NEWS">
-                    Noticias
-                  </option>
-
-                  <option value="EVENT">
-                    Eventos
-                  </option>
                 </select>
 
                 <select className="notification-filter" value={readFilter} onChange={(e) => setReadFilter(e.target.value)}>
-                  <option value="ALL">
-                    Todas
-                  </option>
+                  
+                  <option value="ALL">Todas</option>
+                  <option value="UNREAD">Sin leer</option>
+                  <option value="READ">Leídas</option>
 
-                  <option value="UNREAD">
-                    Sin leer
-                  </option>
-
-                  <option value="READ">
-                    Leídas
-                  </option>
                 </select>
               </div>
               {(search || typeFilter !== "ALL" || readFilter !== "ALL") && (
@@ -447,9 +366,7 @@ export default function NotificationBell() {
               <div className="no-notifications">
                 <MdSearch />
                 <p> No se encontraron notificaciones.</p>
-
                 <button type="button" onClick={clearFilters}>Limpiar filtros</button>
-
               </div>
 
             ) : (
@@ -475,11 +392,7 @@ export default function NotificationBell() {
                             <span className="notification-type">
                               {getNotificationType(notification.entity_type)}
                             </span>
-
-                            {unread && (
-                              <span className="notification-new">Nueva</span>
-                            )}
-
+                            {unread && (<span className="notification-new">Nueva</span>)}
                           </div>
 
                           <strong>{notification.title}</strong>

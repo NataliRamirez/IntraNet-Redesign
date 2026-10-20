@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +6,6 @@ import "./GridNews.css";
 export default function GridNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
@@ -26,7 +24,7 @@ export default function GridNews() {
         if (Array.isArray(data)) {
           setNews(data);
         } else {
-          console.error("La API no devolvió un arreglo:", data);
+          console.error("La API no devolvió un array:", data);
         }
       } catch (error) {
         console.error("Error al obtener noticias:", error);
@@ -38,10 +36,8 @@ export default function GridNews() {
     fetchNews();
   }, []);
 
-  // Filtrar noticias
   const filteredNews = news.filter((n) => {
     const searchText = search.toLowerCase().trim();
-
     const matchesSearch =
       !searchText ||
       n.title?.toLowerCase().includes(searchText) ||
@@ -50,11 +46,9 @@ export default function GridNews() {
 
     const matchesDate =
       !dateFilter || n.publication_date?.startsWith(dateFilter);
-
     return matchesSearch && matchesDate;
   });
 
-  // Limpiar filtros
   const clearFilters = () => {
     setSearch("");
     setDateFilter("");
@@ -75,20 +69,13 @@ export default function GridNews() {
           transition={{ duration: 0.6 }}
         >
           <h2>Todas las Noticias</h2>
-          <p>
-            Consulta las noticias, comunicados y novedades publicadas
-            por EMCA E.S.P.
-          </p>
+          <p>Consulta las noticias, comunicados y novedades publicadas por EMCA E.S.P.</p>
         </motion.div>
       </header>
 
       {/* CONTENIDO */}
       <main className="news-grid-container" id="RecentNews">
-        <h3 className="subtitle">
-          Aquí encontrarás todas las noticias registradas en el sistema.
-        </h3>
-
-        {/* FILTROS */}
+        <h3 className="subtitle">Aquí encontrarás todas las noticias registradas en el sistema.</h3>
         <div className="news-filters">
           <div className="news-search">
             <input
@@ -122,13 +109,9 @@ export default function GridNews() {
 
         {/* RESULTADOS */}
         {news.length === 0 ? (
-          <p className="no-news">
-            No hay noticias registradas en este momento.
-          </p>
+          <p className="no-news">No hay noticias registradas en este momento.</p>
         ) : filteredNews.length === 0 ? (
-          <p className="no-news">
-            No se encontraron noticias con los filtros seleccionados.
-          </p>
+          <p className="no-news">No se encontraron noticias con los filtros seleccionados.</p>
         ) : (
           <div className="news-grid">
             {filteredNews.map((n) => (
@@ -161,9 +144,7 @@ export default function GridNews() {
 
                   {n.short_desc && <p>{n.short_desc}</p>}
 
-                  <Link to={`/news/${n.id}`} className="btn">
-                    Leer más →
-                  </Link>
+                  <Link to={`/news/${n.id}`} className="btn">Leer más →</Link>
                 </div>
               </article>
             ))}

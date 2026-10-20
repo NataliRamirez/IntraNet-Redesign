@@ -6,8 +6,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Solo Admin debería ver este panel
-  if (!user || user.role !== "admin") {
+  if (!user || user.role !== "ADMINISTRADOR") {
     return <Navigate to="/" replace />;
   }
 
@@ -19,16 +18,22 @@ export default function AdminDashboard() {
       </section>
 
       <section className="admin-actions">
-        {/* Noticias */}
         <div className="action-card">
           <h2>Noticias</h2>
           <p>Crea, edita y elimina las noticias de la empresa.</p>
-          <button
-            className="action-btn"
-            onClick={() => navigate("/admin/news")}
-          >
-            Gestionar Noticias
-          </button>
+          <button className="action-btn" onClick={() => navigate("/admin/news")}>Gestionar Noticias</button>
+        </div>
+
+        <div className="action-card">
+          <h2>Empleados</h2>
+          <p>Crea, edita y elimina los empleados de la empresa.</p>
+          <button className="action-btn" onClick={() => navigate("/admin/employees")}>Gestionar Empleados</button>
+        </div>
+
+        <div className="action-card">
+          <h2>Usuarios</h2>
+          <p>Crea, edita y elimina los usuarios del sistema.</p>
+          <button className="action-btn" onClick={() => navigate("/admin/users")}>Gestionar Usuarios</button>
         </div>
 
         <div className="action-card">
@@ -37,18 +42,10 @@ export default function AdminDashboard() {
           <button className="action-btn" onClick={() => navigate("/admin/birthday")}>Gestionar Imagen</button>
         </div>
 
-        {/* Eventos */}
         <div className="action-card">
           <h2>Eventos</h2>
           <p>Administra los eventos de la organización.</p>
-          <button className="action-btn"
-            onClick={() => {
-              console.log("click eventos");
-              navigate("/admin/events");
-            }}
-          >
-            Gestionar Eventos
-          </button>
+          <button className="action-btn" onClick={() => navigate("/admin/events")}>Gestionar Eventos</button>
         </div>
       </section>
     </div >

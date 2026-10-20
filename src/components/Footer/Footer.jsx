@@ -16,7 +16,7 @@ export default function Footer() {
             <section className="footer-left">
                 <img src={logoBlanco} alt="LogoGrisEmca" />
                 <p>#SiempreLoHaremosPorTi</p>
-                <p>Carrera 24 No. 39-54, Calarcá, Quindío</p>
+                <p>Cra.24 #39-54 Torre B, Calarcá, Quindío</p>
             </section>
             <section className="footer-right">
                 <div className="footer-top">
@@ -31,16 +31,15 @@ export default function Footer() {
                     <div className="footer-section">
                         <h3>Contáctanos</h3>
                         <ul className="links">
-                            <li><a href="#">Soporte</a></li>
-                            <li>Línea de atención: +57 (606) 7421114</li>
-                            <li><a href="https://emca-calarca-quindio.micolombiadigital.gov.co/">Página oficial</a></li>
+                            <li>Línea de atención: +57 (000) 0000000</li>
+                            <li>Correo soporte: contactenos@emca-calarca-quindio.gov.co</li>
                         </ul>
                     </div>
                     <div className="footer-section">
                         <h3>Legal</h3>
                         <ul className="links">
-                            <li><Link to="/useTerms">Política de privacidad</Link></li>
-                            <li><Link to="/useTerms">Términos de servicio</Link></li>
+                            <li href="#privacypolicy"><Link to="/privacypolicy">Política de privacidad</Link></li>
+                            <li href="#termsofservice"><Link to="/termsofservice">Términos de servicio</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -76,8 +75,8 @@ export default function Footer() {
                             <FaTiktok />
                         </a>
                     </nav>
-                    <p>&copy; 2024 IntraNet. Todos los derechos reservados.</p>
-                    <p>Sitio web desarrollado por Simón Otalvaro</p>
+                    <p>&copy; 2026 IntraNet. Todos los derechos reservados.</p>
+                    <p>Sitio web desarrollado por Natali Ramirez</p>
                 </div>
             </section>
         </footer>

@@ -1,6 +1,7 @@
 .admin-dashboard {
-  height: 85vh;
-  margin-top: 17vh;
+  min-height: 85vh;
+  margin-top: 5vh;
+  margin-bottom: 10vh;
   padding: 8rem 2rem 3rem;
   background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
   font-family: "Segoe UI", sans-serif;
@@ -29,8 +30,10 @@
 
 .admin-actions {
   margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
   gap: 2rem;
   max-width: 1200px;
   margin: auto;

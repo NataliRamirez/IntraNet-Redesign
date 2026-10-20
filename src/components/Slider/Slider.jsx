@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./Slider.css";
-
 import img1 from "../../assets/images/banner1.png";
 import img2 from "../../assets/images/banner2.png";
 import img3 from "../../assets/images/banner3.png";
@@ -17,16 +16,11 @@ const images = [img4, img1, img2, img3];
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  /**
-   * Configura el cambio automático de imágenes cada 3 segundos.
-   * También elimina el intervalo cuando el componente se desmonta
-   * para evitar fugas de memoria.
-   */
+  
+  // Configura el cambio automático de imágenes cada 3 segundos.
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentIndex((prevIndex) => prevIndex === images.length - 1 ? 0 : prevIndex + 1);
     }, 3000);
 
     return () => clearInterval(interval);

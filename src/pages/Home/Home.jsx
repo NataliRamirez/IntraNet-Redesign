@@ -9,9 +9,7 @@ export default function Home() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // ✅ Usamos la URL base desde el archivo .env
     const API_URL = `${import.meta.env.VITE_API_URL}/events`;
-
     fetch(API_URL)
       .then((res) => res.json())
       .then((data) => setEvents(data))
@@ -21,10 +19,7 @@ export default function Home() {
   return (
     <div className="home">
 
-      {/* Línea divisoria del encabezado */}
       <div className="inline"></div>
-
-      {/* Sección principal de bienvenida */}
       <section id="Home" className="header-bottom">
         <motion.div
           className="hero-content"
@@ -37,21 +32,10 @@ export default function Home() {
         <p>En este portal podrás acceder a información relevante sobre noticias, eventos, herramientas e información corporativa.</p>
       </section>
 
-      <section id="Noticias">
-        <News />
-      </section>
-
-      <div className="horizontal-line">
-        <span>Calendario EMCA</span>
-      </div>
-
-      <div id="Eventos" className="calendar-card">
-        <CalendarioEventos events={events} />
-      </div>
-
-      <section id="Nosotros" className="us-section">
-        <Us />
-      </section>
+      <section id="Noticias"><News /></section>
+      <div className="horizontal-line"><span>Calendario EMCA</span></div>
+      <div id="Eventos" className="calendar-card"><CalendarioEventos events={events} /></div>
+      <section id="Nosotros" className="us-section"><Us /></section>
     </div>
   );
 }

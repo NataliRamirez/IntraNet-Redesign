@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 import "./AdminEvents.css";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/events`;
-
 const getAuthHeaders = () => {
   let token = null;
 
@@ -35,23 +33,16 @@ const getAuthHeaders = () => {
           token = user.username;
         }
       } catch (error) {
-        console.error(
-          "No se pudo leer el usuario guardado:",
-          error
-        );
+        console.error("No se pudo leer el usuario guardado:",error);
       }
     }
   }
 
   if (!token) {
-    throw new Error(
-      "No se encontró el token de autenticación. Inicia sesión nuevamente."
-    );
+    throw new Error("No se encontró el token de autenticación. Inicia sesión nuevamente.");
   }
 
-  return {
-    Authorization: `Bearer ${token}`,
-  };
+  return {Authorization: `Bearer ${token}`,};
 };
 
 
@@ -69,13 +60,10 @@ export default function AdminEvents() {
   });
 
   const [imageFile, setImageFile] = useState(null);
-
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  useEffect(() => {fetchEvents();}, []);
 
   const fetchEvents = async () => {
     try {
@@ -83,9 +71,7 @@ export default function AdminEvents() {
 
       console.log("Respuesta del backend:", res.data);
 
-      setEvents(
-        Array.isArray(res.data) ? res.data : []
-      );
+      setEvents(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Error al obtener eventos:", err);
 
@@ -102,13 +88,9 @@ export default function AdminEvents() {
   // =========================
   const handleImage = (e) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
-
     setImageFile(file);
-
     const url = URL.createObjectURL(file);
-
     setForm((f) => ({
       ...f,
       image: url,
@@ -121,10 +103,7 @@ export default function AdminEvents() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !form.title.trim() ||
-      !form.description.trim() ||
-      !form.date_time
+    if (!form.title.trim() || !form.description.trim() || !form.date_time
     ) {
       Swal.fire({
         icon: "warning",
@@ -158,7 +137,6 @@ export default function AdminEvents() {
       }
 
       const authHeaders = getAuthHeaders();
-
       let actionTitle = "";
 
       if (form.id) {
@@ -190,18 +168,13 @@ export default function AdminEvents() {
 
       const status = err.response?.status;
 
-      let message =
-        "Ocurrió un error al guardar el evento. Revisa la consola.";
+      let message = "Ocurrió un error al guardar el evento. Revisa la consola.";
 
       if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Cierra sesión e inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Cierra sesión e inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "Tu usuario no tiene permisos para realizar esta operación.";
-      } else if (
-        err.message?.includes("token de autenticación")
-      ) {
+        message = "Tu usuario no tiene permisos para realizar esta operación.";
+      } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
       }
 
@@ -232,14 +205,10 @@ export default function AdminEvents() {
       id: ev.id,
       title: ev.name || "",
       description: ev.description || "",
-      date_time: ev.date_time
-        ? new Date(ev.date_time).toISOString().slice(0, 16)
-        : "",
+      date_time: ev.date_time ? new Date(ev.date_time).toISOString().slice(0, 16) : "",
       place: ev.place || "",
       link: ev.link || "",
-      image: ev.image
-        ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`
-        : "",
+      image: ev.image ? `${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}` : "",
     });
 
     setImageFile(null);
@@ -287,11 +256,9 @@ export default function AdminEvents() {
       let message = "No se pudo eliminar el evento.";
 
       if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "Tu usuario no tiene permisos para eliminar eventos.";
+        message = "Tu usuario no tiene permisos para eliminar eventos.";
       } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
       }
@@ -316,27 +283,24 @@ const filteredEvents = events
       ev.description?.toLowerCase().includes(searchText) ||
       ev.place?.toLowerCase().includes(searchText);
 
-    const matchesDate =
-      !dateFilter || ev.date_time?.startsWith(dateFilter);
-
+    const matchesDate = !dateFilter || ev.date_time?.startsWith(dateFilter);
     return matchesSearch && matchesDate;
   })
   .sort((a, b) => {
     const now = new Date().getTime();
     const dateA = a.date_time ? new Date(a.date_time).getTime() : 0;
     const dateB = b.date_time ? new Date(b.date_time).getTime() : 0;
-
     const isUpcomingA = dateA >= now;
     const isUpcomingB = dateB >= now;
 
-    // Primero los próximos; entre ellos, el más cercano.
+    // Primero los próximos
     if (isUpcomingA && isUpcomingB) return dateA - dateB;
 
-    // Los próximos siempre van antes que los que ya pasaron.
+    // Los próximos van antes que los que ya pasaron.
     if (isUpcomingA) return -1;
     if (isUpcomingB) return 1;
 
-    // Después, los pasados más recientes y al final los antiguos.
+    // Después los pasados más recientes y al final los antiguos.
     return dateB - dateA;
   });
 
@@ -353,16 +317,9 @@ const filteredEvents = events
     <div className="admin-events" id="FormEvents">
       {/* FORMULARIO */}
       <div className="section-form">
-        <h2>
-          {form.id
-            ? "Editar evento:"
-            : "Formulario para crear un nuevo evento:"}
-        </h2>
+        <h2>{form.id ? "Editar evento:" : "Formulario para crear un nuevo evento:"}</h2>
 
-        <form
-          onSubmit={handleSubmit}
-          className="event-form"
-        >
+        <form onSubmit={handleSubmit} className="event-form">
           {/* TÍTULO */}
           <input
             type="text"
@@ -457,17 +414,10 @@ const filteredEvents = events
               gap: "0.5rem",
             }}
           >
-            <button type="submit">
-              {form.id ? "Actualizar" : "Crear"} Evento
-            </button>
+            <button type="submit">{form.id ? "Actualizar" : "Crear"} Evento</button>
 
             {form.id && (
-              <button
-                type="button"
-                onClick={resetForm}
-              >
-                Cancelar edición
-              </button>
+              <button type="button" onClick={resetForm}>Cancelar edición</button>
             )}
           </div>
         </form>
@@ -512,15 +462,10 @@ const filteredEvents = events
           {events.length === 0 ? (
             <p>No hay eventos registrados aún.</p>
           ) : filteredEvents.length === 0 ? (
-            <p>
-              No se encontraron eventos con los filtros seleccionados.
-            </p>
+            <p>No se encontraron eventos con los filtros seleccionados.</p>
           ) : (
             filteredEvents.map((ev) => (
-              <div
-                key={ev.id}
-                className="event-card"
-              >
+              <div key={ev.id} className="event-card">
                 {/* IMAGEN */}
                 {ev.image && (
                   <img
@@ -538,10 +483,7 @@ const filteredEvents = events
                     {ev.date_time
                       ? new Date(ev.date_time).toLocaleString(
                         "es-CO",
-                        {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        }
+                        {dateStyle: "medium",timeStyle: "short",}
                       )
                       : "Sin fecha"}
                   </div>
@@ -551,9 +493,7 @@ const filteredEvents = events
 
                   {/* LUGAR */}
                   {ev.place && (
-                    <p>
-                      <b>Lugar:</b> {ev.place}
-                    </p>
+                    <p><b>Lugar:</b> {ev.place}</p>
                   )}
 
                   {/* ENLACE */}

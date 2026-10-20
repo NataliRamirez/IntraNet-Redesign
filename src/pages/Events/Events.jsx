@@ -1,74 +1,51 @@
-
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import "./Events.css";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
-
-  // Filtros
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  // Obtener eventos
   useEffect(() => {
     const API_URL = `${import.meta.env.VITE_API_URL}/events`;
 
-    fetch(API_URL)
-      .then((res) => {
+    fetch(API_URL).then((res) => {
         if (!res.ok) {
           throw new Error(`Error HTTP: ${res.status}`);
         }
         return res.json();
       })
-      .then((data) => {
-        setEvents(Array.isArray(data) ? data : []);
-      })
+      .then((data) => {setEvents(Array.isArray(data) ? data : []);})
       .catch((err) => console.error("Error cargando eventos:", err));
   }, []);
 
-  // Filtrar y ordenar eventos por fecha
   const filteredEvents = events
     .filter((ev) => {
       const searchText = search.toLowerCase().trim();
-
       const matchesSearch =
         !searchText ||
         ev.name?.toLowerCase().includes(searchText) ||
         ev.description?.toLowerCase().includes(searchText) ||
         ev.place?.toLowerCase().includes(searchText);
 
-      const matchesDate =
-        !dateFilter ||
-        (ev.date_time &&
-          new Date(ev.date_time).toLocaleDateString("en-CA") === dateFilter);
-
+      const matchesDate = !dateFilter || (ev.date_time && new Date(ev.date_time).toLocaleDateString("en-CA") === dateFilter);
       return matchesSearch && matchesDate;
     })
     .sort((a, b) => {
       const now = Date.now();
-
-      const dateA = a.date_time
-        ? new Date(a.date_time).getTime()
-        : 0;
-
-      const dateB = b.date_time
-        ? new Date(b.date_time).getTime()
-        : 0;
-
+      const dateA = a.date_time ? new Date(a.date_time).getTime() : 0;
+      const dateB = b.date_time ? new Date(b.date_time).getTime() : 0;
       const upcomingA = dateA >= now;
       const upcomingB = dateB >= now;
 
-      // Primero los eventos futuros, comenzando por el más próximo.
-      if (upcomingA && upcomingB) {
-        return dateA - dateB;
-      }
-
+      // Primero los eventos futuros
+      if (upcomingA && upcomingB) {return dateA - dateB;}
       // Los futuros aparecen antes que los que ya ocurrieron.
       if (upcomingA) return -1;
       if (upcomingB) return 1;
 
-      // Después, los eventos pasados más recientes.
+      // Después los eventos pasados más recientes.
       return dateB - dateA;
     });
 
@@ -90,10 +67,7 @@ export default function Events() {
             transition={{ duration: 0.6 }}
           >
             <h2>Eventos</h2>
-            <p>
-              Conoce los próximos eventos, actividades y espacios de
-              participación organizados por EMCA E.S.P.
-            </p>
+            <p>Conoce los próximos eventos, actividades y espacios de participación organizados por EMCA E.S.P.</p>
           </motion.div>
         </div>
       </div>
@@ -132,13 +106,9 @@ export default function Events() {
 
         {/* RESULTADOS */}
         {events.length === 0 ? (
-          <p className="no-events">
-            No hay eventos programados en este momento.
-          </p>
+          <p className="no-events">No hay eventos programados en este momento.</p>
         ) : filteredEvents.length === 0 ? (
-          <p className="no-events">
-            No se encontraron eventos con los filtros seleccionados.
-          </p>
+          <p className="no-events">No se encontraron eventos con los filtros seleccionados.</p>
         ) : (
           <div className="events-grid">
             {filteredEvents.map((ev) => (
@@ -179,13 +149,9 @@ export default function Events() {
                   </p>
 
                   {/* LUGAR */}
-                  {ev.place && (
-                    <p className="event-place">📍 {ev.place}</p>
-                  )}
-
+                  {ev.place && (<p className="event-place">📍 {ev.place}</p>)}
                   {/* DESCRIPCIÓN */}
                   <p className="event-description">{ev.description}</p>
-
                   {/* INSCRIPCIÓN */}
                   {ev.link && (
                     <a

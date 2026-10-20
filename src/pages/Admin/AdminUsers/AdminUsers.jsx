@@ -1,18 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 import "./AdminUsers.css";
 
-// =========================
-// CONFIGURACIÓN
-// =========================
 const BASE_URL = import.meta.env.VITE_API_URL;
 const API_URL = `${BASE_URL}/users`;
 const ROLES_URL = `${BASE_URL}/users/roles`;
-// =========================
-// OBTENER TOKEN JWT
-// =========================
+
 const getAuthHeaders = () => {
   let token =
     localStorage.getItem("token") ||
@@ -26,33 +20,20 @@ const getAuthHeaders = () => {
       try {
         const user = JSON.parse(storedUser);
 
-        token =
-          user.token ||
-          user.accessToken ||
-          user.access_token ||
-          null;
+        token = user.token || user.accessToken || user.access_token || null;
 
         // Compatibilidad con el formato anterior del proyecto
-        if (
-          !token &&
-          typeof user.username === "string" &&
-          user.username.split(".").length === 3
-        ) {
+        if (!token && typeof user.username === "string" && user.username.split(".").length === 3) {
           token = user.username;
         }
       } catch (error) {
-        console.error(
-          "No se pudo leer el usuario guardado:",
-          error
-        );
+        console.error("No se pudo leer el usuario guardado:",error);
       }
     }
   }
 
   if (!token) {
-    throw new Error(
-      "No se encontró el token de autenticación. Inicia sesión nuevamente."
-    );
+    throw new Error("No se encontró el token de autenticación. Inicia sesión nuevamente.");
   }
 
   return {
@@ -60,14 +41,10 @@ const getAuthHeaders = () => {
   };
 };
 
-// =========================
-// COMPONENTE
-// =========================
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [form, setForm] = useState({
     id: null,
     id_card: "",
@@ -78,13 +55,9 @@ export default function AdminUsers() {
     password: "",
   });
 
-  // Búsqueda y filtros
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
 
-  // =========================
-  // CARGAR DATOS
-  // =========================
   useEffect(() => {
     loadData();
   }, []);
@@ -94,43 +67,27 @@ export default function AdminUsers() {
 
     try {
       const headers = getAuthHeaders();
-
       const [usersResponse, rolesResponse] = await Promise.all([
         axios.get(API_URL, { headers }),
         axios.get(ROLES_URL, { headers }),
       ]);
 
-      setUsers(
-        Array.isArray(usersResponse.data)
-          ? usersResponse.data
-          : []
-      );
+      setUsers(Array.isArray(usersResponse.data) ? usersResponse.data : []);
 
-      setRoles(
-        Array.isArray(rolesResponse.data)
-          ? rolesResponse.data
-          : []
-      );
+      setRoles(Array.isArray(rolesResponse.data) ? rolesResponse.data : []);
     } catch (err) {
       console.error("Error cargando usuarios:", err);
 
       let message = "No se pudieron cargar los usuarios y roles.";
 
       if (err.response?.status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (err.response?.status === 403) {
-        message =
-          "No tienes permisos para consultar los usuarios.";
+        message = "No tienes permisos para consultar los usuarios.";
       } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
-      } else if (
-        err.response?.status === 404 &&
-        err.config?.url?.includes("/roles")
-      ) {
-        message =
-          "No se encontró la ruta /roles. Verifica el endpoint de roles de tu backend.";
-      }
+      } else if (err.response?.status === 404 && err.config?.url?.includes("/roles")
+      ) {message = "No se encontró la ruta /roles. Verifica el endpoint de roles.";}
 
       Swal.fire({
         icon: "error",
@@ -159,7 +116,6 @@ export default function AdminUsers() {
   // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (
       !form.id_card.trim() ||
       !form.name.trim() ||
@@ -198,8 +154,6 @@ export default function AdminUsers() {
 
     try {
       const headers = getAuthHeaders();
-
-      // Campos correspondientes a la tabla users.
       const payload = {
         id_card: form.id_card.trim(),
         name: form.name.trim(),
@@ -214,20 +168,14 @@ export default function AdminUsers() {
       }
 
       if (form.id) {
-        await axios.patch(
-          `${API_URL}/${form.id}`,
-          payload,
-          { headers }
-        );
+        await axios.patch(`${API_URL}/${form.id}`,payload,{ headers });
       } else {
         await axios.post(API_URL, payload, { headers });
       }
 
       await Swal.fire({
         icon: "success",
-        title: form.id
-          ? "¡Usuario actualizado!"
-          : "¡Usuario creado!",
+        title: form.id ? "¡Usuario actualizado!" : "¡Usuario creado!",
         text: "Los cambios se guardaron correctamente.",
         showConfirmButton: false,
         timer: 1800,
@@ -242,18 +190,13 @@ export default function AdminUsers() {
       let message = "No se pudo guardar el usuario.";
 
       if (status === 400) {
-        message =
-          err.response?.data?.message ||
-          "Verifica los datos ingresados. Puede que el documento o correo ya estén registrados.";
+        message = err.response?.data?.message || "Verifica los datos ingresados. Puede que el documento o correo ya estén registrados.";
       } else if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "No tienes permisos para crear o editar usuarios.";
+        message = "No tienes permisos para crear o editar usuarios.";
       } else if (status === 409) {
-        message =
-          "El documento o correo electrónico ya se encuentra registrado.";
+        message = "El documento o correo electrónico ya se encuentra registrado.";
       } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
       }
@@ -285,10 +228,7 @@ export default function AdminUsers() {
   // EDITAR USUARIO
   // =========================
   const handleEdit = (user) => {
-    const userRoleId =
-      user.role_id ??
-      user.role?.id ??
-      "";
+    const userRoleId = user.role_id ?? user.role?.id ?? "";
 
     setForm({
       id: user.id,
@@ -348,17 +288,13 @@ export default function AdminUsers() {
       let message = "No se pudo eliminar el usuario.";
 
       if (status === 401) {
-        message =
-          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message =
-          "No tienes permisos para eliminar usuarios.";
+        message = "No tienes permisos para eliminar usuarios.";
       } else if (status === 404) {
-        message =
-          "El usuario no existe o ya fue eliminado.";
+        message = "El usuario no existe o ya fue eliminado.";
       } else if (status === 409) {
-        message =
-          "No se puede eliminar este usuario porque tiene registros relacionados.";
+        message = "No se puede eliminar este usuario porque tiene registros relacionados.";
       } else if (err.message?.includes("token de autenticación")) {
         message = err.message;
       }
@@ -380,9 +316,7 @@ export default function AdminUsers() {
     }
 
     const role = roles.find(
-      (item) =>
-        String(item.id) ===
-        String(user.role_id ?? user.role?.id)
+      (item) => String(item.id) === String(user.role_id ?? user.role?.id)
     );
 
     return role?.name || "Sin rol asignado";
@@ -393,7 +327,6 @@ export default function AdminUsers() {
   // =========================
   const filteredUsers = users.filter((user) => {
     const searchText = search.toLowerCase().trim();
-
     const matchesSearch =
       !searchText ||
       user.name?.toLowerCase().includes(searchText) ||
@@ -406,11 +339,7 @@ export default function AdminUsers() {
       String(user.role_id ?? user.role?.id) ===
         String(roleFilter) ||
       getRoleName(user).toUpperCase() ===
-        String(
-          roles.find(
-            (role) => String(role.id) === String(roleFilter)
-          )?.name || ""
-        ).toUpperCase();
+        String(roles.find((role) => String(role.id) === String(roleFilter))?.name || "").toUpperCase();
 
     return matchesSearch && matchesRole;
   });
@@ -422,11 +351,7 @@ export default function AdminUsers() {
     <div className="admin-users" id="FormUsers">
       {/* FORMULARIO */}
       <section className="users-section-form">
-        <h2>
-          {form.id
-            ? "Editar usuario"
-            : "Formulario para crear un usuario"}
-        </h2>
+        <h2>{form.id ? "Editar usuario" : "Formulario para crear un usuario"}</h2>
 
         <form onSubmit={handleSubmit} className="users-form">
           <div className="users-form-grid">
@@ -503,32 +428,21 @@ export default function AdminUsers() {
                 <option value="">Selecciona un rol</option>
 
                 {roles.map((role) => (
-                  <option
-                    key={role.id}
-                    value={role.id}
-                  >
-                    {role.name}
-                  </option>
+                  <option key={role.id} value={role.id}>{role.name}</option>
                 ))}
               </select>
             </div>
 
             <div className="users-field">
               <label htmlFor="password">
-                {form.id
-                  ? "Nueva contraseña (opcional)"
-                  : "Contraseña *"}
+                {form.id ? "Nueva contraseña (opcional)" : "Contraseña *"}
               </label>
 
               <input
                 id="password"
                 name="password"
                 type="password"
-                placeholder={
-                  form.id
-                    ? "Dejar vacío para conservarla"
-                    : "Mínimo 8 caracteres"
-                }
+                placeholder={ form.id ? "Dejar vacío para conservarla" : "Mínimo 8 caracteres" }
                 value={form.password}
                 onChange={handleChange}
                 autoComplete="new-password"
@@ -538,15 +452,10 @@ export default function AdminUsers() {
             </div>
           </div>
 
-          <p className="users-form-note">
-            * Campos obligatorios. 
-          </p>
+          <p className="users-form-note">* Campos obligatorios. </p>
 
           <div className="users-form-buttons">
-            <button
-              type="submit"
-              className="users-btn users-btn-primary"
-            >
+            <button type="submit" className="users-btn users-btn-primary">
               {form.id ? "Actualizar usuario" : "Crear usuario"}
             </button>
 
@@ -614,17 +523,11 @@ export default function AdminUsers() {
 
         {/* RESULTADOS */}
         {loading ? (
-          <p className="users-empty">
-            Cargando usuarios...
-          </p>
+          <p className="users-empty">Cargando usuarios...</p>
         ) : users.length === 0 ? (
-          <p className="users-empty">
-            No hay usuarios registrados.
-          </p>
+          <p className="users-empty">No hay usuarios registrados.</p>
         ) : filteredUsers.length === 0 ? (
-          <p className="users-empty">
-            No se encontraron usuarios con los filtros seleccionados.
-          </p>
+          <p className="users-empty">No se encontraron usuarios con los filtros seleccionados.</p>
         ) : (
           <div className="users-table-container">
             <table className="users-table">
@@ -642,39 +545,22 @@ export default function AdminUsers() {
               <tbody>
                 {filteredUsers.map((user) => (
                   <tr key={user.id}>
-                    <td data-label="Documento">
-                      {user.id_card}
-                    </td>
-
-                    <td data-label="Nombre">
-                      {user.name}
-                    </td>
-
-                    <td data-label="Correo">
-                      {user.email}
-                    </td>
-
-                    <td data-label="Cargo">
-                      {user.job_position || "Sin cargo"}
-                    </td>
-
+                    <td data-label="Documento">{user.id_card}</td>
+                    <td data-label="Nombre">{user.name}</td>
+                    <td data-label="Correo">{user.email}</td>
+                    <td data-label="Cargo">{user.job_position || "Sin cargo"}</td>
                     <td data-label="Rol">
                       <span
                         className={`users-role ${
                           getRoleName(user).toUpperCase() ===
-                          "ADMINISTRADOR"
-                            ? "users-role-admin"
-                            : "users-role-comms"
+                          "ADMINISTRADOR" ? "users-role-admin" : "users-role-comms"
                         }`}
                       >
                         {getRoleName(user)}
                       </span>
                     </td>
 
-                    <td
-                      data-label="Acciones"
-                      className="users-actions"
-                    >
+                    <td data-label="Acciones" className="users-actions">
                       <button
                         type="button"
                         className="users-btn-edit"

@@ -18,10 +18,7 @@ const decodeToken = (token) => {
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split("")
-        .map(
-          (char) =>
-            "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2)
-        )
+        .map((char) => "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2))
         .join("")
     );
 
@@ -97,15 +94,11 @@ export function AuthProvider({ children }) {
 
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
-
     console.log("Usuario autenticado");
 
     return true;
   };
 
-  /**
-   * Cerrar sesión.
-   */
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");

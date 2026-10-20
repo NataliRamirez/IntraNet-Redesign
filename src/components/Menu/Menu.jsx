@@ -174,7 +174,7 @@ export default function Menu() {
             PIE DE PÁGINA
         =========================================== */}
         <footer className="menu-footer">
-          <p>© 2025 EMCA</p>
+          <p>© 2026 EMCA</p>
         </footer>
 
       </nav>

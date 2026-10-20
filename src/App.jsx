@@ -21,9 +21,9 @@ import GridNews from "./pages/News/GridNews/GridNews";
 import EventDetail from "./pages/Events/Detail/EventDetail";
 import BirthdayModal from "./pages/BirthdayModal/BirthdayModal";
 import AdminBirthdayImage from "./pages/Admin/BirthdayImage/AdminBirthdayImage";
-import UseTerms from "./pages/UseTerms/Terms";
+import PrivacyPolicy from "./pages/UseTerms/PrivacyPolicy";
+import TermsOfService from "./pages/UseTerms/TermsOfService";
 import UserProfile from "./pages/UserProfile/UserProfile";
-
 import "./App.css";
 
 export default function App() {
@@ -44,7 +44,9 @@ export default function App() {
         <Route path="/news" element={<GridNews />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/birthdaymodal" element={<BirthdayModal />} />
-        <Route path="/useTerms" element={<UseTerms />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/termsofservice" element={<TermsOfService />} />
+
 
         <Route path="/admin" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
           <AdminDashboard />
@@ -66,12 +68,9 @@ export default function App() {
           <AdminUsers />
         </PrivateRoute>} />
 
-        <Route
-          path="/admin/employees" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-            <AdminEmployees />
-          </PrivateRoute>
-          }
-        />
+        <Route path="/admin/employees" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
+          <AdminEmployees />
+        </PrivateRoute>} />
 
         <Route path="/admin/birthday" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
           <AdminBirthdayImage />
@@ -81,10 +80,9 @@ export default function App() {
           <DashboardComunication />
         </PrivateRoute>} />
 
-        <Route
-          path="/comunications/news" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
-            <AdminNews />
-          </PrivateRoute>} />
+        <Route path="/comunications/news" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
+          <AdminNews />
+        </PrivateRoute>} />
 
         <Route path="/comunications/events" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
           <AdminEvents />
@@ -97,8 +95,8 @@ export default function App() {
         <Route path="/comunications/tools" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
           <Utils />
         </PrivateRoute>} />
-      </Routes>
 
+      </Routes>
       <Footer />
     </>
   );
