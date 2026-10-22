@@ -12,12 +12,7 @@
   align-items: center;
   text-align: center;
   padding-top: 12vh;
-  background: linear-gradient(
-    135deg,
-    #286ca3,
-    #32a7d9
-  );
-
+  background: linear-gradient(135deg,#286ca3,#32a7d9);
   color: white;
 }
 
@@ -83,4 +78,3 @@
   padding: 20px;
   font-size: 0.9rem;
 }
-

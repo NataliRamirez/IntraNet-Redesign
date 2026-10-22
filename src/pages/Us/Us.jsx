@@ -9,8 +9,6 @@ export default function Us() {
 
   return (
     <div className="us">
-
-      {/* Hero */}
       <section id="Nosotros" className="us-hero">
         <motion.div
           className="hero-content"
@@ -23,14 +21,12 @@ export default function Us() {
         </motion.div>
       </section>
 
-      {/* Misión y Visión */}
       <section id="MisionVision" className="us-mv">
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <ShieldCheck size={48} color="#3b82f6" />
           <h2>Misión</h2>
           <p>EMPRESAS PÚBLICAS DE CALARCÁ E.S.P. es una empresa industrial y comercial del estado, de orden municipal, con autonomía administrativa y financiera, prestadora de los servicios públicos domiciliarios de acueducto, alcantarillado y aseo en el municipio de Calarcá.</p>
         </motion.div>
-
         <motion.div className="card" whileHover={{ scale: 1.05 }}>
           <Lightbulb size={48} color="#3b82f6" />
           <h2>Visión</h2>
@@ -38,7 +34,6 @@ export default function Us() {
         </motion.div>
       </section>
 
-      {/* Valores */}
       <section className="us-values">
         <h2>Nuestros Valores</h2>
         <div className="values-grid">
@@ -58,7 +53,6 @@ export default function Us() {
         </div>
       </section>
 
-      {/* Organigrama */}
       <section id="Organigrama" className="us-organizational-chart">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

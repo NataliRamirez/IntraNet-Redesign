@@ -7,8 +7,6 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-/* HEADER */
-
 .admin-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -25,8 +23,6 @@
   font-size: 1.1rem;
   color: #64748b;
 }
-
-/* CARDS */
 
 .admin-actions {
   margin-top: 3rem;
@@ -58,9 +54,7 @@
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg,
-      #286ca3,
-      #32A7D9);
+  background: linear-gradient(90deg,#286ca3,#32A7D9);
 }
 
 .action-card:hover {
@@ -89,9 +83,7 @@
   padding: 0.9rem;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg,
-      #286ca3,
-      #32A7D9);
+  background: linear-gradient(135deg,#286ca3,#32A7D9);
   color: white;
   font-size: 1rem;
   font-weight: 600;

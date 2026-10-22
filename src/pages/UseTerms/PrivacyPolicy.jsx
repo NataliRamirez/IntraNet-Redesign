@@ -6,66 +6,33 @@ export default function PrivacyPolicy() {
     <main className="terms-page">
       <section className="terms-header" id="privacypolicy">
         <h1>POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS PERSONALES</h1>
-
-        <p>
-          Información sobre el uso de la IntraNet y el tratamiento de los
-          datos personales de sus usuarios.
-        </p>
+        <p>Información sobre el uso de la IntraNet y el tratamiento de los datos personales de sus usuarios.</p>
       </section>
-
       <section className="terms-content">
-
-        {/* INFORMACIÓN DE LA EMPRESA */}
         <article className="terms-card">
           <h2>EMCA Empresas Públicas de Calarcá E.S.P.</h2>
-
           <ul>
             <li>NIT: 890.000.377-0</li>
             <li>Cra. 24 #39-54 Torre B, Calarcá, Quindío</li>
             <li>Teléfono: +57 (000) 0000000</li>
             <li>Correo Electrónico: contactenos@emca-calarca-quindio.gov.co</li>
           </ul>
-
           <p className="p">Para consultas, solicitudes o reclamos relacionados con el tratamiento de datos personales, los titulares podrán comunicarse a través de los canales indicados anteriormente.</p>
         </article>
-
-        {/* OBJETIVO Y ALCANCE */}
         <article className="terms-card">
           <h2>OBJETIVO Y ALCANCE</h2>
+          <p>EMCA Empresas Publicas de Calarcá E.S.P., en cumplimiento de la legislación colombiana sobre protección de datos personales, especialmente la Ley Estatutaria 1581 de 2012 y sus normas reglamentarias, establece la presente Política de Privacidad y Tratamiento de Datos Personales.</p>
+          <p>Esta política tiene como finalidad informar a los empleados y demás titulares sobre la manera en que se recolectan, almacenan, utilizan, consultan y protegen sus datos personales dentro de la intranet institucional.</p>
 
-          <p>EMCA Empresas Públicas de Calarcá E.S.P., en cumplimiento de la legislación colombiana sobre protección de datos personales, especialmente la Ley Estatutaria 1581 de 2012 y sus normas reglamentarias, establece la presente Política de Privacidad y Tratamiento de Datos Personales.</p>
+          <p>La empresa reconoce el derecho de todas las personas a conocer, actualizar, rectificar y solicitar la protección de sus datos personales, así como a ejercer los demás derechos establecidos en la normativa vigente.</p>
 
-          <p>
-            Esta política tiene como finalidad informar a los empleados
-            y demás titulares sobre la manera en que se recolectan,
-            almacenan, utilizan, consultan y protegen sus datos personales
-            dentro de la intranet institucional.
-          </p>
-
-          <p>
-            La empresa reconoce el derecho de todas las personas a conocer,
-            actualizar, rectificar y solicitar la protección de sus datos
-            personales, así como a ejercer los demás derechos establecidos
-            en la normativa vigente.
-          </p>
-
-          <p>
-            Las disposiciones de esta política se aplican al tratamiento
-            de datos personales realizado a través de la intranet, incluyendo
-            la información utilizada para identificar a los empleados,
-            consultar su área y cargo, y mostrar felicitaciones o
-            recordatorios de cumpleaños.
-          </p>
+          <p>Las disposiciones de esta política se aplican al tratamiento de datos personales realizado a través de la intranet, incluyendo la información utilizada para identificar a los empleados, consultar su área y cargo, y mostrar felicitaciones o recordatorios de cumpleaños.</p>
         </article>
 
         {/* DEFINICIONES CLAVE */}
         <article className="terms-card">
           <h2>DEFINICIONES CLAVE</h2>
-
-          <p>
-            Para efectos de esta política, se tendrán en cuenta las
-            siguientes definiciones:
-          </p>
+          <p>Para efectos de esta política, se tendrán en cuenta las siguientes definiciones:</p>
 
           <ul>
             <li>
@@ -127,7 +94,6 @@ export default function PrivacyPolicy() {
           </ul>
         </article>
 
-        {/* FINALIDADES DEL TRATAMIENTO */}
         <article className="terms-card">
           <h2>FINALIDADES DEL TRATAMIENTO</h2>
 
@@ -189,7 +155,6 @@ export default function PrivacyPolicy() {
           </p>
         </article>
 
-        {/* AUTORIZACIÓN PARA EL TRATAMIENTO */}
         <article className="terms-card">
           <h2>
             AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES
@@ -231,7 +196,6 @@ export default function PrivacyPolicy() {
           </p>
         </article>
 
-        {/* DERECHOS DE LOS EMPLEADOS */}
         <article className="terms-card">
           <h2>DERECHOS DE LOS EMPLEADOS</h2>
 
@@ -279,7 +243,6 @@ export default function PrivacyPolicy() {
           </ul>
         </article>
 
-        {/* PROCEDIMIENTO PARA EJERCER LOS DERECHOS */}
         <article className="terms-card">
           <h2>
             PROCEDIMIENTO PARA EJERCER LOS DERECHOS (HÁBEAS DATA)

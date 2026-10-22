@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "./AdminEmployees.css";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/employee`;
-
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 const getAuthHeaders = () => {
-  let token = localStorage.getItem("token") || localStorage.getItem("accessToken") || localStorage.getItem("access_token");
+  let token =
+    localStorage.getItem("token") ||
+    localStorage.getItem("accessToken") ||
+    localStorage.getItem("access_token");
 
   if (!token) {
     const storedUser = localStorage.getItem("user");
@@ -17,12 +20,11 @@ const getAuthHeaders = () => {
 
         token = user.token || user.accessToken || user.access_token || null;
 
-        // Compatibilidad con el formato anterior del proyecto
         if (!token && typeof user.username === "string" && user.username.split(".").length === 3) {
           token = user.username;
         }
       } catch (error) {
-        console.error("No se pudo leer el usuario guardado:", error);
+        console.error("No se pudo leer el usuario guardado:",error);
       }
     }
   }
@@ -43,11 +45,9 @@ const initialForm = {
   job_position: "",
   area: "",
   birthday: "",
+  image: "",
 };
 
-// =========================
-// COMPONENTE PRINCIPAL
-// =========================
 export default function AdminEmployee() {
   const [employees, setEmployees] = useState([]);
   const [form, setForm] = useState(initialForm);
@@ -55,10 +55,10 @@ export default function AdminEmployee() {
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
   const [areaFilter, setAreaFilter] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+  const imageInputRef = useRef(null);
 
-  // =========================
-  // CARGAR EMPLEADOS
-  // =========================
   useEffect(() => {
     fetchEmployees();
   }, []);
@@ -71,12 +71,13 @@ export default function AdminEmployee() {
         headers: getAuthHeaders(),
       });
 
-      setEmployees(Array.isArray(response.data) ? response.data : []);
+      setEmployees(
+        Array.isArray(response.data) ? response.data : []
+      );
     } catch (err) {
       console.error("Error al obtener empleados:", err);
 
       const status = err.response?.status;
-
       let message = "No se pudieron cargar los empleados.";
 
       if (status === 401) {
@@ -84,22 +85,17 @@ export default function AdminEmployee() {
       } else if (status === 403) {
         message = "No tienes permisos para consultar los empleados.";
       } else if (status === 404) {
-        message = "No se encontró la ruta de empleados. Verificar el endpoint.";
+        message = "No se encontró la ruta de empleados. Verifica el endpoint.";
       } else if (
         err.message?.includes("token de autenticación")
-      ) {
-        message = err.message;
-      }
+      ) {message = err.message;}
 
-      Swal.fire({ icon: "error", title: "Error", text: message, });
+      Swal.fire({icon: "error",title: "Error",text: message,});
     } finally {
       setLoading(false);
     }
   };
 
-  // =========================
-  // MANEJAR CAMBIOS DEL FORMULARIO
-  // =========================
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -109,13 +105,29 @@ export default function AdminEmployee() {
     }));
   };
 
-  // =========================
-  // CREAR / ACTUALIZAR EMPLEADO
-  // =========================
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageFile(file);
+    setImagePreview((previous) => {
+      if (previous.startsWith("blob:")) {
+        URL.revokeObjectURL(previous);
+      }
+
+      return URL.createObjectURL(file);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name.trim() || !form.id_card.trim() || !form.job_position.trim() || !form.area.trim() || !form.birthday) {
+    if (
+      !form.name.trim() ||
+      !form.id_card.trim() ||
+      !form.job_position.trim() ||
+      !form.area.trim() ||
+      !form.birthday
+    ) {
       Swal.fire({
         icon: "warning",
         title: "Campos incompletos",
@@ -135,7 +147,6 @@ export default function AdminEmployee() {
       return;
     }
 
-    // Evitar fechas futuras
     const today = new Date();
     const todayString = [
       today.getFullYear(),
@@ -153,43 +164,56 @@ export default function AdminEmployee() {
       return;
     }
 
-    const payload = {
-      name: form.name.trim(),
-      id_card: form.id_card.trim(),
-      job_position: form.job_position.trim(),
-      area: form.area.trim(),
-      birthday: form.birthday,
-    };
+    const formData = new FormData();
+
+    formData.append("name", form.name.trim());
+    formData.append("id_card", form.id_card.trim());
+    formData.append("job_position", form.job_position.trim());
+    formData.append("area", form.area.trim());
+    formData.append("birthday", form.birthday);
+
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
     setSaving(true);
 
     try {
       const headers = getAuthHeaders();
-
-      if (form.id) { //Actualizar empleado
-        await axios.patch(`${API_URL}/${form.id}`, payload, { headers });
-      } else { // Crear empleado
-        await axios.post(API_URL, payload, { headers });
-      }
-
       const wasEditing = Boolean(form.id);
+
+      if (wasEditing) {
+        await axios.patch(
+          `${API_URL}/${form.id}`,
+          formData,
+          { headers }
+        );
+      } else {
+        await axios.post(
+          API_URL,
+          formData,
+          { headers }
+        );
+      }
 
       resetForm();
       await fetchEmployees();
 
       await Swal.fire({
         icon: "success",
-        title: wasEditing ? "¡Empleado actualizado!" : "¡Empleado creado!",
-        text: wasEditing ? "Los datos del empleado se actualizaron correctamente." : "El empleado se registró correctamente.",
+        title: wasEditing
+          ? "¡Empleado actualizado!"
+          : "¡Empleado creado!",
+        text: wasEditing
+          ? "Los datos del empleado se actualizaron correctamente."
+          : "El empleado se registró correctamente.",
         showConfirmButton: false,
         timer: 1800,
       });
     } catch (err) {
       console.error("Error guardando empleado:", err);
-
       const status = err.response?.status;
       const backendMessage = err.response?.data?.message;
-
       let message = "Ocurrió un error al guardar el empleado.";
 
       if (status === 400) {
@@ -197,31 +221,51 @@ export default function AdminEmployee() {
           ? backendMessage.join(". ")
           : backendMessage || "Verifica los datos ingresados.";
       } else if (status === 401) {
-        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message =
+          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message = "No tienes permisos para crear o editar empleados.";
+        message =
+          "No tienes permisos para crear o editar empleados.";
       } else if (status === 404) {
-        message = "No se encontró el empleado o la ruta solicitada.";
+        message =
+          "No se encontró el empleado o la ruta solicitada.";
       } else if (status === 409) {
-        message = backendMessage || "El número de documento ya está registrado.";
-      } else if (err.message?.includes("token de autenticación")) {
+        message =
+          backendMessage ||
+          "El número de documento ya está registrado.";
+      } else if (
+        err.message?.includes("token de autenticación")
+      ) {
         message = err.message;
       }
 
-      Swal.fire({ icon: "error", title: "Error al guardar", text: message, });
+      Swal.fire({
+        icon: "error",
+        title: "Error al guardar",
+        text: message,
+      });
     } finally {
       setSaving(false);
     }
   };
 
-  // =========================
-  // LIMPIAR FORMULARIO
-  // =========================
-  const resetForm = () => { setForm({ ...initialForm }); };
+  const resetForm = () => {
+    setForm({ ...initialForm });
+    setImageFile(null);
 
-  // =========================
-  // EDITAR EMPLEADO
-  // =========================
+    setImagePreview((previous) => {
+      if (previous.startsWith("blob:")) {
+        URL.revokeObjectURL(previous);
+      }
+
+      return "";
+    });
+
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+  };
+
   const handleEdit = (employee) => {
     setForm({
       id: employee.id,
@@ -229,15 +273,29 @@ export default function AdminEmployee() {
       id_card: employee.id_card || "",
       job_position: employee.job_position || "",
       area: employee.area || "",
-      birthday: employee.birthday ? String(employee.birthday).slice(0, 10) : "",
+      birthday: employee.birthday
+        ? String(employee.birthday).slice(0, 10)
+        : "",
+      image: employee.image || "",
     });
 
-    window.scrollTo({ top: 0, behavior: "smooth", });
+    setImageFile(null);
+    setImagePreview((previous) => {
+      if (previous.startsWith("blob:")) {
+        URL.revokeObjectURL(previous);
+      }
+
+      return employee.image
+        ? `${BACKEND_URL}/uploads/employees/${employee.image}` : "";
+    });
+
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+
+    window.scrollTo({top: 0,behavior: "smooth",});
   };
 
-  // =========================
-  // ELIMINAR EMPLEADO
-  // =========================
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Eliminar empleado?",
@@ -277,52 +335,45 @@ export default function AdminEmployee() {
       let message = "No se pudo eliminar el empleado.";
 
       if (status === 401) {
-        message = "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
+        message =
+          "Tu sesión no es válida o ha expirado. Inicia sesión nuevamente.";
       } else if (status === 403) {
-        message = "No tienes permisos para eliminar empleados.";
+        message =
+          "No tienes permisos para eliminar empleados.";
       } else if (status === 404) {
-        message = "El empleado no existe o ya fue eliminado.";
+        message =
+          "El empleado no existe o ya fue eliminado.";
       } else if (status === 409) {
-        message = "No se puede eliminar el empleado porque tiene registros relacionados.";
+        message =
+          "No se puede eliminar el empleado porque tiene registros relacionados.";
       } else if (
         err.message?.includes("token de autenticación")
-      ) { message = err.message; }
+      ) {
+        message = err.message;
+      }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error al eliminar",
-        text: message,
-      });
+      Swal.fire({icon: "error",title: "Error al eliminar",text: message,});
     }
   };
 
-  // =========================
-  // FILTRAR EMPLEADOS
-  // =========================
   const areas = [
     ...new Set(employees.map((employee) => employee.area).filter(Boolean)),
   ].sort((a, b) => a.localeCompare(b, "es"));
 
-  const filteredEmployees = employees.filter(
-    (employee) => {
-      const searchText = search.toLowerCase().trim();
+  const filteredEmployees = employees.filter((employee) => {
+    const searchText = search.toLowerCase().trim();
 
-      const matchesSearch =
-        !searchText ||
-        employee.name?.toLowerCase().includes(searchText) ||
-        employee.id_card?.toLowerCase().includes(searchText) ||
-        employee.job_position?.toLowerCase().includes(searchText) ||
-        employee.area?.toLowerCase().includes(searchText);
+    const matchesSearch =
+      !searchText ||
+      employee.name?.toLowerCase().includes(searchText) ||
+      employee.id_card?.toLowerCase().includes(searchText) ||
+      employee.job_position?.toLowerCase().includes(searchText) ||
+      employee.area?.toLowerCase().includes(searchText);
 
-      const matchesArea = !areaFilter || employee.area === areaFilter;
+    const matchesArea = !areaFilter || employee.area === areaFilter;
+    return matchesSearch && matchesArea;
+  });
 
-      return matchesSearch && matchesArea;
-    }
-  );
-
-  // =========================
-  // FORMATEAR FECHA
-  // =========================
   const formatBirthday = (birthday) => {
     if (!birthday) return "Sin fecha";
 
@@ -330,25 +381,52 @@ export default function AdminEmployee() {
     const parts = dateString.split("-");
 
     if (parts.length !== 3) return dateString;
-
-    // Evitar cambios de día por zonas horarias
     const [year, month, day] = parts;
 
     return `${day}/${month}/${year}`;
   };
 
-  // =========================
-  // VISTA
-  // =========================
   return (
     <div className="admin-employee" id="FormEmployees">
       <section className="employee-section-form">
         <h2>{form.id ? "Editar empleado" : "Registrar nuevo empleado"}</h2>
 
-        <form className="employee-form" onSubmit={handleSubmit}>
+        <form
+          className="employee-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <div className="employee-form-grid">
             <div className="employee-field">
+              <label htmlFor="employee-image">Fotografía del empleado</label>
+
+              <input
+                ref={imageInputRef}
+                id="employee-image"
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Vista previa del empleado"
+                  style={{
+                    width: "120px",
+                    height: "120px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                    marginTop: "10px",
+                  }}
+                />
+              )}
+            </div>
+
+            <div className="employee-field">
               <label htmlFor="employee-name">Nombre completo *</label>
+
               <input
                 id="employee-name"
                 type="text"
@@ -419,13 +497,17 @@ export default function AdminEmployee() {
                 name="birthday"
                 value={form.birthday}
                 onChange={handleChange}
-                max={new Date().toLocaleDateString("en-CA")}
+                max={[
+                  new Date().getFullYear(),
+                  String(new Date().getMonth() + 1).padStart(2, "0"),
+                  String(new Date().getDate()).padStart(2, "0"),
+                ].join("-")}
                 required
               />
             </div>
           </div>
 
-          <p className="employee-form-note">* Todos los campos son obligatorios.</p>
+          <p className="employee-form-note">* Todos los campos marcados son obligatorios.</p>
 
           <div className="employee-form-buttons">
             <button
@@ -450,7 +532,10 @@ export default function AdminEmployee() {
         </form>
       </section>
 
-      <section className="employee-section-list" id="Employees">
+      <section
+        className="employee-section-list"
+        id="Employees"
+      >
         <div className="employee-list-heading">
           <h2>Empleados registrados</h2>
 
@@ -487,7 +572,10 @@ export default function AdminEmployee() {
             <button
               type="button"
               className="employee-btn employee-btn-secondary"
-              onClick={() => {setSearch("");setAreaFilter("");}}
+              onClick={() => {
+                setSearch("");
+                setAreaFilter("");
+              }}
             >
               Limpiar filtros
             </button>
@@ -495,16 +583,24 @@ export default function AdminEmployee() {
         </div>
 
         {/* RESULTADOS */}
-        {loading ? (<p className="employee-empty">Cargando empleados...</p>
+        {loading ? (
+          <p className="employee-empty">
+            Cargando empleados...
+          </p>
         ) : employees.length === 0 ? (
-          <p className="employee-empty">No hay empleados registrados.</p>
+          <p className="employee-empty">
+            No hay empleados registrados.
+          </p>
         ) : filteredEmployees.length === 0 ? (
-          <p className="employee-empty">No se encontraron empleados con los filtros seleccionados.</p>
+          <p className="employee-empty">
+            No se encontraron empleados con los filtros seleccionados.
+          </p>
         ) : (
           <div className="employee-table-container">
             <table className="employee-table">
               <thead>
                 <tr>
+                  <th>Fotografía</th>
                   <th>Documento</th>
                   <th>Nombre</th>
                   <th>Cargo</th>
@@ -517,19 +613,49 @@ export default function AdminEmployee() {
               <tbody>
                 {filteredEmployees.map((employee) => (
                   <tr key={employee.id}>
-                    <td data-label="Documento">{employee.id_card}</td>
-
-                    <td data-label="Nombre">{employee.name}</td>
-
-                    <td data-label="Cargo">{employee.job_position}</td>
-
-                    <td data-label="Área">
-                      <span className="employee-area-badge">{employee.area}</span>
+                    <td data-label="Fotografía">
+                      {employee.image ? (
+                        <img
+                          src={`${BACKEND_URL}/uploads/employees/${employee.image}`}
+                          alt={`Fotografía de ${employee.name}`}
+                          style={{
+                            width: "55px",
+                            height: "55px",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                          }}
+                        />
+                      ) : (
+                        "Sin fotografía"
+                      )}
                     </td>
 
-                    <td data-label="Fecha de nacimiento">{formatBirthday(employee.birthday)}</td>
+                    <td data-label="Documento">
+                      {employee.id_card}
+                    </td>
 
-                    <td data-label="Acciones" className="employee-actions">
+                    <td data-label="Nombre">
+                      {employee.name}
+                    </td>
+
+                    <td data-label="Cargo">
+                      {employee.job_position}
+                    </td>
+
+                    <td data-label="Área">
+                      <span className="employee-area-badge">
+                        {employee.area}
+                      </span>
+                    </td>
+
+                    <td data-label="Fecha de nacimiento">
+                      {formatBirthday(employee.birthday)}
+                    </td>
+
+                    <td
+                      data-label="Acciones"
+                      className="employee-actions"
+                    >
                       <button
                         type="button"
                         className="employee-btn-edit"

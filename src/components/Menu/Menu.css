@@ -131,29 +131,21 @@
 }
 
 
-/* =========================================
-   BARRA DE DESPLAZAMIENTO DEL MENÚ LATERAL
-========================================= */
+/*BARRA DE DESPLAZAMIENTO DEL MENÚ LATERAL*/
 
 .menu-drawer {
   max-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-
-  /* Transición visual */
   transition: scrollbar-color 0.25s ease;
 }
 
-/* Barra visible al pasar el cursor sobre el menú */
 .menu-drawer:hover {
   scrollbar-color: #32a7d9 #eaf3ff;
 }
 
-/* Chrome, Edge y otros navegadores basados en Chromium */
 .menu-drawer::-webkit-scrollbar {
   width: 7px;
 }

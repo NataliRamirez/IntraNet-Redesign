@@ -53,7 +53,6 @@ export default function NewsDetail() {
           )}
 
           <h1>{news.title}</h1>
-
           <p className="date">
             {new Date(news.publication_date).toLocaleDateString("es-CO", {
               day: "2-digit",
@@ -64,10 +63,7 @@ export default function NewsDetail() {
 
           <div
             className="content"
-            dangerouslySetInnerHTML={{
-              __html: news.content || "",
-            }} />
-
+            dangerouslySetInnerHTML={{__html: news.content || "",}} />
           <Link to="/news" className="return-btn">← Volver a noticias</Link>
         </div>
       </div></>

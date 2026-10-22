@@ -4,17 +4,13 @@
     background: #eaf3ff;
 }
 
-/* HERO */
-
 .event-detail-header {
     width: 100%;
     height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom,
-            #286ca3,
-            #32a7d9);
+    background: linear-gradient(to bottom,#286ca3,#32a7d9);
     color: #fff;
     text-align: center;
 }
@@ -41,8 +37,6 @@
     line-height: 1.6;
 }
 
-/* CONTENEDOR */
-
 .event-detail-container {
     width: 100%;
     min-height: 50vh;
@@ -50,8 +44,6 @@
     box-sizing: border-box;
     background: #eaf3ff;
 }
-
-/* TARJETA */
 
 .event-detail-card {
     max-width: 1000px;
@@ -62,16 +54,12 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* IMAGEN */
-
 .detail-img {
     display: block;
     width: 100%;
     height: 450px;
     object-fit: cover;
 }
-
-/* CONTENIDO */
 
 .event-detail-content {
     padding: 2.5rem;
@@ -83,8 +71,6 @@
     font-size: 2rem;
     font-weight: 700;
 }
-
-/* FECHA Y HORA */
 
 .event-detail-info {
     display: flex;
@@ -99,16 +85,12 @@
     font-weight: 600;
 }
 
-/* LUGAR */
-
 .event-detail-place {
     margin: 0 0 1.5rem;
     color: #475569;
     font-style: italic;
     font-size: 1rem;
 }
-
-/* DESCRIPCIÓN */
 
 .event-detail-description {
     margin-bottom: 2rem;
@@ -129,8 +111,6 @@
     color: #1d3557;
 }
 
-/* BOTÓN INSCRIPCIÓN */
-
 .event-detail-btn {
     display: inline-block;
     margin-right: 1rem;
@@ -145,8 +125,6 @@
 .event-detail-btn:hover {
     background-color: #1d3557;
 }
-
-/* BOTÓN VOLVER */
 
 .volver-btn {
     display: inline-block;
@@ -164,8 +142,6 @@
     color: #fff;
 }
 
-/* MENSAJES */
-
 .event-detail-message {
     width: 100%;
     min-height: 70vh;
@@ -182,49 +158,4 @@
 .event-detail-message p {
     margin: 0;
     font-size: 1.2rem;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 768px) {
-    .event-detail-header {
-        height: 40vh;
-    }
-
-    .event-detail-hero h1 {
-        font-size: 2rem;
-    }
-
-    .event-detail-hero p {
-        font-size: 1rem;
-    }
-
-    .event-detail-container {
-        padding: 2rem 1rem;
-    }
-
-    .detail-img {
-        height: 280px;
-    }
-
-    .event-detail-content {
-        padding: 1.5rem;
-    }
-
-    .event-detail-content h2 {
-        font-size: 1.6rem;
-    }
-
-    .event-detail-info {
-        flex-direction: column;
-        gap: 0.6rem;
-    }
-
-    .event-detail-btn,
-    .volver-btn {
-        width: 100%;
-        box-sizing: border-box;
-        text-align: center;
-        margin: 0 0 0.8rem;
-    }
 }

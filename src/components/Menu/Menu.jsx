@@ -27,7 +27,7 @@ import logoColor from "../../assets/images/logo-color.png";
  * - Empleados
  * - Noticias
  * - Eventos
- * - Cumpleañeros (agregar imagen)
+ * - Cumpleañeros del mes
  *
  * COMUNICACIONES:
  * - Inicio
@@ -41,16 +41,9 @@ import logoColor from "../../assets/images/logo-color.png";
 export default function Menu() {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
-
   const role = user?.role?.toUpperCase();
-
-  const isAdmin =
-    role === "ADMINISTRADOR" ||
-    role === "ADMIN";
-
-  const isCommunications =
-    role === "COMUNICACIONES" ||
-    role === "COMMUNICATIONS";
+  const isAdmin = role === "ADMINISTRADOR";
+  const isCommunications = role === "COMUNICACIONES";
 
   /*
    * ==================================================
@@ -78,7 +71,7 @@ export default function Menu() {
     {name: "Empleados",path: "/admin/employees",icon: <FaUserTie />,},
     {name: "Noticias",path: "/admin/news",icon: <FaNewspaper />,},
     {name: "Eventos",path: "/admin/events",icon: <FaCalendarAlt />,},
-    {name: "Cumpleañeros del mes",path: "/admin/birthday",icon: <FaBirthdayCake />,},
+    {name: "Cumpleañeros del mes",path: "/birthdaymodal",icon: <FaBirthdayCake />,},
   ];
 
   /*
@@ -91,14 +84,9 @@ export default function Menu() {
     {name: "Herramientas",path: "/comunications/tools",icon: <FaTools />,},
     {name: "Noticias",path: "/comunications/news",icon: <FaNewspaper />,},
     {name: "Eventos",path: "/comunications/events",icon: <FaCalendarAlt />,},
-    {name: "Cumpleañeros del mes",path: "/comunications/birthday",icon: <FaBirthdayCake />,},
+    {name: "Cumpleañeros del mes",path: "/birthdaymodal",icon: <FaBirthdayCake />,},
   ];
 
-  /*
-   * ==================================================
-   * SELECCIONAR EL MENÚ
-   * ==================================================
-   */
   let links;
 
   if (!user) {
@@ -108,15 +96,11 @@ export default function Menu() {
   } else if (isCommunications) {
     links = communicationsLinks;
   } else {
-    // Por seguridad, si existe un rol desconocido, no mostramos opciones administrativas.
     links = publicLinks;
   }
 
   return (
     <>
-      {/* ============================================
-          BOTÓN HAMBURGUESA
-      ============================================= */}
       <button
         className={`menu-btn ${open ? "open" : ""}`}
         onClick={() => setOpen(!open)}
@@ -128,55 +112,26 @@ export default function Menu() {
         <span></span>
       </button>
 
-      {/* ============================================
-          CAPA OSCURA
-      ============================================= */}
       {open && (
         <div className="overlay" onClick={() => setOpen(false)}>
         </div>
       )}
-
-      {/* ============================================
-          MENÚ LATERAL
-      ============================================= */}
       <nav className={`menu-drawer ${open ? "active" : ""}`}>
-
-        {/* ==========================================
-            ENCABEZADO DEL MENÚ
-        =========================================== */}
         <div className="menu-header">
-
           <img src={logoColor} alt="Logo Empresa"/>
           <h1>IntraNet EMCA</h1>
-
         </div>
-
-        {/* ==========================================
-            OPCIONES DE NAVEGACIÓN
-        =========================================== */}
         <ul>
-
           {links.map((link) => (<li key={link.name}>
-
               <Link to={link.path} onClick={() => setOpen(false)}>
-
                 <span className="icon">{link.icon}</span>
                 {link.name}
-
               </Link>
-
             </li>
           ))}
 
         </ul>
-
-        {/* ==========================================
-            PIE DE PÁGINA
-        =========================================== */}
-        <footer className="menu-footer">
-          <p>© 2026 EMCA</p>
-        </footer>
-
+        <footer className="menu-footer"><p>© 2026 EMCA</p></footer>
       </nav>
     </>
   );

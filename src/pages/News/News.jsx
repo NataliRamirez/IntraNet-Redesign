@@ -62,15 +62,9 @@ export default function News() {
       const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
       if (carousel.scrollLeft >= maxScroll - 5) {
-        carousel.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
+        carousel.scrollTo({left: 0,behavior: "smooth",});
       } else {
-        carousel.scrollBy({
-          left: move,
-          behavior: "smooth",
-        });
+        carousel.scrollBy({left: move,behavior: "smooth",});
       }
     }, 4000);
 
@@ -83,8 +77,6 @@ export default function News() {
 
   return (
     <div id="Noticias" className="news-page">
-
-      {/* ENCABEZADO */}
       <div className="news-header">
         <motion.div
           className="hero-content"
@@ -97,16 +89,13 @@ export default function News() {
         </motion.div>
       </div>
 
-      {/* CONTENIDO */}
       <section className="news-containers">
-
         {news.length === 0 ? (
           <p>No hay noticias disponibles.</p>
         ) : (
 
           <div className="carousel-wrapper">
 
-            {/* FLECHA IZQUIERDA */}
             <button
               className="carousel-btn left"
               onClick={() => scroll("left")}
@@ -115,12 +104,9 @@ export default function News() {
               ❮
             </button>
 
-            {/* CARRUSEL */}
             <div className="news-carousel" ref={carouselRef}>
               {news.map((n) => (
                 <article className="news-card" key={n.id}>
-
-                  {/* IMAGEN */}
                   <div className="news-image-container">
                     {n.image ? (
                       <img
@@ -128,13 +114,10 @@ export default function News() {
                         alt={n.title}
                       />
                     ) : (
-                      <div className="news-image-placeholder">
-                        Sin imagen
-                      </div>
+                      <div className="news-image-placeholder">Sin imagen</div>
                     )}
                   </div>
 
-                  {/* INFORMACIÓN */}
                   <div className="news-content">
 
                     <h2>{n.title}</h2>
@@ -149,13 +132,11 @@ export default function News() {
                     </p>
                     <p className="news-description">{n.short_desc}</p>
                     <Link to={`/news/${n.id}`} className="see-more-news-btn">Leer más →</Link>
-
                   </div>
                 </article>
               ))}
             </div>
 
-            {/* FLECHA DERECHA */}
             <button className="carousel-btn right" onClick={() => scroll("right")} aria-label="Siguiente noticia">
               ❯
             </button>

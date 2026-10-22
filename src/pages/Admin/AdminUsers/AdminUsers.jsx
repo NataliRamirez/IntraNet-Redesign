@@ -6,12 +6,8 @@ import "./AdminUsers.css";
 const BASE_URL = import.meta.env.VITE_API_URL;
 const API_URL = `${BASE_URL}/users`;
 const ROLES_URL = `${BASE_URL}/users/roles`;
-
 const getAuthHeaders = () => {
-  let token =
-    localStorage.getItem("token") ||
-    localStorage.getItem("accessToken") ||
-    localStorage.getItem("access_token");
+  let token = localStorage.getItem("token") || localStorage.getItem("accessToken") || localStorage.getItem("access_token");
 
   if (!token) {
     const storedUser = localStorage.getItem("user");
@@ -19,10 +15,7 @@ const getAuthHeaders = () => {
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
-
         token = user.token || user.accessToken || user.access_token || null;
-
-        // Compatibilidad con el formato anterior del proyecto
         if (!token && typeof user.username === "string" && user.username.split(".").length === 3) {
           token = user.username;
         }
@@ -58,9 +51,7 @@ export default function AdminUsers() {
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => {loadData();}, []);
 
   const loadData = async () => {
     setLoading(true);
@@ -99,9 +90,6 @@ export default function AdminUsers() {
     }
   };
 
-  // =========================
-  // ACTUALIZAR CAMPOS
-  // =========================
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -111,9 +99,6 @@ export default function AdminUsers() {
     }));
   };
 
-  // =========================
-  // CREAR / EDITAR USUARIO
-  // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -201,17 +186,10 @@ export default function AdminUsers() {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error al guardar",
-        text: message,
-      });
+      Swal.fire({icon: "error",title: "Error al guardar",text: message,});
     }
   };
 
-  // =========================
-  // LIMPIAR FORMULARIO
-  // =========================
   const resetForm = () => {
     setForm({
       id: null,
@@ -224,9 +202,6 @@ export default function AdminUsers() {
     });
   };
 
-  // =========================
-  // EDITAR USUARIO
-  // =========================
   const handleEdit = (user) => {
     const userRoleId = user.role_id ?? user.role?.id ?? "";
 
@@ -240,15 +215,9 @@ export default function AdminUsers() {
       password: "",
     });
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({top: 0,behavior: "smooth",});
   };
 
-  // =========================
-  // ELIMINAR USUARIO
-  // =========================
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Eliminar usuario?",
@@ -299,17 +268,10 @@ export default function AdminUsers() {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error al eliminar",
-        text: message,
-      });
+      Swal.fire({icon: "error",title: "Error al eliminar",text: message,});
     }
   };
 
-  // =========================
-  // NOMBRE DEL ROL
-  // =========================
   const getRoleName = (user) => {
     if (user.role?.name) {
       return user.role.name;
@@ -322,9 +284,6 @@ export default function AdminUsers() {
     return role?.name || "Sin rol asignado";
   };
 
-  // =========================
-  // FILTRAR USUARIOS
-  // =========================
   const filteredUsers = users.filter((user) => {
     const searchText = search.toLowerCase().trim();
     const matchesSearch =
@@ -334,22 +293,16 @@ export default function AdminUsers() {
       user.email?.toLowerCase().includes(searchText) ||
       user.job_position?.toLowerCase().includes(searchText);
 
-    const matchesRole =
-      !roleFilter ||
-      String(user.role_id ?? user.role?.id) ===
-        String(roleFilter) ||
+    const matchesRole = !roleFilter ||
+      String(user.role_id ?? user.role?.id) === String(roleFilter) ||
       getRoleName(user).toUpperCase() ===
         String(roles.find((role) => String(role.id) === String(roleFilter))?.name || "").toUpperCase();
 
     return matchesSearch && matchesRole;
   });
 
-  // =========================
-  // RENDERIZADO
-  // =========================
   return (
     <div className="admin-users" id="FormUsers">
-      {/* FORMULARIO */}
       <section className="users-section-form">
         <h2>{form.id ? "Editar usuario" : "Formulario para crear un usuario"}</h2>
 
@@ -472,7 +425,6 @@ export default function AdminUsers() {
         </form>
       </section>
 
-      {/* LISTADO */}
       <section className="users-section-list" id="Users">
         <div className="users-list-heading">
           <h2>Usuarios registrados</h2>
@@ -482,7 +434,6 @@ export default function AdminUsers() {
           </span>
         </div>
 
-        {/* BÚSQUEDA Y FILTROS */}
         <div className="users-search-filters">
           <input
             type="search"
@@ -491,10 +442,7 @@ export default function AdminUsers() {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <select
-            value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value)}
-          >
+          <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
             <option value="">Todos los roles</option>
 
             {roles.map((role) => (
@@ -521,7 +469,6 @@ export default function AdminUsers() {
           )}
         </div>
 
-        {/* RESULTADOS */}
         {loading ? (
           <p className="users-empty">Cargando usuarios...</p>
         ) : users.length === 0 ? (

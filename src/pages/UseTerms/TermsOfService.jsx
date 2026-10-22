@@ -21,9 +21,8 @@ export default function TermsOfService() {
           <ul>
             <li>NIT: 890.000.377-0</li>
             <li>Cra. 24 #39-54 Torre B, Calarcá, Quindío</li>
-            <li>Teléfono: +57 (000) 0000000</li>
             <li>
-              Correo electrónico: contactenos@emca-calarca-quindio.gov.co
+              Correo electrónico: sistemas@emca-calarca-quindio.gov.co
             </li>
           </ul>
 
@@ -34,7 +33,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* OBJETIVO Y ALCANCE */}
         <article className="terms-card">
           <h2>OBJETIVO Y ALCANCE</h2>
 
@@ -61,7 +59,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* DESCRIPCIÓN DE LA PLATAFORMA */}
         <article className="terms-card">
           <h2>DESCRIPCIÓN DE LOS SERVICIOS</h2>
 
@@ -83,7 +80,6 @@ export default function TermsOfService() {
           </ul>
         </article>
 
-        {/* ACCESO A LA PLATAFORMA */}
         <article className="terms-card">
           <h2>ACCESO Y USO DE LA INTRANET</h2>
 
@@ -93,7 +89,6 @@ export default function TermsOfService() {
           <p>El usuario se compromete a utilizar la plataforma de manera responsable, exclusivamente para los fines institucionales permitidos y respetando las normas internas de EMCA.</p>
         </article>
 
-        {/* RESPONSABILIDADES DEL USUARIO */}
         <article className="terms-card">
           <h2>RESPONSABILIDADES DE LOS USUARIOS</h2>
 
@@ -135,17 +130,14 @@ export default function TermsOfService() {
           </ul>
         </article>
 
-        {/* RESTRICCIONES DE USO */}
         <article className="terms-card">
           <h2>USOS NO AUTORIZADOS</h2>
-
           <p>
             Está prohibido utilizar la intranet para realizar actividades
             que comprometan la seguridad, la integridad o el funcionamiento
             de la plataforma, así como para acceder a información sin
             autorización.
           </p>
-
           <ul>
             <li>
               Acceder a cuentas, módulos o información sin contar
@@ -179,10 +171,8 @@ export default function TermsOfService() {
           </ul>
         </article>
 
-        {/* RESPONSABILIDADES DE LOS ADMINISTRADORES */}
         <article className="terms-card">
           <h2>RESPONSABILIDADES DE LOS ADMINISTRADORES</h2>
-
           <p>
             Los usuarios que cuenten con permisos administrativos
             deberán utilizar sus privilegios exclusivamente para
@@ -213,7 +203,6 @@ export default function TermsOfService() {
           </ul>
         </article>
 
-        {/* PROTECCIÓN DE DATOS PERSONALES */}
         <article className="terms-card">
           <h2>PROTECCIÓN DE DATOS PERSONALES</h2>
 
@@ -245,7 +234,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* PROPIEDAD INTELECTUAL */}
         <article className="terms-card">
           <h2>CONTENIDOS Y PROPIEDAD INTELECTUAL</h2>
 
@@ -269,7 +257,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* DISPONIBILIDAD Y MANTENIMIENTO */}
         <article className="terms-card">
           <h2>DISPONIBILIDAD Y MANTENIMIENTO</h2>
 
@@ -289,7 +276,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* MEDIDAS ANTE INCUMPLIMIENTOS */}
         <article className="terms-card">
           <h2>INCUMPLIMIENTO DE LOS TÉRMINOS</h2>
 
@@ -314,7 +300,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* MODIFICACIONES */}
         <article className="terms-card">
           <h2>MODIFICACIONES DE LOS TÉRMINOS</h2>
 
@@ -331,7 +316,6 @@ export default function TermsOfService() {
           </p>
         </article>
 
-        {/* CONTACTO */}
         <article className="terms-card">
           <h2>CONTACTO Y SOPORTE</h2>
 
@@ -360,7 +344,6 @@ export default function TermsOfService() {
           </ul>
         </article>
 
-        {/* VIGENCIA */}
         <article className="terms-card">
           <h2>VIGENCIA</h2>
 

@@ -5,7 +5,7 @@
     font-family: montserrat;
 }
 
-/* ===== HEADER ===== */
+/*HEADER*/
 
 .header {
     width: 100%;
@@ -23,8 +23,6 @@
     z-index: 1;
 }
 
-/* ===== CAPA DE CONTENIDO ===== */
-
 .header-top,
 .inline,
 .header-bottom {
@@ -32,7 +30,7 @@
     z-index: 2;
 }
 
-/* ===== HEADER SUPERIOR ===== */
+/*HEADER SUPERIOR*/
 
 .header-top {
     display: flex;
@@ -72,7 +70,7 @@
     font-weight: 600;
 }
 
-/* ===== MENÚ ===== */
+/*MENÚ*/
 
 .nav-links {
     display: flex;
@@ -93,7 +91,7 @@
     opacity: 0.8;
 }
 
-/* ===== ÁREA DERECHA ===== */
+/*ÁREA DERECHA */
 
 .header-right {
     display: flex;
@@ -101,7 +99,7 @@
     gap: 1rem;
 }
 
-/* ===== BOTÓN LOGIN ===== */
+/* BOTÓN LOGIN */
 
 .login-button {
     background: transparent;
@@ -118,7 +116,7 @@
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* ===== USUARIO ===== */
+/* USUARIO */
 
 .user-actions {
     display: flex;
@@ -139,7 +137,7 @@
     object-fit: cover;
 }
 
-/* ===== LÍNEA DIVISORIA ===== */
+/* LÍNEA DIVISORIA */
 
 .inline {
     width: 85%;
@@ -147,7 +145,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-/* ===== MODAL LOGIN ===== */
+/* MODAL LOGIN */
 
 .login-modal {
     position: fixed;

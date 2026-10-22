@@ -81,8 +81,8 @@ export default function Header() {
                     <Link to="/admin">Inicio</Link>
                     <Link to="/admin/news">Noticias</Link>
                     <Link to="/admin/events">Eventos</Link>
-                    <Link to="/admin/notifications">Notificaciones</Link>
                     <Link to="/admin/users">Usuarios</Link>
+                    <Link to="/admin/employees">Empleados</Link>
                 </>
             );
         }
@@ -94,6 +94,8 @@ export default function Header() {
             return (
                 <>
                     <Link to="/comunications">Inicio</Link>
+                    <Link to="/admin/news">Noticias</Link>
+                    <Link to="/admin/events">Eventos</Link>
                 </>
             );
         }
@@ -108,6 +110,7 @@ export default function Header() {
                     <Link to="/">Inicio</Link>
                     <a href="#termsofservice">Terminos de Servicio</a>
                     <Link to="/privacypolicy">Politicas de privacidad</Link>
+                    <Link to="/FAQ">Preguntas Frecuentes</Link>
                 </>
             );
         }
@@ -122,9 +125,27 @@ export default function Header() {
                     <Link to="/">Inicio</Link>
                     <a href="#privacypolicy">Politicas de privacidad</a>
                     <Link to="/termsofservice">Terminos de Servicio</Link>
+                    <Link to="/FAQ">Preguntas Frecuentes</Link>
                 </>
             );
         }
+
+        // =========================
+        // FAQ
+        // =========================
+
+        if (location.pathname.startsWith("/FAQ")) {
+            return (
+                <>
+                    <Link to="/">Inicio</Link>
+                    <a href="#FAQ">Preguntas Frecuentes</a>
+                    <Link to="/termsofservice">Terminos de Servicio</Link>
+                    <Link to="/privacypolicy">Politicas de privacidad</Link>
+                </>
+            );
+        }
+
+        
 
         // =========================
         // UTILIDADES
@@ -276,21 +297,12 @@ export default function Header() {
                 </div>
             </section>
 
-            {/* =========================
-                MODAL LOGIN
-            ========================= */}
             {showLogin && !user && (
                 <div className="login-modal">
 
-                    {/* Fondo */}
                     <div className="login-modal-overlay" onClick={() => setShowLogin(false)} />
-
-                    {/* Contenido */}
                     <div className="login-modal-content">
-
-                        {/* Cerrar */}
                         <button className="login-close" onClick={() => setShowLogin(false)} type="button">✕</button>
-
                         <Login onClose={() => setShowLogin(false)} />
                     </div>
                 </div>

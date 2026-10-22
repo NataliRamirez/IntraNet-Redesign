@@ -1,8 +1,3 @@
-
-/* ================================= */
-/* PÁGINA */
-/* ================================= */
-
 .grid-news-page {
   width: 100%;
   min-height: 100vh;
@@ -10,26 +5,15 @@
   box-sizing: border-box;
 }
 
-/* ================================= */
-/* HERO */
-/* ================================= */
-
 .grid-news-header {
   width: 100%;
   min-height: 50vh;
   padding: 3rem 1.5rem;
   box-sizing: border-box;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(
-    to bottom,
-    #286ca3,
-    #32a7d9
-  );
-
+  background: linear-gradient(to bottom,#286ca3,#32a7d9);
   color: #ffffff;
   text-align: center;
 }
@@ -37,7 +21,6 @@
 .grid-news-header .hero-content {
   width: 100%;
   max-width: 850px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,10 +41,6 @@
   line-height: 1.6;
 }
 
-/* ================================= */
-/* CONTENEDOR */
-/* ================================= */
-
 .news-grid-container {
   width: 100%;
   max-width: 1500px;
@@ -79,10 +58,6 @@
   font-weight: 500;
   line-height: 1.6;
 }
-
-/* ================================= */
-/* FILTROS */
-/* ================================= */
 
 .news-filters {
   width: 100%;
@@ -103,15 +78,12 @@
   width: 100%;
   height: 44px;
   padding: 0 14px;
-
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-
   background: #ffffff;
   color: #1e293b;
   font-family: inherit;
   font-size: 15px;
-
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -131,17 +103,13 @@
 .news-clear-filters {
   min-height: 44px;
   padding: 0 18px;
-
   border: none;
   border-radius: 8px;
-
   background: #6c757d;
   color: #ffffff;
-
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
-
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -153,45 +121,26 @@
   transform: scale(0.98);
 }
 
-/* ================================= */
-/* CUADRÍCULA DE NOTICIAS */
-/* ================================= */
-
 .news-grid {
   max-width: 1500px;
   margin: 0 auto;
-
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, 320px), 1fr)
-  );
-
+  grid-template-columns: repeat(auto-fit,minmax(min(100%, 320px), 1fr));
   align-items: start;
   gap: 2rem;
 }
-
-/* ================================= */
-/* TARJETAS */
-/* ================================= */
 
 .grid-card {
   min-width: 0;
   height: 100%;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
-
   background: #ffffff;
   border-radius: 16px;
   overflow: hidden;
-
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
 }
 
 .grid-card:hover {
@@ -199,18 +148,12 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* ================================= */
-/* IMAGEN */
-/* ================================= */
-
 .grid-card > img {
   display: block;
   width: 100%;
   height: 260px;
   flex-shrink: 0;
-
   object-fit: cover;
-
   transition: transform 0.4s ease;
 }
 
@@ -218,37 +161,27 @@
   transform: scale(1.03);
 }
 
-/* ================================= */
-/* INFORMACIÓN */
-/* ================================= */
-
 .grid-info {
   flex: 1;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   padding: 1.5rem;
 }
 
 .grid-info h2 {
   margin: 0 0 0.8rem;
-
   color: #1e293b;
   font-size: 1.3rem;
   line-height: 1.4;
-
   overflow-wrap: anywhere;
 }
 
 .grid-info p {
   margin: 0 0 1rem;
-
   color: #475569;
   font-size: 1rem;
   line-height: 1.6;
-
   overflow-wrap: anywhere;
 }
 
@@ -257,31 +190,20 @@
   font-weight: 600;
 }
 
-/* ================================= */
-/* BOTÓN LEER MÁS */
-/* ================================= */
-
 .btn {
   display: inline-block;
   width: fit-content;
   max-width: 100%;
   box-sizing: border-box;
-
   margin-top: auto;
   padding: 0.7rem 1.2rem;
-
   background-color: #286ca3;
   color: #ffffff;
-
   text-decoration: none;
   text-align: center;
   font-weight: 600;
-
   border-radius: 8px;
-
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s ease;
+  transition:background-color 0.3s ease,transform 0.3s ease;
 }
 
 .btn:hover {
@@ -289,21 +211,14 @@
   transform: translateY(-2px);
 }
 
-/* ================================= */
-/* CARGA Y MENSAJES */
-/* ================================= */
-
 .loading-msg {
   width: 100%;
   min-height: 30vh;
   box-sizing: border-box;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 3rem 1rem;
-
   color: #475569;
   text-align: center;
   font-size: 1.2rem;
@@ -312,98 +227,9 @@
 .no-news {
   width: 100%;
   box-sizing: border-box;
-
   padding: 40px 20px;
-
   color: #475569;
   text-align: center;
   font-size: 17px;
   line-height: 1.6;
-}
-
-/* ================================= */
-/* RESPONSIVE */
-/* ================================= */
-
-@media (max-width: 768px) {
-  .grid-news-header {
-    min-height: 40vh;
-    padding: 3rem 1rem;
-  }
-
-  .grid-news-header h2 {
-    font-size: 2rem;
-  }
-
-  .grid-news-header p {
-    padding: 0 0.5rem;
-    font-size: 1rem;
-  }
-
-  .news-grid-container {
-    padding: 2rem 1rem;
-  }
-
-  .subtitle {
-    margin-bottom: 2rem;
-    font-size: 1rem;
-  }
-
-  .news-filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .news-search {
-    width: 100%;
-    min-width: unset;
-  }
-
-  .news-date-filter {
-    width: 100%;
-  }
-
-  .news-clear-filters {
-    width: 100%;
-  }
-
-  .news-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .grid-card {
-    width: 100%;
-  }
-
-  .grid-card > img {
-    height: 240px;
-  }
-}
-
-@media (max-width: 480px) {
-  .grid-news-header h2 {
-    font-size: 1.8rem;
-  }
-
-  .news-grid-container {
-    padding: 2rem 1rem;
-  }
-
-  .grid-card {
-    border-radius: 12px;
-  }
-
-  .grid-card > img {
-    height: 220px;
-  }
-
-  .grid-info {
-    padding: 1.2rem;
-  }
-
-  .grid-info h2 {
-    font-size: 1.2rem;
-  }
 }

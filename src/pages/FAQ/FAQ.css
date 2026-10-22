@@ -1,0 +1,242 @@
+.faq-section {
+    width: 100%;
+    min-height: 80vh;
+    box-sizing: border-box;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.faq-header {
+    width: 100vw;
+    height: 40vh;
+    padding-top: 10vh;
+    color: white;
+    background: linear-gradient(135deg,#286ca3,#32a7d9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.h1 {
+    margin: 0 0 10px;
+    font-size: 2.6rem;
+    font-weight: 700;
+}
+
+.faq-subtitle {
+    display: block;
+    margin-bottom: 10px;
+    color: #edf6fd;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+.faq-container {
+    width: 80vw;
+        padding-top: 5vh;
+}
+
+.faq-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 650px;
+    height: 55px;
+    margin: 0 auto 25px;
+    padding: 0 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #286ca3;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(10, 25, 45, 0.04);
+    box-sizing: border-box;
+}
+
+.faq-search:focus-within {
+    border-color: #32a7d9;
+    box-shadow: 0 0 0 3px rgba(50, 167, 217, 0.12);
+}
+
+.faq-search svg {
+    flex-shrink: 0;
+    font-size: 21px;
+}
+
+.faq-search input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.faq-search input::placeholder {
+    color: #94a3b8;
+}
+
+.faq-categorias {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.faq-categoria {
+    padding: 10px 17px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #334155;
+    background: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.faq-categoria:hover {
+    border-color: #286ca3;
+    color: #286ca3;
+}
+
+.faq-categoria.activa {
+    border-color: #ffffff;
+    color: white;
+    background: linear-gradient(135deg, #286ca3d7, #32a7d9cb);
+}
+
+.faq-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.faq-item:hover,
+.faq-item.abierta {
+    border-color: #b5d5e9;
+}
+
+.faq-pregunta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    min-height: 68px;
+    padding: 20px 24px;
+    border: none;
+    color: #1e3a8a;
+    background: transparent;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.faq-pregunta:focus-visible {
+    outline: 3px solid #32a7d9;
+    outline-offset: -3px;
+}
+
+.faq-chevron {
+    flex-shrink: 0;
+    color: #286ca3;
+    font-size: 21px;
+    transition: transform 0.2s ease;
+}
+
+.faq-item.abierta .faq-chevron {
+    transform: rotate(180deg);
+}
+
+.faq-respuesta {
+    padding: 0 24px 22px;
+    animation: faq-aparecer 0.2s ease;
+}
+
+.faq-respuesta p {
+    margin: 0;
+    padding-top: 17px;
+    border-top: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.faq-vacio {
+    padding: 40px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #64748b;
+    background: #ffffff;
+    text-align: center;
+}
+
+.faq-vacio svg {
+    color: #286ca3;
+    font-size: 30px;
+}
+
+.faq-vacio h3 {
+    margin: 12px 0 8px;
+    color: #1e3a8a;
+}
+
+.faq-vacio p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.faq-contacto {
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+.faq-contacto h3 {
+    margin: 0 0 10px;
+    color: #1e3a8a;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.faq-contacto p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+@keyframes faq-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

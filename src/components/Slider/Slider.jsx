@@ -15,9 +15,7 @@ const images = [img4, img1, img2, img3];
  */
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   
-  // Configura el cambio automático de imágenes cada 3 segundos.
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => prevIndex === images.length - 1 ? 0 : prevIndex + 1);
@@ -31,8 +29,7 @@ export default function Slider() {
       {images.map((imgSrc, index) => (
         <div
           key={index}
-          className={`slide-image-wrapper ${index === currentIndex ? "active" : ""
-            }`}
+          className={`slide-image-wrapper ${index === currentIndex ? "active" : ""}`}
           style={{ "--bg": `url(${imgSrc})` }}
         >
           <img

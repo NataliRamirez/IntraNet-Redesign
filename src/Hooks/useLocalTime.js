@@ -16,18 +16,8 @@ export default function useLocalTime() {
     const updateTime = () => {
       const now = new Date();
 
-      const timeString = now.toLocaleTimeString("es-CO", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      });
-
-      const dateString = now.toLocaleDateString("es-CO", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-
+      const timeString = now.toLocaleTimeString("es-CO", {hour: "2-digit",minute: "2-digit",second: "2-digit",});
+      const dateString = now.toLocaleDateString("es-CO", {day: "numeric",month: "long",year: "numeric",});
       setTime(timeString);
       setDate(dateString);
     };

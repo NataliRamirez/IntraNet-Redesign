@@ -133,11 +133,7 @@ export default function UserPerfil() {
     e.preventDefault();
 
     if (!form.name.trim() || !form.email.trim()) {
-      Swal.fire(
-        "Campos obligatorios",
-        "El nombre y el correo electrónico son obligatorios.",
-        "warning"
-      );
+      Swal.fire("Campos obligatorios","El nombre y el correo electrónico son obligatorios.","warning");
       return;
     }
 
@@ -237,32 +233,21 @@ export default function UserPerfil() {
 
       const response = await axios.patch(
         `${API_URL}/users/password`,
-        {
-          currentPassword: passwordForm.currentPassword,
-          newPassword: passwordForm.newPassword,
-        },
+        {currentPassword: passwordForm.currentPassword,newPassword: passwordForm.newPassword,},
         getAuthHeaders()
       );
 
-      setPasswordForm({
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
-
+      setPasswordForm({currentPassword: "",newPassword: "",confirmPassword: "",});
       setChangingPassword(false);
 
-      await Swal.fire("¡Contraseña actualizada!",response.data?.message ||
-          "Tu contraseña se cambió correctamente.","success"
+      await Swal.fire("¡Contraseña actualizada!",response.data?.message || "Tu contraseña se cambió correctamente.","success"
       );
     } catch (error) {
       console.error("Error al cambiar la contraseña:", error);
 
       const message = error.response?.data?.message;
       const errorMessage = Array.isArray(message)
-        ? message.join("\n")
-        : message || "No fue posible cambiar la contraseña.";
-
+        ? message.join("\n") : message || "No fue posible cambiar la contraseña.";
       Swal.fire("Error al cambiar la contraseña", errorMessage, "error");
     } finally {
       setSaving(false);

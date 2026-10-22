@@ -1,10 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
-
-/**
- * Decodifica el payload de un JWT.
- */
 const decodeToken = (token) => {
   try {
     const payload = token.split(".")[1];
@@ -14,7 +10,6 @@ const decodeToken = (token) => {
     }
 
     const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
-
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split("")
@@ -34,7 +29,6 @@ const decodeToken = (token) => {
  */
 const normalizeRole = (role) => {
   if (!role) return null;
-
   const normalizedRole = role.toString().toUpperCase();
 
   if (normalizedRole === "ADMINISTRADOR") {
@@ -66,9 +60,6 @@ export function AuthProvider({ children }) {
     }
   });
 
-  /**
-   * Inicio de sesión.
-   */
   const login = (token) => {
     const decodedToken = decodeToken(token);
 

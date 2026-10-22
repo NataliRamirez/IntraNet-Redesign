@@ -46,7 +46,6 @@ export default function AdminNews() {
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  // OBTENER NOTICIAS
   useEffect(() => {
     fetchNews();
   }, []);
@@ -71,15 +70,9 @@ export default function AdminNews() {
 
     setImagenFile(file);
 
-    setForm((previousForm) => ({
-      ...previousForm,
-      image: URL.createObjectURL(file),
-    }));
+    setForm((previousForm) => ({...previousForm,image: URL.createObjectURL(file),}));
   };
 
-  // =========================
-  // CREAR / ACTUALIZAR NOTICIA
-  // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -123,7 +116,6 @@ export default function AdminNews() {
         : new Date().toISOString()
     );
 
-    // El controlador espera el archivo en el campo "image".
     if (imagenFile) {
       fd.append("image", imagenFile);
     }
@@ -196,9 +188,6 @@ export default function AdminNews() {
     setImagenFile(null);
   };
 
-  // =========================
-  // EDITAR NOTICIA
-  // =========================
   const handleEdit = (n) => {
     setForm({
       id: n.id,
@@ -210,13 +199,9 @@ export default function AdminNews() {
       image: n.image ? `${BACKEND_URL}/uploads/news/${n.image}` : "",
     });
 
-    // No reemplazar la imagen existente si no se elige otra.
     setImagenFile(null);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({top: 0,behavior: "smooth",});
   };
 
   const handleDelete = async (id) => {
@@ -278,9 +263,6 @@ export default function AdminNews() {
     }
   };
 
-  // =========================
-  // FILTRAR NOTICIAS
-  // =========================
   const filteredNews = news.filter((n) => {
     const searchText = search.toLowerCase().trim();
     const matchesSearch =
@@ -297,7 +279,6 @@ export default function AdminNews() {
     return matchesSearch && matchesDate;
   });
 
-  // LIMPIAR FILTROS
   const clearFilters = () => {
     setSearch("");
     setDateFilter("");
@@ -305,11 +286,9 @@ export default function AdminNews() {
 
   return (
     <div className="adminNews" id="FormNews">
-      {/* FORMULARIO */}
       <div className="section-form">
         <h2>{form.id ? "Editar noticia:" : "Crear noticias:"}</h2>
         <form onSubmit={handleSubmit} className="news-form">
-          {/* TÍTULO */}
           <input
             type="text"
             placeholder="Título"
@@ -323,7 +302,6 @@ export default function AdminNews() {
             required
           />
 
-          {/* DESCRIPCIÓN CORTA */}
           <input
             type="text"
             placeholder="Descripción corta"
@@ -336,7 +314,6 @@ export default function AdminNews() {
             }
           />
 
-          {/* CONTENIDO */}
           <textarea
             placeholder="Contenido de la noticia"
             rows={6}
@@ -351,14 +328,12 @@ export default function AdminNews() {
             required
           />
 
-          {/* IMAGEN */}
           <input
             type="file"
             accept="image/*"
             onChange={handleImage}
           />
 
-          {/* PREVISUALIZACIÓN */}
           {form.image && (
             <img
               src={form.image}
@@ -371,7 +346,6 @@ export default function AdminNews() {
             />
           )}
 
-          {/* FECHA */}
           <input
             type="datetime-local"
             value={form.publication_date}
@@ -383,12 +357,10 @@ export default function AdminNews() {
             }
           />
 
-          {/* BOTONES */}
           <div style={{display: "flex",gap: "0.5rem",}}>
             <button type="submit">
               {form.id ? "Actualizar" : "Crear"} noticia
             </button>
-
             {form.id && (
               <button type="button" onClick={resetForm}>Cancelar edición</button>
             )}
@@ -396,11 +368,9 @@ export default function AdminNews() {
         </form>
       </div>
 
-      {/* LISTADO DE NOTICIAS */}
       <div className="section-news" id="News">
         <h2>Noticias registradas</h2>
 
-        {/* BÚSQUEDA Y FILTROS */}
         <div className="search-filters">
           <div className="search-box">
             <input
@@ -439,40 +409,25 @@ export default function AdminNews() {
           ) : (
             filteredNews.map((n) => (
               <div key={n.id} className="news-card">
-                {/* IMAGEN */}
                 {n.image && (
                   <img src={`${BACKEND_URL}/uploads/news/${n.image}`}alt={n.title}/>
                 )}
 
                 <div className="news-card-content">
-                  {/* TÍTULO */}
                   <h4>{n.title}</h4>
-
-                  {/* FECHA */}
                   <div className="date">
                     {n.publication_date
                       ? new Date(n.publication_date).toLocaleString(
                           "es-CO",
                           {dateStyle: "medium",}
-                        )
-                      : "Sin fecha"}
+                        ) : "Sin fecha"}
                   </div>
 
-                  {/* DESCRIPCIÓN */}
                   <p>{n.short_desc || n.description}</p>
 
-                  {/* ACCIONES */}
                   <div className="actions">
-                    <button type="button" onClick={() => handleEdit(n)}>
-                      Editar
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(n.id)}
-                    >
-                      Eliminar
-                    </button>
+                    <button type="button" onClick={() => handleEdit(n)}>Editar</button>
+                    <button type="button" onClick={() => handleDelete(n.id)}>Eliminar</button>
                   </div>
                 </div>
               </div>

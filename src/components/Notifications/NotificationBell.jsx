@@ -7,17 +7,13 @@ import "./NotificationBell.css";
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("ALL");
   const [readFilter, setReadFilter] = useState("ALL");
-
   const navigate = useNavigate();
   const { user } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL;
-
-  const getAuthHeaders = () => {
-    const headers = {"Content-Type": "application/json",};
+  const getAuthHeaders = () => {const headers = {"Content-Type": "application/json",};
 
     if (user?.token) {
       headers.Authorization = `Bearer ${user.token}`;
@@ -26,11 +22,6 @@ export default function NotificationBell() {
     return headers;
   };
 
-  /**
-   * ============================================
-   * OBTENER NOTIFICACIONES
-   * ============================================
-   */
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
@@ -43,7 +34,6 @@ export default function NotificationBell() {
       }
 
       const data = await response.json();
-
       setNotifications(Array.isArray(data) ? data : []);
 
     } catch (error) {
@@ -51,11 +41,6 @@ export default function NotificationBell() {
     }
   };
 
-  /**
-   * ============================================
-   * MARCAR UNA COMO LEÍDA
-   * ============================================
-   */
   const markAsRead = async (id) => {
     if (!user?.token) {
       return;
@@ -75,12 +60,7 @@ export default function NotificationBell() {
       }
 
       setNotifications((current) =>
-        current.map((notification) => notification.id === id ? {
-          ...notification,
-          is_read: true,
-        }
-          : notification
-        )
+        current.map((notification) => notification.id === id ? {...notification,is_read: true,} : notification)
       );
 
     } catch (error) {
@@ -88,11 +68,6 @@ export default function NotificationBell() {
     }
   };
 
-  /**
-   * ============================================
-   * MARCAR TODAS COMO LEÍDAS
-   * ============================================
-   */
   const markAllAsRead = async () => {
     if (!user?.token) {
       return;
@@ -100,11 +75,7 @@ export default function NotificationBell() {
 
     try {
       const response = await fetch(
-        `${API_URL}/notifications/read-all`,
-        {
-          method: "PATCH",
-          headers: getAuthHeaders(),
-        }
+        `${API_URL}/notifications/read-all`,{method: "PATCH",headers: getAuthHeaders(),}
       );
 
       if (!response.ok) {
@@ -112,10 +83,7 @@ export default function NotificationBell() {
       }
 
       setNotifications((current) =>
-        current.map((notification) => ({
-          ...notification,
-          is_read: true,
-        }))
+        current.map((notification) => ({...notification,is_read: true,}))
       );
 
     } catch (error) {
@@ -123,11 +91,6 @@ export default function NotificationBell() {
     }
   };
 
-  /**
-   * ============================================
-   * ELIMINAR NOTIFICACIÓN
-   * ============================================
-   */
   const deleteNotification = async (id) => {
     if (!user?.token) {
       return;
@@ -136,10 +99,7 @@ export default function NotificationBell() {
     try {
       const response = await fetch(
         `${API_URL}/notifications/${id}`,
-        {
-          method: "DELETE",
-          headers: getAuthHeaders(),
-        }
+        {method: "DELETE",headers: getAuthHeaders(),}
       );
 
       if (!response.ok) {
@@ -153,37 +113,21 @@ export default function NotificationBell() {
     }
   };
 
-  /**
-   * ============================================
-   * CARGA INICIAL
-   * ============================================
-   */
   useEffect(() => {
     fetchNotifications();
     const interval = setInterval(fetchNotifications,15000);
-
     return () => clearInterval(interval);
   }, [user?.token]);
 
-  /**
-   * ============================================
-   * FILTRAR NOTIFICACIONES
-   * ============================================
-   */
   const filteredNotifications =
     notifications.filter((notification) => {
-      const searchText =
-        search.toLowerCase().trim();
+      const searchText = search.toLowerCase().trim();
 
-      // BÚSQUEDA 
-      const matchesSearch = !searchText ||
-        notification.title?.toLowerCase()
+      const matchesSearch = !searchText || notification.title?.toLowerCase()
           .includes(searchText) || notification.message?.toLowerCase().includes(searchText);
 
-      // TIPO
       const matchesType = typeFilter === "ALL" || notification.entity_type === typeFilter;
 
-      // ESTADO
       const matchesRead = readFilter === "ALL" ||
         (readFilter === "UNREAD" && !notification.is_read) ||
         (readFilter === "READ" && notification.is_read);
@@ -199,11 +143,7 @@ export default function NotificationBell() {
     setReadFilter("ALL");
   };
 
-
-  // CANTIDAD SIN LEER
   const unreadCount = notifications.filter((notification) => !notification.is_read).length;
-
-  // CLIC EN NOTIFICACIÓN
   const handleNotificationClick = async (notification) => {
     try {
       if (user?.token && !notification.is_read) {
@@ -216,18 +156,12 @@ export default function NotificationBell() {
         return;
       }
 
-      /*
-       * NOTICIA
-       */
       if (notification.entity_type === "NEWS" && notification.reference_id) {
         setOpen(false);
         navigate(`/news/${notification.reference_id}`);
         return;
       }
 
-      /*
-       * EVENTO
-       */
       if (notification.entity_type === "EVENT" && notification.reference_id) {
         setOpen(false);
         navigate(`/events/${notification.reference_id}`);
@@ -242,11 +176,6 @@ export default function NotificationBell() {
     }
   };
 
-  /**
-   * ============================================
-   * ICONO DE NOTIFICACIÓN
-   * ============================================
-   */
   const getNotificationIcon = (entityType) => {
     if (entityType === "NEWS") {
       return <MdArticle />;
@@ -259,11 +188,6 @@ export default function NotificationBell() {
     return <MdNotifications />;
   };
 
-  /**
-   * ============================================
-   * TEXTO DEL TIPO
-   * ============================================
-   */
   const getNotificationType = (entityType) => {
     if (entityType === "NEWS") {
       return "Noticia";
@@ -279,36 +203,25 @@ export default function NotificationBell() {
   return (
     <>
       {open && (<div className="overlay-notifications" onClick={() => setOpen(false)}/>)}
-
       <div className="notification-wrapper">
-
         <button
           type="button"
           className="notification-bell"
           onClick={() =>
             setOpen((current) => !current)
           }
-          aria-label="Abrir notificaciones"
-        >
+          aria-label="Abrir notificaciones">
           <MdNotifications className="bell" />
-
           {unreadCount > 0 && (<span className="badge">{unreadCount}</span>)}
         </button>
 
         {open && (
           <div className="notification-dropdown" onClick={(e) => e.stopPropagation()}>
-
-            {/* ================================= */}
-            {/* HEADER */}
-            {/* ================================= */}
-
             <div className="dropdown-header">
-
               <div>
                 <strong>Notificaciones</strong>
                 <span className="notification-total">{notifications.length}</span>
               </div>
-
               {user?.token &&
                 unreadCount > 0 && (
                   <button type="button" className="mark-all-btn" onClick={markAllAsRead}>
@@ -316,7 +229,6 @@ export default function NotificationBell() {
                     Marcar todas
                   </button>
                 )}
-
             </div>
 
             <div className="notification-filters">
@@ -333,11 +245,9 @@ export default function NotificationBell() {
               </div>
               <div className="filtersContainer">
                 <select className="notification-filter" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-                  
                   <option value="ALL">Todas</option>
                   <option value="NEWS">Noticias</option>
                   <option value="EVENT">Eventos</option>
-
                 </select>
 
                 <select className="notification-filter" value={readFilter} onChange={(e) => setReadFilter(e.target.value)}>
@@ -381,12 +291,10 @@ export default function NotificationBell() {
                       <div key={notification.id} className={`notification-item ${unread ? "unread" : ""}`}
                         onClick={() => handleNotificationClick(notification)}>
 
-                        {/* ICONO */}
                         <div className="notification-item-icon">
                           {getNotificationIcon(notification.entity_type)}
                         </div>
 
-                        {/* TEXTO */}
                         <div className="notification-text">
                           <div className="notification-item-header">
                             <span className="notification-type">
@@ -406,7 +314,6 @@ export default function NotificationBell() {
 
                         </div>
 
-                        {/* ACCIONES */}
                         {user?.token && (
                           <div className="notification-actions">
 

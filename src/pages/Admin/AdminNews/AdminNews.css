@@ -1,8 +1,3 @@
-
-/* =====================================================
-   CONTENEDOR PRINCIPAL
-===================================================== */
-
 .adminNews {
   width: 100%;
   padding-top: 15vh;
@@ -10,29 +5,21 @@
   margin: 1rem auto;
   padding: 2rem 5%;
   box-sizing: border-box;
-
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-
   font-family: "Inter", system-ui, sans-serif;
   color: #333;
 }
-
-/* =====================================================
-   FORMULARIO
-===================================================== */
 
 .adminNews .section-form {
   width: 100%;
   margin: 15vh auto 3rem;
   padding: 5vh 2rem 3rem;
   box-sizing: border-box;
-
   background: linear-gradient(to bottom, #9cbbcf, #b5c3cc);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
-
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -43,14 +30,11 @@
   margin: 0 0 1.5rem;
   padding: 0 0 1rem;
   border: none;
-
   color: #ffffff;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
 }
-
-/* Campos del formulario */
 
 .adminNews .news-form {
   display: flex;
@@ -66,15 +50,12 @@
   width: 100%;
   padding: 1rem 1.2rem;
   box-sizing: border-box;
-
   border: 2px solid #e2e8f0;
   border-radius: 25px;
   background: #ffffff;
-
   font-family: inherit;
   font-size: 0.95rem;
   color: #2c3e50;
-
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -90,8 +71,6 @@
   outline: none;
 }
 
-/* Selección de imagen */
-
 .adminNews .news-form input[type="file"] {
   background: #f8fafc;
   border: 2px dashed #3498db;
@@ -103,20 +82,15 @@
   background: #eef7ff;
 }
 
-/* Previsualización de imagen */
-
 .adminNews .news-form img {
   width: 220px !important;
   height: 140px;
   max-width: 100%;
   object-fit: cover;
-
   border-radius: 14px;
   border: 3px solid #ffffff;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-
-/* Contenedor de botones */
 
 .adminNews .news-form .divButton {
   display: flex;
@@ -127,8 +101,6 @@
   margin-top: 0.5rem;
 }
 
-/* Botón crear o actualizar */
-
 .adminNews .news-form button[type="submit"] {
   background: linear-gradient(135deg, #286ca3, #32a7d9);
   color: #ffffff;
@@ -138,7 +110,6 @@
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
-
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -146,8 +117,6 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
-
-/* Botón cancelar edición */
 
 .adminNews .news-form button[type="button"] {
   background: #e2e8f0;
@@ -158,7 +127,6 @@
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
-
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
@@ -166,10 +134,6 @@
   background: #cbd5e1;
   transform: translateY(-2px);
 }
-
-/* =====================================================
-   LISTADO DE NOTICIAS
-===================================================== */
 
 .adminNews .section-news {
   width: 100%;
@@ -186,16 +150,11 @@
   margin: 0 0 2rem;
   padding: 0;
   border: none;
-
   color: #1e3a5f;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
 }
-
-/* =====================================================
-   BÚSQUEDA Y FILTROS
-===================================================== */
 
 .adminNews .search-filters {
   display: flex;
@@ -219,15 +178,12 @@
   height: 3rem;
   padding: 0 14px;
   box-sizing: border-box;
-
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   background: #ffffff;
-
   font-family: inherit;
   font-size: 14px;
   color: #334155;
-
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -243,23 +199,18 @@
   flex-shrink: 0;
 }
 
-/* Botón limpiar filtros */
-
 .adminNews .clear-filters {
   height: 3rem;
   padding: 0 18px;
   flex-shrink: 0;
-
   border: none;
   border-radius: 8px;
   background: #6c757d;
   color: #ffffff;
-
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
@@ -271,24 +222,13 @@
   transform: scale(0.98);
 }
 
-/* =====================================================
-   CUADRÍCULA DE NOTICIAS
-===================================================== */
-
 .adminNews .news-list {
   width: 100%;
-
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, 320px), 1fr)
-  );
-
+  grid-template-columns: repeat(auto-fit,minmax(min(100%, 320px), 1fr));
   align-items: stretch;
   gap: 2rem;
 }
-
-/* Mensajes cuando no hay resultados */
 
 .adminNews .news-list > p {
   grid-column: 1 / -1;
@@ -296,36 +236,26 @@
   margin: 0;
   padding: 2rem;
   box-sizing: border-box;
-
   text-align: center;
   color: #64748b;
   font-size: 1rem;
   line-height: 1.6;
-
   background: #ffffff;
   border-radius: 12px;
 }
-
-/* =====================================================
-   TARJETAS DE NOTICIAS
-===================================================== */
 
 .adminNews .news-card {
   min-width: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
   background: #ffffff;
   border: 1px solid rgba(203, 213, 225, 0.7);
   border-radius: 16px;
-
   box-shadow: 0 5px 18px rgba(44, 62, 80, 0.08);
-
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -334,49 +264,34 @@
   box-shadow: 0 12px 28px rgba(44, 62, 80, 0.15);
 }
 
-/* Imagen de la noticia */
-
 .adminNews .news-card > img {
   display: block;
   width: 100%;
   height: 260px;
   flex-shrink: 0;
-
   object-fit: cover;
   object-position: center;
   background: #dbeafe;
 }
 
-/* =====================================================
-   CONTENIDO DE LAS TARJETAS
-===================================================== */
-
 .adminNews .news-card-content {
   flex: 1;
-
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
   padding: 1.4rem;
   box-sizing: border-box;
   gap: 0.8rem;
 }
 
-/* Título */
-
 .adminNews .news-card-content h4 {
   margin: 0;
-
   color: #1e3a5f;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
-
   overflow-wrap: anywhere;
 }
-
-/* Fecha */
 
 .adminNews .news-card-content .date {
   color: #3288b8;
@@ -385,50 +300,35 @@
   line-height: 1.5;
 }
 
-/* Descripción */
-
 .adminNews .news-card-content p {
   margin: 0;
-
   color: #475569;
   font-size: 0.95rem;
   line-height: 1.7;
-
   overflow-wrap: anywhere;
   white-space: pre-line;
 }
-
-/* =====================================================
-   BOTONES DE ACCIONES
-===================================================== */
 
 .adminNews .news-card .actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
-
   margin-top: auto;
   padding-top: 1rem;
 }
 
-/* Estilos generales */
-
 .adminNews .news-card .actions button {
   flex: 1;
   min-width: 90px;
-
   padding: 0.75rem 1rem;
-
   border: none;
   border-radius: 8px;
   color: #ffffff;
-
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -436,8 +336,6 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
-
-/* Botón editar */
 
 .adminNews .news-card .actions button:first-child {
   background: #f0ad4e;
@@ -447,8 +345,6 @@
   background: #df982e;
 }
 
-/* Botón eliminar */
-
 .adminNews .news-card .actions button:last-child {
   background: #dc3545;
 }
@@ -456,10 +352,6 @@
 .adminNews .news-card .actions button:last-child:hover {
   background: #bb2d3b;
 }
-
-/* =====================================================
-   RESPONSIVE: TABLET
-===================================================== */
 
 @media (max-width: 900px) {
   .adminNews {
@@ -489,94 +381,5 @@
 
   .adminNews .search-box {
     flex-basis: 100%;
-  }
-}
-
-/* =====================================================
-   RESPONSIVE: MÓVILES
-===================================================== */
-
-@media (max-width: 600px) {
-  .adminNews {
-    padding: 0.75rem;
-  }
-
-  .adminNews .section-form {
-    margin-top: 8vh;
-    padding: 2rem 1rem;
-    border-radius: 14px;
-  }
-
-  .adminNews .section-form h2 {
-    font-size: 1.45rem;
-  }
-
-  .adminNews .news-form {
-    gap: 1rem;
-  }
-
-  .adminNews .news-form input,
-  .adminNews .news-form textarea {
-    padding: 0.85rem;
-    font-size: 0.9rem;
-  }
-
-  .adminNews .news-form img {
-    width: 180px !important;
-    height: 120px;
-  }
-
-  .adminNews .news-form .divButton {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .adminNews .news-form .divButton button {
-    width: 100%;
-  }
-
-  .adminNews .section-news > h2 {
-    font-size: 1.6rem;
-  }
-
-  .adminNews .search-filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .adminNews .search-box,
-  .adminNews .filter-box {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .adminNews .clear-filters {
-    width: 100%;
-  }
-
-  .adminNews .news-list {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .adminNews .news-card > img {
-    height: 220px;
-  }
-
-  .adminNews .news-card-content {
-    padding: 1rem;
-  }
-
-  .adminNews .news-card-content h4 {
-    font-size: 1.15rem;
-  }
-
-  .adminNews .news-card .actions {
-    gap: 0.5rem;
-  }
-
-  .adminNews .news-card .actions button {
-    padding: 0.7rem 0.5rem;
   }
 }

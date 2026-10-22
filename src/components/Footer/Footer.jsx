@@ -31,8 +31,8 @@ export default function Footer() {
                     <div className="footer-section">
                         <h3>Contáctanos</h3>
                         <ul className="links">
-                            <li>Línea de atención: +57 (000) 0000000</li>
-                            <li>Correo soporte: contactenos@emca-calarca-quindio.gov.co</li>
+                            <li><a href="https://emca.siicoonline.com/site/login">Mesa de ayuda</a></li>
+                            <li>Correo soporte: sistemas@emca-calarca-quindio.gov.co</li>
                         </ul>
                     </div>
                     <div className="footer-section">
@@ -40,6 +40,7 @@ export default function Footer() {
                         <ul className="links">
                             <li href="#privacypolicy"><Link to="/privacypolicy">Política de privacidad</Link></li>
                             <li href="#termsofservice"><Link to="/termsofservice">Términos de servicio</Link></li>
+                            <li href="#FAQ"><Link to="/FAQ">Preguntas Frecuentes</Link></li>
                         </ul>
                     </div>
                 </div>

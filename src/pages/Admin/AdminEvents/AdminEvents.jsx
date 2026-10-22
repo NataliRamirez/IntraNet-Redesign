@@ -8,9 +8,7 @@ const getAuthHeaders = () => {
   let token = null;
 
   token =
-    localStorage.getItem("token") ||
-    localStorage.getItem("accessToken") ||
-    localStorage.getItem("access_token");
+    localStorage.getItem("token") || localStorage.getItem("accessToken") || localStorage.getItem("access_token");
 
   if (!token) {
     const storedUser = localStorage.getItem("user");
@@ -19,11 +17,7 @@ const getAuthHeaders = () => {
       try {
         const user = JSON.parse(storedUser);
 
-        token =
-          user.token ||
-          user.accessToken ||
-          user.access_token ||
-          null;
+        token = user.token || user.accessToken || user.access_token || null;
 
         if (
           !token &&
@@ -33,7 +27,7 @@ const getAuthHeaders = () => {
           token = user.username;
         }
       } catch (error) {
-        console.error("No se pudo leer el usuario guardado:",error);
+        console.error("No se pudo leer el usuario guardado:", error);
       }
     }
   }
@@ -42,7 +36,7 @@ const getAuthHeaders = () => {
     throw new Error("No se encontró el token de autenticación. Inicia sesión nuevamente.");
   }
 
-  return {Authorization: `Bearer ${token}`,};
+  return { Authorization: `Bearer ${token}`, };
 };
 
 
@@ -63,43 +57,27 @@ export default function AdminEvents() {
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  useEffect(() => {fetchEvents();}, []);
+  useEffect(() => { fetchEvents(); }, []);
 
   const fetchEvents = async () => {
     try {
       const res = await axios.get(API_URL);
-
       console.log("Respuesta del backend:", res.data);
-
       setEvents(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Error al obtener eventos:", err);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudieron cargar los eventos.",
-      });
+      Swal.fire({ icon: "error", title: "Error", text: "No se pudieron cargar los eventos.", });
     }
   };
 
-  // =========================
-  // SELECCIONAR IMAGEN
-  // =========================
   const handleImage = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setImageFile(file);
     const url = URL.createObjectURL(file);
-    setForm((f) => ({
-      ...f,
-      image: url,
-    }));
+    setForm((f) => ({ ...f, image: url, }));
   };
 
-  // =========================
-  // CREAR / ACTUALIZAR EVENTO
-  // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -119,10 +97,7 @@ export default function AdminEvents() {
 
       fd.append("name", form.title.trim());
       fd.append("description", form.description.trim());
-      fd.append(
-        "date_time",
-        new Date(form.date_time).toISOString()
-      );
+      fd.append("date_time", new Date(form.date_time).toISOString());
 
       if (form.place.trim()) {
         fd.append("place", form.place.trim());
@@ -165,9 +140,7 @@ export default function AdminEvents() {
       });
     } catch (err) {
       console.error("Error guardando evento:", err);
-
       const status = err.response?.status;
-
       let message = "Ocurrió un error al guardar el evento. Revisa la consola.";
 
       if (status === 401) {
@@ -178,11 +151,7 @@ export default function AdminEvents() {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error al guardar",
-        text: message,
-      });
+      Swal.fire({ icon: "error", title: "Error al guardar", text: message, });
     }
   };
 
@@ -213,10 +182,7 @@ export default function AdminEvents() {
 
     setImageFile(null);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth", });
   };
 
 
@@ -252,7 +218,6 @@ export default function AdminEvents() {
       console.error("Error eliminando evento:", err);
 
       const status = err.response?.status;
-
       let message = "No se pudo eliminar el evento.";
 
       if (status === 401) {
@@ -263,51 +228,35 @@ export default function AdminEvents() {
         message = err.message;
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: message,
-      });
+      Swal.fire({ icon: "error", title: "Error", text: message, });
     }
   };
 
-  
-  
-const filteredEvents = events
-  .filter((ev) => {
-    const searchText = search.toLowerCase().trim();
+  const filteredEvents = events
+    .filter((ev) => {
+      const searchText = search.toLowerCase().trim();
 
-    const matchesSearch =
-      !searchText ||
-      ev.name?.toLowerCase().includes(searchText) ||
-      ev.description?.toLowerCase().includes(searchText) ||
-      ev.place?.toLowerCase().includes(searchText);
+      const matchesSearch = !searchText ||
+        ev.name?.toLowerCase().includes(searchText) ||
+        ev.description?.toLowerCase().includes(searchText) ||
+        ev.place?.toLowerCase().includes(searchText);
 
-    const matchesDate = !dateFilter || ev.date_time?.startsWith(dateFilter);
-    return matchesSearch && matchesDate;
-  })
-  .sort((a, b) => {
-    const now = new Date().getTime();
-    const dateA = a.date_time ? new Date(a.date_time).getTime() : 0;
-    const dateB = b.date_time ? new Date(b.date_time).getTime() : 0;
-    const isUpcomingA = dateA >= now;
-    const isUpcomingB = dateB >= now;
+      const matchesDate = !dateFilter || ev.date_time?.startsWith(dateFilter);
+      return matchesSearch && matchesDate;
+    })
+    .sort((a, b) => {
+      const now = new Date().getTime();
+      const dateA = a.date_time ? new Date(a.date_time).getTime() : 0;
+      const dateB = b.date_time ? new Date(b.date_time).getTime() : 0;
+      const isUpcomingA = dateA >= now;
+      const isUpcomingB = dateB >= now;
 
-    // Primero los próximos
-    if (isUpcomingA && isUpcomingB) return dateA - dateB;
+      if (isUpcomingA && isUpcomingB) return dateA - dateB;
+      if (isUpcomingA) return -1;
+      if (isUpcomingB) return 1;
+      return dateB - dateA;
+    });
 
-    // Los próximos van antes que los que ya pasaron.
-    if (isUpcomingA) return -1;
-    if (isUpcomingB) return 1;
-
-    // Después los pasados más recientes y al final los antiguos.
-    return dateB - dateA;
-  });
-
-
-  // =========================
-  // LIMPIAR FILTROS
-  // =========================
   const clearFilters = () => {
     setSearch("");
     setDateFilter("");
@@ -315,12 +264,10 @@ const filteredEvents = events
 
   return (
     <div className="admin-events" id="FormEvents">
-      {/* FORMULARIO */}
       <div className="section-form">
         <h2>{form.id ? "Editar evento:" : "Formulario para crear un nuevo evento:"}</h2>
 
         <form onSubmit={handleSubmit} className="event-form">
-          {/* TÍTULO */}
           <input
             type="text"
             placeholder="Título"
@@ -334,7 +281,6 @@ const filteredEvents = events
             required
           />
 
-          {/* DESCRIPCIÓN */}
           <textarea
             placeholder="Descripción"
             value={form.description}
@@ -347,7 +293,6 @@ const filteredEvents = events
             required
           />
 
-          {/* FECHA Y HORA */}
           <input
             type="datetime-local"
             value={form.date_time}
@@ -360,7 +305,6 @@ const filteredEvents = events
             required
           />
 
-          {/* LUGAR */}
           <input
             type="text"
             placeholder="Lugar"
@@ -373,7 +317,6 @@ const filteredEvents = events
             }
           />
 
-          {/* ENLACE */}
           <input
             type="url"
             placeholder="Link (opcional)"
@@ -386,14 +329,7 @@ const filteredEvents = events
             }
           />
 
-          {/* IMAGEN */}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImage}
-          />
-
-          {/* PREVISUALIZACIÓN */}
+          <input type="file" accept="image/*" onChange={handleImage}/>
           {form.image && (
             <img
               src={form.image}
@@ -406,7 +342,6 @@ const filteredEvents = events
             />
           )}
 
-          {/* BOTONES */}
           <div
             className="divButton"
             style={{
@@ -415,19 +350,14 @@ const filteredEvents = events
             }}
           >
             <button type="submit">{form.id ? "Actualizar" : "Crear"} Evento</button>
-
-            {form.id && (
-              <button type="button" onClick={resetForm}>Cancelar edición</button>
-            )}
+            {form.id && (<button type="button" onClick={resetForm}>Cancelar edición</button>)}
           </div>
         </form>
       </div>
 
-      {/* LISTADO DE EVENTOS */}
       <div className="section-events" id="Events">
         <h2>Eventos registrados:</h2>
 
-        {/* BÚSQUEDA Y FILTROS */}
         <div className="search-filters">
           <div className="search-box">
             <input
@@ -457,7 +387,6 @@ const filteredEvents = events
           )}
         </div>
 
-        {/* RESULTADOS */}
         <div className="events-list">
           {events.length === 0 ? (
             <p>No hay eventos registrados aún.</p>
@@ -466,7 +395,6 @@ const filteredEvents = events
           ) : (
             filteredEvents.map((ev) => (
               <div key={ev.id} className="event-card">
-                {/* IMAGEN */}
                 {ev.image && (
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/events/${ev.image}`}
@@ -475,35 +403,22 @@ const filteredEvents = events
                 )}
 
                 <div className="event-card-content">
-                  {/* NOMBRE */}
                   <h4>{ev.name}</h4>
 
-                  {/* FECHA */}
                   <div className="date">
                     {ev.date_time
                       ? new Date(ev.date_time).toLocaleString(
                         "es-CO",
-                        {dateStyle: "medium",timeStyle: "short",}
+                        { dateStyle: "medium", timeStyle: "short", }
                       )
                       : "Sin fecha"}
                   </div>
-
-                  {/* DESCRIPCIÓN */}
                   <p>{ev.description}</p>
+                  {ev.place && (<p><b>Lugar:</b> {ev.place}</p>)}
 
-                  {/* LUGAR */}
-                  {ev.place && (
-                    <p><b>Lugar:</b> {ev.place}</p>
-                  )}
-
-                  {/* ENLACE */}
                   {ev.link && (
                     <p>
-                      <a
-                        href={ev.link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
+                      <a href={ev.link} target="_blank" rel="noreferrer">
                         Enlace al evento
                       </a>
                     </p>
@@ -511,17 +426,11 @@ const filteredEvents = events
 
                   {/* ACCIONES */}
                   <div className="actions">
-                    <button
-                      type="button"
-                      onClick={() => handleEdit(ev)}
-                    >
+                    <button type="button" onClick={() => handleEdit(ev)}>
                       Editar
                     </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(ev.id)}
-                    >
+                    <button type="button" onClick={() => handleDelete(ev.id)}>
                       Eliminar
                     </button>
                   </div>

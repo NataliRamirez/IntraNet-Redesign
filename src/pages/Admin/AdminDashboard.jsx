@@ -37,12 +37,6 @@ export default function AdminDashboard() {
         </div>
 
         <div className="action-card">
-          <h2>Cumpleaños</h2>
-          <p>Sube la imagen de los cumpleañeros del mes.</p>
-          <button className="action-btn" onClick={() => navigate("/admin/birthday")}>Gestionar Imagen</button>
-        </div>
-
-        <div className="action-card">
           <h2>Eventos</h2>
           <p>Administra los eventos de la organización.</p>
           <button className="action-btn" onClick={() => navigate("/admin/events")}>Gestionar Eventos</button>

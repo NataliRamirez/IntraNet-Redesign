@@ -66,7 +66,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 9%;
-
   width: 60%;
   height: 90%;
   padding: 1rem;
@@ -149,8 +148,8 @@
 
 .birthday-employee-card > img,
 .birthday-employee-empty > img {
-  width: 76px;
-  height: 76px;
+  width: 100%px;
+  height: auto;
   object-fit: contain;
 }
 

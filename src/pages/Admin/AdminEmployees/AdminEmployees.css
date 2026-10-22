@@ -1,7 +1,3 @@
-/* =====================================================
-   CONTENEDOR PRINCIPAL
-===================================================== */
-
 .admin-employee {
   width: 100%;
   min-height: 100vh;
@@ -19,10 +15,6 @@
   box-sizing: border-box;
 }
 
-/* =====================================================
-   SECCIONES
-===================================================== */
-
 .admin-employee .employee-section-form,
 .admin-employee .employee-section-list {
   width: 100%;
@@ -31,10 +23,6 @@
   padding: 2rem;
   border-radius: 20px;
 }
-
-/* =====================================================
-   FORMULARIO
-===================================================== */
 
 .admin-employee .employee-section-form {
   margin-top: 15vh;
@@ -52,8 +40,6 @@
   text-align: center;
 }
 
-/* Estructura del formulario */
-
 .admin-employee .employee-form {
   display: flex;
   flex-direction: column;
@@ -63,16 +49,12 @@
   margin: 0 auto;
 }
 
-/* Cuadrícula de campos */
-
 .admin-employee .employee-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.4rem;
   width: 100%;
 }
-
-/* Campos individuales */
 
 .admin-employee .employee-field {
   display: flex;
@@ -86,8 +68,6 @@
   font-size: 0.95rem;
   font-weight: 600;
 }
-
-/* Inputs */
 
 .admin-employee .employee-field input {
   width: 100%;
@@ -109,18 +89,12 @@
   outline: none;
 }
 
-/* Nota del formulario */
-
 .admin-employee .employee-form-note {
   margin: 0;
   color: #ffffff;
   font-size: 0.88rem;
   line-height: 1.5;
 }
-
-/* =====================================================
-   BOTONES DEL FORMULARIO
-===================================================== */
 
 .admin-employee .employee-form-buttons {
   display: flex;
@@ -153,8 +127,6 @@
   transform: none;
 }
 
-/* Registrar y actualizar */
-
 .admin-employee .employee-btn-primary {
   background: linear-gradient(135deg, #286ca3, #32a7d9);
   color: #ffffff;
@@ -164,8 +136,6 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
-
-/* Cancelar */
 
 .admin-employee .employee-btn-secondary {
   background: #e2e8f0;
@@ -177,16 +147,10 @@
   transform: translateY(-2px);
 }
 
-/* =====================================================
-   LISTADO DE EMPLEADOS
-===================================================== */
-
 .admin-employee .employee-section-list {
   padding: 1rem 0 2rem;
   background: #ffffff;
 }
-
-/* Encabezado */
 
 .admin-employee .employee-list-heading {
   display: flex;
@@ -204,8 +168,6 @@
   font-weight: 600;
 }
 
-/* Contador */
-
 .admin-employee .employee-count {
   display: inline-flex;
   align-items: center;
@@ -219,10 +181,6 @@
   font-weight: 600;
 }
 
-/* =====================================================
-   BÚSQUEDA Y FILTROS
-===================================================== */
-
 .admin-employee .employee-search-filters {
   display: grid;
   grid-template-columns: minmax(200px, 1fr) 220px auto;
@@ -231,8 +189,6 @@
   width: 100%;
   margin-bottom: 2rem;
 }
-
-/* Campos de búsqueda y selección */
 
 .admin-employee .employee-search-filters input,
 .admin-employee .employee-search-filters select {
@@ -256,8 +212,6 @@
   box-shadow: 0 0 0 3px rgba(50, 167, 217, 0.15);
 }
 
-/* Botón limpiar filtros */
-
 .admin-employee .employee-search-filters .employee-btn-secondary {
   min-height: 3rem;
   padding: 0 18px;
@@ -270,10 +224,6 @@
 .admin-employee .employee-search-filters .employee-btn-secondary:hover:not(:disabled) {
   background: #545b62;
 }
-
-/* =====================================================
-   TABLA DE EMPLEADOS
-===================================================== */
 
 .admin-employee .employee-table-container {
   width: 100%;
@@ -291,8 +241,6 @@
   text-align: left;
 }
 
-/* Encabezados con el degradado de Events */
-
 .admin-employee .employee-table thead {
   background: linear-gradient(135deg, #286ca3, #32a7d9);
   color: #ffffff;
@@ -304,8 +252,6 @@
   font-weight: 600;
   white-space: nowrap;
 }
-
-/* Celdas */
 
 .admin-employee .employee-table td {
   padding: 1rem;
@@ -329,10 +275,6 @@
   border-bottom: none;
 }
 
-/* =====================================================
-   ETIQUETA DEL ÁREA
-===================================================== */
-
 .admin-employee .employee-area-badge {
   display: inline-block;
   max-width: 180px;
@@ -345,10 +287,6 @@
   font-weight: 600;
   overflow-wrap: anywhere;
 }
-
-/* =====================================================
-   BOTONES DE ACCIONES
-===================================================== */
 
 .admin-employee .employee-actions {
   min-width: 175px;
@@ -376,8 +314,6 @@
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Editar */
-
 .admin-employee .employee-btn-edit {
   background: #f0ad4e;
 }
@@ -386,8 +322,6 @@
   background: #df982e;
 }
 
-/* Eliminar */
-
 .admin-employee .employee-btn-delete {
   background: #dc3545;
 }
@@ -395,10 +329,6 @@
 .admin-employee .employee-btn-delete:hover {
   background: #bb2d3b;
 }
-
-/* =====================================================
-   ESTADOS VACÍOS Y CARGA
-===================================================== */
 
 .admin-employee .employee-empty {
   width: 100%;
@@ -412,10 +342,6 @@
   line-height: 1.7;
   text-align: center;
 }
-
-/* =====================================================
-   RESPONSIVE: TABLET
-===================================================== */
 
 @media (max-width: 1000px) {
   .admin-employee {
@@ -439,158 +365,5 @@
   .admin-employee .employee-table th,
   .admin-employee .employee-table td {
     padding: 0.85rem 0.7rem;
-  }
-}
-
-/* =====================================================
-   RESPONSIVE: MÓVILES
-===================================================== */
-
-@media (max-width: 650px) {
-  .admin-employee {
-    padding: 0.75rem;
-    border-radius: 12px;
-  }
-
-  .admin-employee .employee-section-form {
-    margin-top: 8vh;
-    padding: 2rem 1rem;
-    border-radius: 14px;
-  }
-
-  .admin-employee .employee-section-form h2 {
-    font-size: 1.45rem;
-  }
-
-  .admin-employee .employee-form {
-    gap: 1rem;
-  }
-
-  .admin-employee .employee-form-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .admin-employee .employee-field input {
-    min-height: 45px;
-    padding: 0.85rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .admin-employee .employee-form-buttons {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .admin-employee .employee-form-buttons .employee-btn {
-    width: 100%;
-  }
-
-  .admin-employee .employee-section-list {
-    padding: 1rem 0;
-  }
-
-  .admin-employee .employee-list-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    margin-bottom: 1.5rem;
-  }
-
-  .admin-employee .employee-list-heading h2 {
-    font-size: 1.6rem;
-  }
-
-  .admin-employee .employee-search-filters {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .admin-employee .employee-search-filters .employee-btn-secondary {
-    grid-column: auto;
-    justify-self: stretch;
-    width: 100%;
-  }
-
-  /* Tabla adaptada a tarjetas */
-
-  .admin-employee .employee-table-container {
-    overflow: visible;
-    border: none;
-    box-shadow: none;
-  }
-
-  .admin-employee .employee-table,
-  .admin-employee .employee-table tbody,
-  .admin-employee .employee-table tr,
-  .admin-employee .employee-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .admin-employee .employee-table thead {
-    display: none;
-  }
-
-  .admin-employee .employee-table tbody tr {
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-    border: 1px solid rgba(203, 213, 225, 0.8);
-    border-radius: 14px;
-    background: #ffffff;
-    box-shadow: 0 5px 18px rgba(44, 62, 80, 0.08);
-  }
-
-  .admin-employee .employee-table tbody tr:hover {
-    background: #f8fbff;
-  }
-
-  .admin-employee .employee-table td {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: right;
-    overflow-wrap: anywhere;
-  }
-
-  .admin-employee .employee-table tbody tr:last-child td {
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .admin-employee .employee-table td::before {
-    content: attr(data-label);
-    flex-shrink: 0;
-    max-width: 45%;
-    color: #1e3a5f;
-    font-weight: 700;
-    text-align: left;
-  }
-
-  .admin-employee .employee-table td.employee-actions {
-    min-width: 0;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    white-space: normal;
-  }
-
-  .admin-employee .employee-table td.employee-actions::before {
-    margin-right: auto;
-  }
-
-  .admin-employee .employee-btn-edit,
-  .admin-employee .employee-btn-delete {
-    padding: 0.7rem 0.8rem;
-  }
-
-  .admin-employee .employee-area-badge {
-    max-width: 55%;
-  }
-
-  .admin-employee .employee-empty {
-    padding: 1.5rem 1rem;
-    font-size: 0.92rem;
   }
 }

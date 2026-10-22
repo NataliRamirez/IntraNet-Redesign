@@ -11,7 +11,6 @@ export default function Notifications() {
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-
       const response = await fetch(`${API_URL}/notifications`);
 
       if (!response.ok) {
@@ -186,10 +185,7 @@ export default function Notifications() {
                   >
 
                     <div className="notification-card-top">
-                      <span className="notification-type">
-                        {getNotificationType(notification.entity_type)}
-                      </span>
-
+                      <span className="notification-type">{getNotificationType(notification.entity_type)}</span>
                       {unread && (<span className="new-label">Nueva</span>)}
                     </div>
 

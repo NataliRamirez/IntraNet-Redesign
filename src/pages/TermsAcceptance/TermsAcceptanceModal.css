@@ -2,13 +2,10 @@
     position: fixed;
     inset: 0;
     z-index: 99999;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 20px;
-
     background: rgba(10, 25, 45, 0.75);
     backdrop-filter: blur(5px);
 }
@@ -17,31 +14,22 @@
     width: 100%;
     max-width: 850px;
     max-height: 90vh;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
-
     background: #ffffff;
     border-radius: 18px;
-
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .terms-modal-header {
     padding: 25px 30px;
-
     color: white;
-
-    background: linear-gradient(135deg,
-            #286ca3,
-            #32a7d9);
+    background: linear-gradient(135deg,#286ca3,#32a7d9);
 }
 
 .terms-modal-header h2 {
     margin: 0 0 10px;
-
     font-size: 1.5rem;
     font-weight: 700;
 }
@@ -53,16 +41,13 @@
 
 .terms-modal-body {
     padding: 25px 30px;
-
     overflow-y: auto;
-
     color: #334155;
     line-height: 1.7;
 }
 
 .terms-modal-body h3 {
     margin: 20px 0 10px;
-
     color: #1e3a8a;
     font-size: 1.05rem;
 }
@@ -92,7 +77,6 @@
 
 .terms-modal-footer {
     padding: 20px 30px;
-
     border-top: 1px solid #e2e8f0;
     background: #f8fafc;
 }
@@ -101,9 +85,7 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-
     cursor: pointer;
-
     color: #334155;
     font-size: 0.95rem;
     line-height: 1.5;
@@ -112,9 +94,7 @@
 .terms-modal-checkbox input {
     width: 20px;
     height: 20px;
-
     margin-top: 3px;
-
     flex-shrink: 0;
     accent-color: #286ca3;
     cursor: pointer;
@@ -124,19 +104,15 @@
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-
     margin-top: 20px;
 }
 
 .terms-modal-actions button {
     padding: 12px 22px;
-
     border: none;
     border-radius: 8px;
-
     font-size: 0.95rem;
     font-weight: 600;
-
     cursor: pointer;
     transition: 0.2s ease;
 }
@@ -152,10 +128,7 @@
 
 .terms-modal-accept {
     color: white;
-
-    background: linear-gradient(135deg,
-            #286ca3,
-            #32a7d9);
+    background: linear-gradient(135deg,#286ca3,#32a7d9);
 }
 
 .terms-modal-accept:hover:not(:disabled) {
@@ -171,36 +144,6 @@
 
 .terms-modal-error {
     margin: 15px 0 0;
-
     color: #b91c1c;
     font-size: 0.9rem;
-}
-
-@media (max-width: 600px) {
-    .terms-modal-overlay {
-        padding: 10px;
-    }
-
-    .terms-modal {
-        max-height: 95vh;
-        border-radius: 12px;
-    }
-
-    .terms-modal-header,
-    .terms-modal-body,
-    .terms-modal-footer {
-        padding: 18px;
-    }
-
-    .terms-modal-header h2 {
-        font-size: 1.2rem;
-    }
-
-    .terms-modal-actions {
-        flex-direction: column-reverse;
-    }
-
-    .terms-modal-actions button {
-        width: 100%;
-    }
 }

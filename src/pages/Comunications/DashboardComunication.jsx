@@ -49,8 +49,6 @@ export default function DashboardComunication() {
           <p>Crea, consulta, edita y elimina los eventos de la organización.</p>
           <button type="button" className="action-btn"onClick={() => navigate("/comunications/events")}>Gestionar eventos</button>
         </motion.div>
-
-        
       </section>
     </div>
   );

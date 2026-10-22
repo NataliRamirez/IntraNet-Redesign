@@ -38,8 +38,7 @@ export default function GridNews() {
 
   const filteredNews = news.filter((n) => {
     const searchText = search.toLowerCase().trim();
-    const matchesSearch =
-      !searchText ||
+    const matchesSearch = !searchText ||
       n.title?.toLowerCase().includes(searchText) ||
       n.short_desc?.toLowerCase().includes(searchText) ||
       n.content?.toLowerCase().includes(searchText);
@@ -60,7 +59,6 @@ export default function GridNews() {
 
   return (
     <div className="grid-news-page" id="News">
-      {/* HERO */}
       <header className="grid-news-header">
         <motion.div
           className="hero-content"
@@ -97,17 +95,12 @@ export default function GridNews() {
           </div>
 
           {(search || dateFilter) && (
-            <button
-              type="button"
-              className="news-clear-filters"
-              onClick={clearFilters}
-            >
+            <button type="button" className="news-clear-filters" onClick={clearFilters}>
               Limpiar filtros
             </button>
           )}
         </div>
 
-        {/* RESULTADOS */}
         {news.length === 0 ? (
           <p className="no-news">No hay noticias registradas en este momento.</p>
         ) : filteredNews.length === 0 ? (
@@ -116,7 +109,6 @@ export default function GridNews() {
           <div className="news-grid">
             {filteredNews.map((n) => (
               <article className="grid-card" key={n.id}>
-                {/* IMAGEN */}
                 {n.image && (
                   <img
                     src={`${import.meta.env.VITE_API_URL}/uploads/news/${n.image}`}
@@ -125,7 +117,6 @@ export default function GridNews() {
                   />
                 )}
 
-                {/* INFORMACIÓN */}
                 <div className="grid-info">
                   <h2>{n.title}</h2>
 

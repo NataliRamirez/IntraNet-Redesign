@@ -4,9 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: linear-gradient(to bottom, #286ca3, #32A7D9);
-
   color: #fff;
 }
 
@@ -39,7 +37,6 @@
   width: 100%;
   padding: 3rem 5%;
   background-color: #eaf3ff;
-
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -49,16 +46,13 @@
 .utils-card {
   width: 380px;
   min-height: 220px;
-
   background-color: #fff;
   border-radius: 1rem;
   padding: 1.5rem;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-
   box-shadow: 0 4px 8px rgba(177, 168, 168, 0.08);
   transition: 0.3s ease;
 }
@@ -70,7 +64,6 @@
 
 .left-card-utils {
   flex: 1;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -100,16 +93,12 @@
 .utils-btn {
   display: inline-block;
   width: fit-content;
-
   padding: 0.7rem 1.2rem;
-
   background-color: #286ca3;
   color: white;
   text-decoration: none;
-
   border-radius: 0.5rem;
   font-weight: 600;
-
   transition: 0.3s;
 }
 

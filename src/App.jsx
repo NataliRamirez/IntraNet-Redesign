@@ -20,10 +20,11 @@ import Footer from "./components/Footer/Footer";
 import GridNews from "./pages/News/GridNews/GridNews";
 import EventDetail from "./pages/Events/Detail/EventDetail";
 import BirthdayModal from "./pages/BirthdayModal/BirthdayModal";
-import AdminBirthdayImage from "./pages/Admin/BirthdayImage/AdminBirthdayImage";
 import PrivacyPolicy from "./pages/UseTerms/PrivacyPolicy";
 import TermsOfService from "./pages/UseTerms/TermsOfService";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import TermsAcceptanceModal from "./pages/TermsAcceptance/TermsAcceptanceModal";
+import FAQ from "./pages/FAQ/FAQ";
 import "./App.css";
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
       <Header />
       <Menu />
       <ScrollToTop />
+      <TermsAcceptanceModal />
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -46,6 +48,7 @@ export default function App() {
         <Route path="/birthdaymodal" element={<BirthdayModal />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/termsofservice" element={<TermsOfService />} />
+        <Route path="/FAQ" element={<FAQ />} />
 
 
         <Route path="/admin" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
@@ -70,10 +73,6 @@ export default function App() {
 
         <Route path="/admin/employees" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
           <AdminEmployees />
-        </PrivateRoute>} />
-
-        <Route path="/admin/birthday" element={<PrivateRoute allowedRoles={["ADMINISTRADOR"]}>
-          <AdminBirthdayImage />
         </PrivateRoute>} />
 
         <Route path="/comunications" element={<PrivateRoute allowedRoles={["COMUNICACIONES"]}>
